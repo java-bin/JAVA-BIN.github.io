@@ -715,9 +715,10 @@ $btn-mb: 0.5rem;
   z-index: 99;
   //background: var(--sidebar-bg);
   background:linear-gradient(
-      rgba(0, 0, 0, 0.8),
-      rgba(0, 0, 0, 0.8)
-  ), url('/assets/img/grifindor.jpeg');
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+  ),
+  url('/assets/img/chunsik.jpeg');
   //background-size: 100% 100%;
   background-position: center;
 

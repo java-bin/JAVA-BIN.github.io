@@ -4,7 +4,7 @@ date : 2023-07-31 00:00:00 +09:00
 categories : [Cloud, Terraform]
 tags : [Terraform, Openstack] 
 ---
-### Terraform
+### Terraform for Openstack Vm Create
 
 ## Terraform Install (for Mac)
 
@@ -21,7 +21,7 @@ $ terraform -help
 ## Terraform apply / destroy
 
 ```shell
-// 명령어를 실행하면 디렉토리 내의 .tf 파일을 모두 실행한다.
+# 명령어를 실행하면 디렉토리 내의 .tf 파일을 모두 실행한다.
 
 $ terraform init // terraform start
 

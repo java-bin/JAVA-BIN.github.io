@@ -11,7 +11,7 @@ timezone: Asia/Seoul
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
-title: 개발하는 유병재
+title: 개발하는 샘스미스
 tagline: 불가능한 일을 이루기 위해서는 불가능한 노력이 필요하다.
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.

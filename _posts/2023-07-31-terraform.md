@@ -1,12 +1,13 @@
 ---
-title : Terraform
+title : Terraform 사용해서 Openstack Vm 생성해보기
 date : 2023-07-31 00:00:00 +09:00
 categories : [Cloud, Terraform]
 tags : [Terraform, Openstack] 
 ---
-### Terraform for Openstack Vm Create
+## Terraform for Openstack Vm Create
 
-## Terraform Install (for Mac)
+
+### Terraform Install (for Mac)
 
 ```shell
 $ brew tap hashicorp/tap
@@ -18,7 +19,7 @@ $ brew update
 $ terraform -help
 ```
 
-## Terraform apply / destroy
+### Terraform apply / destroy
 
 ```shell
 # 명령어를 실행하면 디렉토리 내의 .tf 파일을 모두 실행한다.
@@ -31,7 +32,7 @@ $ terraform destroy // stop apps
 
 ```
 
-## nginx 
+### nginx 
 
 ```shell
 $ vi tf-nginx.tf 
@@ -64,7 +65,7 @@ resource "docker_container" "nginx" {
 }
 ```
 
-## Openstack Vm create
+### Openstack Vm create
 
 ```shell
 $ vi tf-openstack.tf 

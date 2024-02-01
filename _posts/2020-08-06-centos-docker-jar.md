@@ -1,8 +1,8 @@
 ---
 title : CentOS7 환경에서 Docker를 이용해 jar 파일 띄우기
 date : 2020-08-06 00:00:00 +09:00
-categories : [Cloud, Linux, Docker]
-tags : [Cloud, Linux, Docker]
+categories : [Linux, Docker]
+tags : [Linux, Docker]
 ---
 ## CentOS7 환경에서 Docker를 이용해 spring-music.jar 파일 띄워보기
 

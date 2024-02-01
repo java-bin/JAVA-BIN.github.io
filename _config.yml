@@ -61,6 +61,7 @@ theme_mode: [light]
 img_cdn: https://i.pinimg.com/236x/de/01/3a/de013a294e5ab2bb165d131fa3c64434.jpg
 # the avatar on sidebar, support local or CORS resources
 avatar: https://avatars.githubusercontent.com/u/55619475?v=4
+kakaopay: ./assets/img/kakaopay.png
 
 # boolean type, the global switch for TOC in posts.
 toc: true

@@ -51,7 +51,7 @@ $ sudo apt-get update
 $ sudo apt-get install -y kubelet kubeadm kubectl
 $ sudo apt-mark hold kubelet kubeadm kubectl
 
-sudo vi /etc/hosts
+$ sudo vi /etc/hosts  
 [master1 ip]         master1
 [master2 ip]         master2
 [master3 ip]         master3

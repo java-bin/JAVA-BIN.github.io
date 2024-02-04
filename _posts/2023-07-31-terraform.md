@@ -2,12 +2,12 @@
 title : Terraform 사용해서 Openstack Vm 생성해보기
 date : 2023-07-31 00:00:00 +09:00
 categories : [Cloud, Terraform]
-tags : [Terraform, Openstack] 
+tags : [Terraform, Nginx, Openstack] 
 ---
 ## Terraform for Openstack Vm Create
 
 
-### Terraform Install (for Mac)
+### Terraform Install for Mac
 
 ```shell
 $ brew tap hashicorp/tap
@@ -19,25 +19,26 @@ $ brew update
 $ terraform -help
 ```
 
-### Terraform apply / destroy
+### Terraform init / apply / destroy
 
 ```shell
 # 명령어를 실행하면 디렉토리 내의 .tf 파일을 모두 실행한다.
+# terraform start all
+$ terraform init 
 
-$ terraform init // terraform start
+# terraform start
+$ terraform apply [].tf 
 
-$ terraform apply // start apps
-
-$ terraform destroy // stop apps
+# terraform stop
+$ terraform destroy
 
 ```
 
-### nginx 
+### Nginx Using Terraform
 
 ```shell
+# nginx using docker
 $ vi tf-nginx.tf 
-```
-```shell
 terraform {
   required_providers {
     docker = {
@@ -68,10 +69,8 @@ resource "docker_container" "nginx" {
 ### Openstack Vm create
 
 ```shell
-$ vi tf-openstack.tf 
-```
-```shell
 # Define required providers
+$ vi tf-openstack.tf 
 terraform {
 required_version = ">= 0.14.0"
   required_providers {
@@ -97,6 +96,7 @@ resource "openstack_compute_instance_v2" "instance" {
   flavor_id 	  = `flavor_id`
   security_groups = [`security_groups}]
   
+  # name만 넣어주어도 됨
   network {
     uuid = `network_id`
     name = `network_name`
@@ -112,6 +112,54 @@ resource "openstack_compute_volume_attach_v2" "attached" {
   instance_id = openstack_compute_instance_v2.instance.id
   volume_id   = openstack_blockstorage_volume_v3.volume.id
 }
+```
+
+### Variable 선언 & 사용
+```shell
+variable "credentials" {
+  type = map(string)
+  default = {
+    auth_url = `auth_url`
+    user_name = `user_name`
+    password = `password`
+    tenant_id = `tenant_id`
+  }
+}
+
+provider "openstack" {
+  auth_url    = var.credentials.auth_url
+  user_name   = var.credentials.user_name
+  password    = var.credentials.password
+  tenant_id   = var.credentials.tenant_id
+}
+
+
+
+```
+
+### for each문 사용
+```shell
+variable "networks" {
+  type = map(string)
+  default = {
+    internal-network = "192.192.10.1"
+    external-network = "192.192.20.1"
+    test-network = "192.192.30.1"
+  }
+}
+
+resource "openstack_compute_instance_v2" "instance" {
+  dynamic "network" {
+    for_each = var.networks
+    content {
+        name = network.key
+        fixed_ip_v4 = network.value
+    }
+  }
+}
+
+
+
 ```
 
 

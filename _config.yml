@@ -139,9 +139,9 @@ defaults:
       layout: page
       permalink: /:title/
   - scope:
-      path: assets/img/favicons
+      path: "assets/img"
     values:
-      swcache: true
+      image: true
   - scope:
       path: assets/js/dist
     values:

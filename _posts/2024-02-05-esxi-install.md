@@ -6,7 +6,7 @@ tags : [Cloud, ESXI]
 ---
 
 참고 페이지:
-- https://svrforum.com/svr/1038
+- [서버포럼](https://svrforum.com/svr/1038)
 
 ## 1. Prepare
 - X300 (Mini PC)

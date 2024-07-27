@@ -6,7 +6,7 @@ tags : [Cloud, ESXI, VM]
 ---
 
 참고 페이지:
-- https://svrforum.com/svr/197124
+- [서버포럼](https://svrforum.com/svr/197124)
 
 1. ESXI 페이지에서 Virtual Machines를 누른다
 2. Create / Register VM

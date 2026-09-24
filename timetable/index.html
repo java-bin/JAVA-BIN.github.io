@@ -235,83 +235,83 @@
             if (from.value && to.value) run();
         }
     </script>
+  <footer class="developer-footer">
+    <div>
+      Developed by
+      <a href="https://java-bin.github.io/">CHAEBIN LIM</a>
+    </div>
+
+    <div class="visitor-count">
+      👀 오늘 방문 <span id="today-count">...</span>회
+      ·
+      📊 전체 방문 <span id="total-count">...</span>회
+    </div>
+
+    <div class="coffee">
+      <span>도움이 된다면 ☕ 응원하기</span>
+      <img src="/assets/img/kakaopay.png" alt="응원하기">
+    </div>
+  </footer>
+
+  <style>
+    .developer-footer {
+      margin-top: 40px;
+      padding: 24px 0 30px;
+      text-align: center;
+      font-size: 13px;
+      color: #777;
+    }
+
+    .developer-footer a {
+      color: #555;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .developer-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .visitor-count {
+      margin-top: 8px;
+    }
+
+    .coffee {
+      margin-top: 12px;
+    }
+
+    .coffee img {
+      display: block;
+      width: 90px;
+      height: 90px;
+      margin: 8px auto 0;
+    }
+  </style>
+
+  <script>
+    // 한국 날짜 기준 YYYY-MM-DD
+    const today = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Seoul'
+    }).format(new Date());
+
+    const totalKey = 'javabin_donghae_timetable_total';
+    const todayKey = 'javabin_donghae_timetable_' + today;
+
+    // 전체 방문
+    fetch(`https://countapi.mileshilliard.com/api/v1/hit/${totalKey}`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('total-count').textContent =
+          data.value.toLocaleString();
+      });
+
+    // 오늘 방문
+    fetch(`https://countapi.mileshilliard.com/api/v1/hit/${todayKey}`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('today-count').textContent =
+          data.value.toLocaleString();
+      });
+  </script>
 </body>
-<div class="developer-footer">
-  <div>
-    Developed by
-    <a href="https://java-bin.github.io/">CHAEBIN LIM</a>
-  </div>
-
-  <div class="visitor-count">
-    👀 오늘 방문 <span id="today-count">...</span>회
-    ·
-    📊 전체 방문 <span id="total-count">...</span>회
-  </div>
-
-  <div class="coffee">
-    <span>도움이 된다면 ☕ 응원하기</span>
-    <img src="/assets/img/kakaopay.png" alt="응원하기">
-  </div>
-</div>
-
-<style>
-  .developer-footer {
-    margin-top: 40px;
-    padding: 24px 0 30px;
-    text-align: center;
-    font-size: 13px;
-    color: #777;
-  }
-
-  .developer-footer a {
-    color: #555;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .developer-footer a:hover {
-    text-decoration: underline;
-  }
-
-  .visitor-count {
-    margin-top: 8px;
-  }
-
-  .coffee {
-    margin-top: 12px;
-  }
-
-  .coffee img {
-    display: block;
-    width: 90px;
-    height: 90px;
-    margin: 8px auto 0;
-  }
-</style>
-
-<script>
-  // 한국 날짜 기준 YYYY-MM-DD
-  const today = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Seoul'
-  }).format(new Date());
-
-  const totalKey = 'javabin_donghae_timetable_total';
-  const todayKey = 'javabin_donghae_timetable_' + today;
-
-  // 전체 방문
-  fetch(`https://countapi.mileshilliard.com/api/v1/hit/${totalKey}`)
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('total-count').textContent =
-        data.value.toLocaleString();
-    });
-
-  // 오늘 방문
-  fetch(`https://countapi.mileshilliard.com/api/v1/hit/${todayKey}`)
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('today-count').textContent =
-        data.value.toLocaleString();
-    });
-</script>
 </html>

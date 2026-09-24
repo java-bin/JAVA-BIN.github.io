@@ -180,7 +180,8 @@
             var h = Math.floor(sec / 3600) % 24;
             var m = Math.floor((sec % 3600) / 60);
             var ss = sec % 60;
-            return pad2(h) + ':' + pad2(m) + (ss ? ':' + pad2(ss) : '');
+            return pad2(h) + ':' + pad2(m);
+            // return pad2(h) + ':' + pad2(m) + (ss ? ':' + pad2(ss) : '');
         }
         function dur(sec) {
             if (sec < 0) sec += 86400;
@@ -226,8 +227,37 @@
                 var x = rows[j];
                 html += '<div class="trip"><div><div class="time">' + fmt(x.dep) + '</div><div>' + from.value + '</div></div><div class="meta">' + x.train + '<br><span class="badge">약 ' + dur(x.arr - x.dep) + '</span></div><div class="right"><div class="time">' + fmt(x.arr) + '</div><div>' + to.value + '</div></div></div>';
             }
+
             res.innerHTML = html;
+
+            // 현재 시간 이후 첫 열차 찾기
+            var now = new Date();
+            var nowSec = now.getHours() * 3600 +
+                         now.getMinutes() * 60 +
+                         now.getSeconds();
+
+            var targetIndex = -1;
+
+            for (var k = 0; k < rows.length; k++) {
+                if (rows[k].dep >= nowSec) {
+                    targetIndex = k;
+                    break;
+                }
+            }
+
+            if (targetIndex >= 0) {
+
+                var trips = res.getElementsByClassName('trip');
+
+                if (trips[targetIndex]) {
+                    trips[targetIndex].scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
         }
+
         function swapStations() {
             var x = from.value;
             from.value = to.value;

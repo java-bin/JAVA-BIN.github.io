@@ -47,7 +47,7 @@
       "[Env.] Go, Gin, Rust, AWS, DuckDB, Docker-compose, OpenStack",
       "[Dev.] Autoscale이 가능한 IaaS 제품 개발 (OpenStack)",
       "[Imp.] 사내 OpenStack 설치 (DevStack)",
-      "-> AWS EC2(Ubuntu) 위에 DevStack 구성 및 SSH 키교환을 통한 클러스터 구성",
+      "-> AWS EC2(Ubuntu) 위에 DevStack 구성 및 멀티 노드 구성 (노드 간 SSH 키 인증 설정)",
       "[Imp.] openstack-exporter, node-exporter, Rust를 사용한 Agent 개발",
       "-> exporter를 통한 노드 데이터 수집 및 Rust를 사용하여 Grpc 통신 Agent개발",
       "[Imp.] docker-compose를 이용한 제품 패키징",

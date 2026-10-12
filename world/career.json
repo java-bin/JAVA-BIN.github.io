@@ -1,0 +1,95 @@
+[
+  {
+    "id": "central",
+    "t": "NHN CROSSENT      2020.06 ~ 2022.02",
+    "d": [
+      "[Proj.] 허브팝(한전) 구축,  현대자동차 PaaS 플랫폼 구축, 현대자동차 통합제조IT플랫폼 구축",
+      "[Env.] Java11, SpringBoot, Angular, MariaDB, jinja2",
+      "[Dev.] 서비스 카탈로그 개발, PaaS 플랫폼 공통 개발",
+      "[Imp.] jinja2 기반 yaml 템플릿을 이용한 서비스 카탈로그 클러스터 구현",
+      "-> 파이썬에서 템플릿을 테스트하여 if문과 for문을 사용하여 하둡 및 redis 등 레플리카, 클러스터 구현",
+      "[Imp.] Keycloak SSO 구현 및 권한 매핑 및 제어 공통 스페이스 개발",
+      "-> 사용자 권한에 따른 접근제어 및 SSO 권한과의 연계, 팀 간의 결재절차 개발"
+    ]
+  },
+  {
+    "id": "parkone",
+    "t": "OKESTRO      2022.02 ~ 2024.07",
+    "d": [
+      "[Proj.] IaaS 제품 개발 (Contrabass)",
+      "[Env.] Java11-17, SpringBoot, Terraform, MariaDB, Docker, OpenStack",
+      "[Dev.] java17 with Hexagonal Architecture 리팩토링 (OpenStack)",
+      "-> 비즈니스/내부 서비스 분리, 명명규칙 정의, 중복코드 제거 및 공통 분리",
+      "[Imp.] 보안기능확인서 발급 및 고객사 POC",
+      "-> 보안기능확인서 발급 리딩, docker 패키징 및 고객사 설치 & POC",
+      "[Imp.] Terraform을 사용하여 CMP에 서비스 카탈로그 생성 템플릿 제공",
+      "-> 오픈스택에서 사용되는 Terraform 학습 및 템플릿 제공"
+    ]
+  },
+  {
+    "id": "kamco",
+    "t": "i-bms / NDS      2025.04 ~ 2026.05",
+    "d": [
+      "[Proj.] 차세대 온비드 프로젝트 (Kamco)",
+      "[Env.] Java11, 전자정부 프레임워크, JSP, OracleDB",
+      "[Dev.] 관리자 페이지 모니터링, 입찰 파트 개발 (모니터링 배치)",
+      "[Imp.] 지나간 날짜의 배치를 수동으로 돌리기 위한 외부변수 적용 코드 개발 및 공통 코드 기여",
+      "-> SpringBatch Step에서 변수를 받고 솔루션(JobPass)에서 변수 입력",
+      "[Imp.] 화면 해상도 변경에 따른 동적인 RealGrid 크기 조절 공통 코드 기여",
+      "-> 해상도 변경 시 크기 변동을 CSS에서 감지하여 RealGrid 재계산"
+    ]
+  },
+  {
+    "id": "campg",
+    "t": "STCLab      2024.07 ~ 2025.01",
+    "d": [
+      "[Proj.] IaaS 제품 개발 (Wave Autoscale)",
+      "[Env.] Go, Gin, Rust, AWS, DuckDB, Docker-compose, OpenStack",
+      "[Dev.] Autoscale이 가능한 IaaS 제품 개발 (OpenStack)",
+      "[Imp.] 사내 OpenStack 설치 (DevStack)",
+      "-> AWS EC2(Ubuntu) 위에 DevStack 구성 및 SSH 키교환을 통한 클러스터 구성",
+      "[Imp.] openstack-exporter, node-exporter, Rust를 사용한 Agent 개발",
+      "-> exporter를 통한 노드 데이터 수집 및 Rust를 사용하여 Grpc 통신 Agent개발",
+      "[Imp.] docker-compose를 이용한 제품 패키징",
+      "-> docker-compose를 기반 ECR 저장 (Git Action을 통한 자동화) ",
+      "[Imp.] 명령어 한줄로 설치되는 스크립트 작성 및 고객사 POC",
+      "-> 데이터 독과 같이 한줄로 온/오프라인 설치가능한 쉘 스크립트 작성 (agent, docker, product)"
+    ]
+  },
+  {
+    "id": "korea",
+    "t": "고려대학교      2021.03 ~ 2023.08",
+    "d": [
+      "[주요과목] 무선네트워크1, 데이터구조및알고리즘, 빅데이터분석, 의사결정분석, 반도체공학, 디지털통신, 반도체소자, 스마트SCM모델링, 제어기기론, 이동통신공학, 컴퓨터언어, 무선네트워크2",
+      "[성적] 4.23/4.5",
+      "[취득학점] 30학점"
+    ]
+  },
+  {
+    "id": "dongeui",
+    "t": "동의대학교      2010.03 ~ 2017.02",
+    "d": [
+      "[주요과목] 경영학원론, 경제학원론, 무역기초통계, 무역학원론, 회계원리, 물류학개론, 상법, 국제무역환경론, 국제경제학, 마케팅원론, 무역법규, 국제경영학, 원가회계, 인적자원관리, 국제마케팅, 무역보험론, 글로벌소셜네트워크, 국제재무관리, 재무관리, 세법과세무회계, 관세론, 무역관습론, 국제운송론, 투자론, 파생금융상품론, 서비스마케팅, 전산회계및실습, 경영과리더십, 무역계약론, 금융기관경영론, 전략경영론, 비즈니스협상론, 시사국제무역, 국제통상정책론, 국제무역협상론",
+      "[성적] 4.14/4.5 (95.80)",
+      "[취득학점] 134.5학점"
+    ]
+  },
+  {
+    "id": "japan",
+    "t": "일본      2015.07 ~ 2017.05",
+    "d": [
+      "[Obj.] 워킹홀리데이를 통한 어학연수",
+      "[Work] 디홀릭 커머스, 오리온",
+      "[자격증] JLPT N3 -> N2"
+    ]
+  },
+  {
+    "id": "canada",
+    "t": "캐나다      2017.05 ~ 2019.02",
+    "d": [
+      "[Obj.] 워킹홀리데이를 통한 어학연수",
+      "[Work] Chef, Ski Instructor",
+      "[자격증] TOEIC 715, TOEIC SPEAKING IM3(130)"
+    ]
+  }
+]

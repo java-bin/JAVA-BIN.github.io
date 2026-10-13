@@ -68,6 +68,15 @@ canvas {
     font-size: 14px;
   }
 }
+/* Camera fills the screen; map coordinates are transformed in JavaScript. */
+canvas { object-fit: fill; touch-action: none; }
+#pad { display:grid !important; z-index:30; opacity:.85; bottom:calc(15px + env(safe-area-inset-bottom)); right:calc(15px + env(safe-area-inset-right)); }
+#pad button:active { background:#49765c; }
+@media (max-width:900px), (hover:none), (pointer:coarse) {
+ #pad { grid-template-columns:repeat(3,50px); gap:5px; }
+ #pad button { height:50px; font-size:20px; }
+ #note { bottom:calc(140px + env(safe-area-inset-bottom)); max-height:38dvh; }
+}
 </style><main><canvas width="1536" height="1024" tabindex="0" aria-label="방향키로 마을 길 이동"></canvas><div id="hint">정보처리기사 · SQLD · ADsP </div><div id="note"></div></main><div id="pad"><span></span><button data-key="arrowup">↑</button><span></span><button data-key="arrowleft">←</button><button data-key="arrowdown">↓</button><button data-key="arrowright">→</button></div><script>
 const mobileTap = window.matchMedia(
   '(max-width: 900px), (hover: none), (pointer: coarse)'
@@ -75,6 +84,7 @@ const mobileTap = window.matchMedia(
 
 let selectedSpot = null;
 let displayedSpot = null;
+let mobileNoteMode = 'nearby';
 
 const tapAreas = [
   { id: 'central', x: 640, y: 340, w: 200, h: 205 },
@@ -92,16 +102,8 @@ document.querySelector('canvas').addEventListener('pointerup', e => {
 
   const canvas = e.currentTarget;
   const rect = canvas.getBoundingClientRect();
-  const scale = Math.max(
-    rect.width / canvas.width,
-    rect.height / canvas.height
-  );
-
-  const offsetX = (rect.width - canvas.width * scale) / 2;
-  const offsetY = (rect.height - canvas.height * scale) / 2;
-
-  const px = (e.clientX - rect.left - offsetX) / scale;
-  const py = (e.clientY - rect.top - offsetY) / scale;
+  const px = (e.clientX - rect.left) / camera.scale + camera.x;
+  const py = (e.clientY - rect.top) / camera.scale + camera.y;
 
   const area = tapAreas.find(a =>
     px >= a.x && px <= a.x + a.w &&
@@ -116,6 +118,7 @@ document.querySelector('canvas').addEventListener('pointerup', e => {
     : null;
 
   selectedSpot = selectedSpot === target ? null : target;
+  mobileNoteMode = 'tap';
 });
 document.getElementById('pad').addEventListener(
   'contextmenu',
@@ -191,24 +194,79 @@ const footprintRoutes=[
 [[333,277],[420,296],[490,294],[550,340],[612,328],[693,322]]
 ];
 function drawFootprints(){ctx.save();ctx.fillStyle='#2585df';ctx.globalAlpha=.64;const stamped=[];for(const careerRoute of footprintRoutes){let remainder=0,count=0;for(let i=1;i<careerRoute.length;i++){const [a,b]=careerRoute[i-1],[c,d]=careerRoute[i];const length=Math.hypot(c-a,d-b),angle=Math.atan2(d-b,c-a);for(let step=remainder;step<length;step+=24){const px=a+(c-a)*step/length,py=b+(d-b)*step/length;if(!allowed(px,py)||stamped.some(a=>Math.hypot(a[0]-px,a[1]-py)<12))continue;stamped.push([px,py]);const side=count++%2?1:-1;ctx.save();ctx.translate(px-Math.sin(angle)*side*5,py+Math.cos(angle)*side*5);ctx.rotate(angle+Math.PI/2);ctx.beginPath();ctx.ellipse(0,0,2,4.2,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(0,-6,2.2,1.5,0,0,Math.PI*2);ctx.fill();ctx.restore()}remainder=(24-(length-remainder)%24)%24}}ctx.restore()}
-function draw(t){const dt=Math.min((t-last)/1000||0,.035);last=t;let dx=(keys.has('arrowright')||keys.has('d'))-(keys.has('arrowleft')||keys.has('a')),dy=(keys.has('arrowdown')||keys.has('s'))-(keys.has('arrowup')||keys.has('w'));moving=!!(dx||dy);if(dx)facingLeft=dx<0;if(moving){const n=Math.hypot(dx,dy),s=155*dt;dx=dx/n*s;dy=dy/n*s;if(allowed(x+dx,y))x+=dx;if(allowed(x,y+dy))y+=dy;phase+=dt*12}ctx.clearRect(0,0,1536,1024);if(bg.complete&&bg.naturalWidth)ctx.drawImage(bg,0,0,1536,1024);drawFootprints();if(source.complete&&source.naturalWidth){ctx.save();ctx.translate(x,y);if(!facingLeft)ctx.scale(-1,1);ctx.drawImage(source,-32,-58+(moving?Math.sin(phase)*2:0),64,64);ctx.restore()}const hit = mobileTap
-  ? selectedSpot
-  : spots.find(s => Math.hypot(x - s.x, y - s.y) < s.r);
-
-if (hit !== displayedSpot) {
-  displayedSpot = hit;
-  note.replaceChildren();
-
-  if (hit) {
-    const heading = document.createElement('b');
-    heading.textContent = hit.t;
-
-    note.append(heading, document.createTextNode(hit.d));
-    note.style.display = 'block';
-    note.scrollTop = 0;
-  } else {
-    note.style.display = 'none';
-  }
-}requestAnimationFrame(draw)}
-addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(['arrowup','arrowdown','arrowleft','arrowright','w','a','s','d'].includes(k)){keys.add(k);e.preventDefault()}});addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));addEventListener('blur',()=>keys.clear());document.querySelectorAll('#pad button').forEach(b=>{b.onpointerdown=e=>{e.preventDefault();keys.add(b.dataset.key);b.setPointerCapture(e.pointerId)};b.onpointerup=b.onpointercancel=()=>keys.delete(b.dataset.key)});Promise.all([bg.decode(),source.decode()]).then(()=>requestAnimationFrame(draw)).catch(()=>document.querySelector('#hint').textContent='이미지를 불러오지 못했습니다');
+const WORLD_WIDTH=1536, WORLD_HEIGHT=1024;
+const camera={x:0,y:0,scale:1,width:0,height:0,dpr:1,ready:false};
+const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
+function resizeCamera(){
+ const rect=cv.getBoundingClientRect();
+ camera.width=Math.max(1,rect.width);
+ camera.height=Math.max(1,rect.height);
+ camera.dpr=Math.min(window.devicePixelRatio||1,2);
+ cv.width=Math.round(camera.width*camera.dpr);
+ cv.height=Math.round(camera.height*camera.dpr);
+ camera.scale=Math.max(camera.width/WORLD_WIDTH,camera.height/WORLD_HEIGHT)*1.12;
+ camera.ready=false;
+}
+function followCamera(dt){
+ const viewWidth=camera.width/camera.scale;
+ const viewHeight=camera.height/camera.scale;
+ const maxX=Math.max(0,WORLD_WIDTH-viewWidth);
+ const maxY=Math.max(0,WORLD_HEIGHT-viewHeight);
+ const targetX=clamp(x-viewWidth/2,0,maxX);
+ const targetY=clamp(y-25-viewHeight/2,0,maxY);
+ if(!camera.ready){camera.x=targetX;camera.y=targetY;camera.ready=true;}
+ else{const ease=1-Math.exp(-12*dt);camera.x+=(targetX-camera.x)*ease;camera.y+=(targetY-camera.y)*ease;}
+ camera.x=clamp(camera.x,0,maxX);camera.y=clamp(camera.y,0,maxY);
+}
+addEventListener('resize',resizeCamera);
+resizeCamera();
+function draw(t){
+ const dt=Math.min((t-last)/1000||0,.035);last=t;
+ let dx=Number(keys.has('arrowright')||keys.has('d'))-Number(keys.has('arrowleft')||keys.has('a'));
+ let dy=Number(keys.has('arrowdown')||keys.has('s'))-Number(keys.has('arrowup')||keys.has('w'));
+ moving=!!(dx||dy);
+ if(dx)facingLeft=dx<0;
+ if(moving){
+  if(mobileTap){selectedSpot=null;mobileNoteMode='nearby';}
+  const length=Math.hypot(dx,dy),speed=155*dt;
+  dx=dx/length*speed;dy=dy/length*speed;
+  if(allowed(x+dx,y))x+=dx;
+  if(allowed(x,y+dy))y+=dy;
+  phase+=dt*12;
+ }
+ followCamera(dt);
+ ctx.setTransform(1,0,0,1,0,0);
+ ctx.clearRect(0,0,cv.width,cv.height);
+ const scale=camera.dpr*camera.scale;
+ ctx.setTransform(scale,0,0,scale,-camera.x*scale,-camera.y*scale);
+ if(bg.complete&&bg.naturalWidth)ctx.drawImage(bg,0,0,WORLD_WIDTH,WORLD_HEIGHT);
+ drawFootprints();
+ if(source.complete&&source.naturalWidth){
+  ctx.save();ctx.translate(x,y);if(!facingLeft)ctx.scale(-1,1);
+  ctx.drawImage(source,-32,-58+(moving?Math.sin(phase)*2:0),64,64);ctx.restore();
+ }
+ const nearby=spots.find(s=>Math.hypot(x-s.x,y-s.y)<s.r);
+ const hit=mobileTap&&mobileNoteMode==='tap'?selectedSpot:nearby;
+ if(hit!==displayedSpot){
+  displayedSpot=hit;note.replaceChildren();
+  if(hit){const heading=document.createElement('b');heading.textContent=hit.t;note.append(heading,document.createTextNode(hit.d));note.style.display='block';note.scrollTop=0;}
+  else note.style.display='none';
+ }
+ requestAnimationFrame(draw);
+}
+addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(['arrowup','arrowdown','arrowleft','arrowright','w','a','s','d'].includes(k)){keys.add(k);e.preventDefault()}});addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));addEventListener('blur',()=>keys.clear());const pointerDirections=new Map();
+function releaseDirection(pointerId){
+ const key=pointerDirections.get(pointerId);pointerDirections.delete(pointerId);
+ if(key&&![...pointerDirections.values()].includes(key))keys.delete(key);
+}
+document.querySelectorAll('#pad button').forEach(button=>{
+ button.onpointerdown=e=>{
+  e.preventDefault();pointerDirections.set(e.pointerId,button.dataset.key);
+  keys.add(button.dataset.key);button.setPointerCapture(e.pointerId);
+ };
+ button.onpointerup=button.onpointercancel=button.onlostpointercapture=e=>releaseDirection(e.pointerId);
+});
+addEventListener('blur',()=>{keys.clear();pointerDirections.clear();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){keys.clear();pointerDirections.clear();}});
+Promise.all([bg.decode(),source.decode()]).then(()=>requestAnimationFrame(draw)).catch(()=>document.querySelector('#hint').textContent='이미지를 불러오지 못했습니다');
 </script></html>

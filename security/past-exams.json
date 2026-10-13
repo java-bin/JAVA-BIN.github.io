@@ -1,0 +1,259 @@
+[
+  {
+    "id": "r10-01",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "origin": "복원 기출 재구성",
+    "prompt": "TCP FIN·NULL·Xmas 스캔에서 닫힌 포트가 반환하는 TCP 플래그는? (해당 스캔의 RFC 동작을 따르는 대상 기준)",
+    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
+    "answer": "RST",
+    "explanation": "닫힌 포트는 RST를 반환한다. 응답이 없는 포트는 열린 상태와 필터링을 구분할 수 없다. 모든 운영체제가 같은 방식으로 응답하지는 않는다.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "RST",
+        "reset",
+        "TCP RST"
+      ]
+    },
+    "reference": "https://nmap.org/book/scan-methods-null-fin-xmas-scan.html",
+    "reviewedAt": "2026-10-13",
+    "reviewStatus": "기술 문서 대조",
+    "exam": "2017년 제10회",
+    "sourceQuestion": 1,
+    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
+    "sourceUrl": "https://seobinggo.com/248",
+    "bank": "past"
+  },
+  {
+    "id": "r10-02",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "origin": "복원 기출 재구성",
+    "prompt": "FTP 서버의 기본 제어 연결 TCP 포트 번호를 쓰시오.",
+    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
+    "answer": "21",
+    "explanation": "제어 연결의 서버 기본 포트는 21이다. 데이터 연결은 동작 모드에 따라 별도로 형성된다.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "21",
+        "21/tcp",
+        "TCP 21"
+      ]
+    },
+    "reference": "https://www.rfc-editor.org/rfc/rfc959",
+    "reviewedAt": "2026-10-13",
+    "reviewStatus": "기술 문서 대조",
+    "exam": "2017년 제10회",
+    "sourceQuestion": 2,
+    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
+    "sourceUrl": "https://seobinggo.com/248",
+    "bank": "past"
+  },
+  {
+    "id": "r10-11",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "origin": "복원 기출 재구성",
+    "prompt": "스택에 보호 값을 두고 함수 종료 시 그 값의 변조를 확인하는 방어 기법의 이름을 쓰시오.",
+    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
+    "answer": "스택 카나리",
+    "explanation": "GCC의 스택 보호는 함수 진입 시 보호 값을 초기화하고 종료 시 검사한다. 검사 실패 시 프로그램을 종료한다.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "스택 카나리",
+        "stack canary",
+        "canary",
+        "카나리",
+        "카나리아"
+      ]
+    },
+    "reference": "https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html",
+    "reviewedAt": "2026-10-13",
+    "reviewStatus": "기술 문서 대조",
+    "exam": "2017년 제10회",
+    "sourceQuestion": 11,
+    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
+    "sourceUrl": "https://seobinggo.com/248",
+    "bank": "past"
+  },
+  {
+    "id": "r10-11b",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "origin": "복원 기출 재구성",
+    "prompt": "프로세스 주소 공간의 배치를 무작위로 바꾸어 공격자가 메모리 주소를 예측하기 어렵게 하는 기법의 약자를 쓰시오.",
+    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
+    "answer": "ASLR",
+    "explanation": "ASLR은 주소 예측을 어렵게 한다. 메모리 오류 자체를 제거하는 기법은 아니며 다른 완화책과 함께 적용한다.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "ASLR",
+        "Address Space Layout Randomization"
+      ]
+    },
+    "reference": "https://docs.kernel.org/admin-guide/sysctl/kernel.html",
+    "reviewedAt": "2026-10-13",
+    "reviewStatus": "기술 문서 대조",
+    "exam": "2017년 제10회",
+    "sourceQuestion": 11,
+    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
+    "sourceUrl": "https://seobinggo.com/248",
+    "bank": "past"
+  },
+  {
+    "id": "r10-13",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "origin": "복원 기출 재구성",
+    "prompt": "iptables에서 패킷을 거부하면서 설정에 따라 ICMP 오류 또는 TCP RST를 반환하는 타깃 이름을 쓰시오.",
+    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
+    "answer": "REJECT",
+    "explanation": "REJECT는 차단과 함께 거절 응답을 보낸다. TCP 규칙에 --reject-with tcp-reset을 적용하면 RST를 반환할 수 있다. DROP과의 선택은 정책·운영 조건에 달려 있다.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "REJECT"
+      ]
+    },
+    "reference": "https://man7.org/linux/man-pages/man8/iptables-extensions.8.html",
+    "reviewedAt": "2026-10-13",
+    "reviewStatus": "기술 문서 대조",
+    "exam": "2017년 제10회",
+    "sourceQuestion": 13,
+    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
+    "sourceUrl": "https://seobinggo.com/248",
+    "bank": "past"
+  },
+  {
+    "id": "r17-01",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "origin": "복원 기출 재구성",
+    "prompt": "평문 비밀번호를 알아내지 않고 탈취한 비밀번호 해시를 인증에 재사용하는 공격 명칭을 쓰시오.",
+    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
+    "answer": "Pass the Hash",
+    "explanation": "탈취한 해시를 인증에 사용한다. Kerberos 티켓을 재사용하는 Pass the Ticket과 구별한다.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "Pass the Hash",
+        "PtH",
+        "패스 더 해시",
+        "패스더해시"
+      ]
+    },
+    "reference": "https://attack.mitre.org/techniques/T1550/002/",
+    "reviewedAt": "2026-10-13",
+    "reviewStatus": "기술 문서 대조",
+    "exam": "2021년 제17회",
+    "sourceQuestion": 1,
+    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
+    "sourceUrl": "https://it-freelancer.tistory.com/1119",
+    "bank": "past"
+  },
+  {
+    "id": "r17-03",
+    "subject": "정보보안일반",
+    "kind": "단답형",
+    "origin": "복원 기출 재구성",
+    "prompt": "실제 관찰된 공격자의 전술·기술을 정리한 MITRE 지식 기반의 이름을 쓰시오.",
+    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
+    "answer": "ATT&CK",
+    "explanation": "ATT&CK는 공격자 행동을 전술과 기술로 체계화한다. CVSS처럼 취약점 심각도를 수치화하는 체계는 아니다.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "ATT&CK",
+        "MITRE ATT&CK",
+        "ATTACK"
+      ]
+    },
+    "reference": "https://attack.mitre.org/",
+    "reviewedAt": "2026-10-13",
+    "reviewStatus": "기술 문서 대조",
+    "exam": "2021년 제17회",
+    "sourceQuestion": 3,
+    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
+    "sourceUrl": "https://it-freelancer.tistory.com/1119",
+    "bank": "past"
+  },
+  {
+    "id": "r17-04",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "origin": "복원 기출 재구성",
+    "prompt": "다른 서비스에서 유출된 계정·비밀번호 쌍을 여러 사이트의 로그인에 재사용하는 공격 명칭을 쓰시오.",
+    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
+    "answer": "크리덴셜 스터핑",
+    "explanation": "이미 확보된 계정·비밀번호 쌍을 재사용한다. 임의의 비밀번호를 전수 대입하는 공격과 구별한다.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "크리덴셜 스터핑",
+        "credential stuffing",
+        "자격증명 스터핑"
+      ]
+    },
+    "reference": "https://owasp.org/www-community/attacks/Credential_stuffing",
+    "reviewedAt": "2026-10-13",
+    "reviewStatus": "기술 문서 대조",
+    "exam": "2021년 제17회",
+    "sourceQuestion": 4,
+    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
+    "sourceUrl": "https://it-freelancer.tistory.com/1119",
+    "bank": "past"
+  },
+  {
+    "id": "r17-05",
+    "subject": "정보보안일반",
+    "kind": "단답형",
+    "origin": "복원 기출 재구성",
+    "prompt": "취약점의 주요 특성을 바탕으로 심각도를 수치화하는 공통 평가 체계의 약자를 쓰시오.",
+    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
+    "answer": "CVSS",
+    "explanation": "CVSS는 취약점 심각도를 표현한다. CVE는 취약점 식별 체계다. 버전에 따라 평가 요소와 계산 방식이 다르다.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "CVSS",
+        "Common Vulnerability Scoring System"
+      ]
+    },
+    "reference": "https://www.first.org/cvss/",
+    "reviewedAt": "2026-10-13",
+    "reviewStatus": "기술 문서 대조",
+    "exam": "2021년 제17회",
+    "sourceQuestion": 5,
+    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
+    "sourceUrl": "https://it-freelancer.tistory.com/1119",
+    "bank": "past"
+  },
+  {
+    "id": "r17-16",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "origin": "복원 기출 재구성",
+    "prompt": "Apache에서 기본 문서가 없는 디렉터리의 파일 목록을 생성하도록 허용하는 Options 항목은?",
+    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
+    "answer": "Indexes",
+    "explanation": "Indexes는 mod_autoindex의 디렉터리 목록 생성을 허용한다. 노출을 제한하려면 해당 디렉터리의 설정에서 비활성화한다.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "Indexes"
+      ]
+    },
+    "reference": "https://httpd.apache.org/docs/2.4/mod/core.html",
+    "reviewedAt": "2026-10-13",
+    "reviewStatus": "기술 문서 대조",
+    "exam": "2021년 제17회",
+    "sourceQuestion": 16,
+    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
+    "sourceUrl": "https://it-freelancer.tistory.com/1119",
+    "bank": "past"
+  }
+]

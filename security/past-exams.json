@@ -1,259 +1,4289 @@
 [
   {
-    "id": "r10-01",
+    "id": "exam-serial-1-q02",
     "subject": "네트워크보안",
     "kind": "단답형",
-    "origin": "복원 기출 재구성",
-    "prompt": "TCP FIN·NULL·Xmas 스캔에서 닫힌 포트가 반환하는 TCP 플래그는? (해당 스캔의 RFC 동작을 따르는 대상 기준)",
-    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
-    "answer": "RST",
-    "explanation": "닫힌 포트는 RST를 반환한다. 응답이 없는 포트는 열린 상태와 필터링을 구분할 수 없다. 모든 운영체제가 같은 방식으로 응답하지는 않는다.",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "2. 다음 설명의 빈칸 (A), (B), (C)를 채우시오.\nNMS 서버는 ( A ) 방식으로 네트워크 장비의 상태 정보 및 통계 정보를 주기적으로 수집하며, NMS 클라이언트는 ( B ) 방식으로 장비의 특정 이벤트를 실시간으로 NMS 서버에 전달한다. 이와 유사하게 장비에서 발생하는 실시간 이벤트 정보를 서버에 전송하는 ( C ) 방식으로도 네트워크 장비 상태 및 보안 상태 정보를 전달하기도 한다.",
+    "answer": "정답 A : Polling B : Event Reporting C : syslog",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
     "grading": {
-      "mode": "exact",
-      "aliases": [
-        "RST",
-        "reset",
-        "TCP RST"
-      ]
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "Polling"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "Event Reporting"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "syslog"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: Polling\nB: Event Reporting\nC: syslog"
     },
-    "reference": "https://nmap.org/book/scan-methods-null-fin-xmas-scan.html",
-    "reviewedAt": "2026-10-13",
-    "reviewStatus": "기술 문서 대조",
-    "exam": "2017년 제10회",
-    "sourceQuestion": 1,
-    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
-    "sourceUrl": "https://seobinggo.com/248",
-    "bank": "past"
-  },
-  {
-    "id": "r10-02",
-    "subject": "네트워크보안",
-    "kind": "단답형",
-    "origin": "복원 기출 재구성",
-    "prompt": "FTP 서버의 기본 제어 연결 TCP 포트 번호를 쓰시오.",
-    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
-    "answer": "21",
-    "explanation": "제어 연결의 서버 기본 포트는 21이다. 데이터 연결은 동작 모드에 따라 별도로 형성된다.",
-    "grading": {
-      "mode": "exact",
-      "aliases": [
-        "21",
-        "21/tcp",
-        "TCP 21"
-      ]
-    },
-    "reference": "https://www.rfc-editor.org/rfc/rfc959",
-    "reviewedAt": "2026-10-13",
-    "reviewStatus": "기술 문서 대조",
-    "exam": "2017년 제10회",
+    "reference": "https://www.rfc-editor.org/rfc/rfc3416.html",
+    "sourceUrl": "https://information-security.tistory.com/293",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
     "sourceQuestion": 2,
-    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
-    "sourceUrl": "https://seobinggo.com/248",
-    "bank": "past"
+    "exam": "제1회",
+    "examKey": "serial-1",
+    "originalQuestion": "2. 다음 설명의 빈칸 (A), (B), (C)를 채우시오.\nNMS 서버는 ( A ) 방식으로 네트워크 장비의 상태 정보 및 통계 정보를 주기적으로 수집하며, NMS 클라이언트는 ( B ) 방식으로 장비의 특정 이벤트를 실시간으로 NMS 서버에 전달한다. 이와 유사하게 장비에서 발생하는 실시간 이벤트 정보를 서버에 전송하는 ( C ) 방식으로도 네트워크 장비 상태 및 보안 상태 정보를 전달하기도 한다.",
+    "originalAnswer": "정답 A : Polling B : Event Reporting C : syslog",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
   },
   {
-    "id": "r10-11",
-    "subject": "시스템보안",
+    "id": "exam-serial-1-q03",
+    "subject": "정보보안관리 및 법규",
     "kind": "단답형",
-    "origin": "복원 기출 재구성",
-    "prompt": "스택에 보호 값을 두고 함수 종료 시 그 값의 변조를 확인하는 방어 기법의 이름을 쓰시오.",
-    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
-    "answer": "스택 카나리",
-    "explanation": "GCC의 스택 보호는 함수 진입 시 보호 값을 초기화하고 종료 시 검사한다. 검사 실패 시 프로그램을 종료한다.",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "3. 다음은 개인정보의 안전성 확보조치 기준에 따라 개인정보처리자가 수립·시행해야 하는 사항이다. 이와 같이 내부적으로 수립하고 시행해야 하는 계획의 명칭을 쓰시오.\n1. 개인정보 보호책임자의 지정에 관한 사항\n2. 개인정보 보호책임자 및 개인정보취급자의 역할 및 책임에 관한 사항\n3. 개인정보의 안전성 확보에 필요한 조치에 관한 사항\n4. 개인정보취급자에 대한 교육에 관한 사항\n5. 그 밖에 개인정보 보호를 위하여 필요한 사항",
+    "answer": "정답: 내부관리계획",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
     "grading": {
       "mode": "exact",
       "aliases": [
-        "스택 카나리",
-        "stack canary",
-        "canary",
-        "카나리",
-        "카나리아"
-      ]
+        "내부관리계획",
+        "내부 관리계획"
+      ],
+      "sample": "내부관리계획"
     },
-    "reference": "https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html",
-    "reviewedAt": "2026-10-13",
-    "reviewStatus": "기술 문서 대조",
-    "exam": "2017년 제10회",
-    "sourceQuestion": 11,
-    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
-    "sourceUrl": "https://seobinggo.com/248",
-    "bank": "past"
+    "reference": "https://law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1029332009",
+    "sourceUrl": "https://information-security.tistory.com/293",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 3,
+    "exam": "제1회",
+    "examKey": "serial-1",
+    "originalQuestion": "3. 다음은 개인정보의 안전성 확보조치 기준에 따라 개인정보처리자가 수립·시행해야 하는 사항이다. 이와 같이 내부적으로 수립하고 시행해야 하는 계획의 명칭을 쓰시오.\n1. 개인정보 보호책임자의 지정에 관한 사항\n2. 개인정보 보호책임자 및 개인정보취급자의 역할 및 책임에 관한 사항\n3. 개인정보의 안전성 확보에 필요한 조치에 관한 사항\n4. 개인정보취급자에 대한 교육에 관한 사항\n5. 그 밖에 개인정보 보호를 위하여 필요한 사항",
+    "originalAnswer": "정답: 내부관리계획",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
   },
   {
-    "id": "r10-11b",
+    "id": "exam-serial-1-q08",
     "subject": "시스템보안",
     "kind": "단답형",
-    "origin": "복원 기출 재구성",
-    "prompt": "프로세스 주소 공간의 배치를 무작위로 바꾸어 공격자가 메모리 주소를 예측하기 어렵게 하는 기법의 약자를 쓰시오.",
-    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
-    "answer": "ASLR",
-    "explanation": "ASLR은 주소 예측을 어렵게 한다. 메모리 오류 자체를 제거하는 기법은 아니며 다른 완화책과 함께 적용한다.",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "8. 리눅스 시스템의 로그 파일에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 각 사용자의 가장 최근 로그인 시간과 접근 소스 호스트 정보를 기록하는 파일\n( B ) : 로그인 실패 시도 기록을 저장하는 바이너리 파일\n( C ) : FTP 로그인 사용자의 로그와 파일 업로드·다운로드 내역을 기록하는 파일",
+    "answer": "정답 A : lastlog B : btmp C : xferlog",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
     "grading": {
-      "mode": "exact",
-      "aliases": [
-        "ASLR",
-        "Address Space Layout Randomization"
-      ]
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "lastlog"
+          ],
+          "strict": true
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "btmp"
+          ],
+          "strict": true
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "xferlog"
+          ],
+          "strict": true
+        }
+      ],
+      "sample": "A: lastlog\nB: btmp\nC: xferlog"
     },
-    "reference": "https://docs.kernel.org/admin-guide/sysctl/kernel.html",
-    "reviewedAt": "2026-10-13",
-    "reviewStatus": "기술 문서 대조",
-    "exam": "2017년 제10회",
-    "sourceQuestion": 11,
-    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
-    "sourceUrl": "https://seobinggo.com/248",
-    "bank": "past"
+    "reference": "https://man7.org/linux/man-pages/man5/utmp.5.html",
+    "sourceUrl": "https://information-security.tistory.com/293",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 8,
+    "exam": "제1회",
+    "examKey": "serial-1",
+    "originalQuestion": "8. 리눅스 시스템의 로그 파일에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 각 사용자의 가장 최근 로그인 시간과 접근 소스 호스트 정보를 기록하는 파일\n( B ) : 로그인 실패 시도 기록을 저장하는 바이너리 파일\n( C ) : FTP 로그인 사용자의 로그와 파일 업로드·다운로드 내역을 기록하는 파일",
+    "originalAnswer": "정답 A : lastlog B : btmp C : xferlog",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
   },
   {
-    "id": "r10-13",
+    "id": "exam-serial-1-q09",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 다음 설명의 빈칸 (A), (B), (C)를 채우시오.\n( A )란 업무를 목적으로 개인정보파일을 운용하기 위하여 스스로 또는 다른 사람을 통하여 개인정보를 처리하는 공공기관, 법인, 단체 및 개인 등을 말한다.\n( B )란 개인정보처리자의 지휘 감독을 받아 개인정보를 처리하는 임직원, 파견근로자, 시간제근로자 등을 말한다.\n( C )라 함은 개인정보를 처리할 수 있도록 체계적으로 구성한 데이터베이스 시스템을 말한다.",
+    "answer": "정답 A : 개인정보처리자 B : 개인정보취급자 C : 개인정보처리시스템",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "개인정보처리자"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "개인정보취급자"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "개인정보처리시스템"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 개인정보처리자\nB: 개인정보취급자\nC: 개인정보처리시스템"
+    },
+    "reference": "https://law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1029332009",
+    "sourceUrl": "https://information-security.tistory.com/293",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제1회",
+    "examKey": "serial-1",
+    "originalQuestion": "9. 다음 설명의 빈칸 (A), (B), (C)를 채우시오.\n( A )란 업무를 목적으로 개인정보파일을 운용하기 위하여 스스로 또는 다른 사람을 통하여 개인정보를 처리하는 공공기관, 법인, 단체 및 개인 등을 말한다.\n( B )란 개인정보처리자의 지휘 감독을 받아 개인정보를 처리하는 임직원, 파견근로자, 시간제근로자 등을 말한다.\n( C )라 함은 개인정보를 처리할 수 있도록 체계적으로 구성한 데이터베이스 시스템을 말한다.",
+    "originalAnswer": "정답 A : 개인정보처리자 B : 개인정보취급자 C : 개인정보처리시스템",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-1-q12",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "12. /etc/apache/conf 디렉토리 내에서 10일 이내에 내용이 변경된 파일을 검색하는 find 명령어를 한 줄로 작성하시오.",
+    "answer": "정답: find /etc/apache/conf -type f -mtime -10",
+    "explanation": "GNU find의 -mtime은 24시간 단위로 내림하여 비교합니다. -mtime -10은 10개 24시간 단위 미만이며 달력 날짜 기준과는 다릅니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "strict": true,
+      "aliases": [
+        "find /etc/apache/conf -type f -mtime -10",
+        "find /etc/apache/conf -mtime -10 -type f"
+      ],
+      "sample": "find /etc/apache/conf -type f -mtime -10"
+    },
+    "reference": "https://man7.org/linux/man-pages/man1/find.1.html",
+    "sourceUrl": "https://information-security.tistory.com/293",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 12,
+    "exam": "제1회",
+    "examKey": "serial-1",
+    "originalQuestion": "12. /etc/apache/conf 디렉토리 내에서 10일 이내에 내용이 변경된 파일을 검색하는 find 명령어를 한 줄로 작성하시오.",
+    "originalAnswer": "정답: find /etc/apache/conf -type f -mtime -10",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-1-q16",
+    "subject": "정보보안관리 및 법규",
+    "kind": "실무형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "16. 다음은 네트워크 관리자가 확인한 ARP 테이블이다. 물음에 답하시오.\nGateway 정보 : 175.113.81.1 (MAC: a1-b1-c1-d1-e1-f1) - 관리자가 알고 있는 정보\n[ARP 테이블]\nInternet Address    Physical Address      Type\n175.113.81.65       90-9f-5e-00-2f-16    dynamic\n175.113.81.1        90-9f-5e-00-2f-16    dynamic\n175.113.81.55       f4-e1-5e-7f-f0-8f    dynamic\n175.113.81.88       f4-e1-5e-7f-80-16    dynamic\n(A) 어떤 공격인지 판단하여 쓰시오.\n(B) 공격이라고 추정하는 이유를 서술하시오.\n(C) 공격자로 의심되는 IP와 MAC 주소를 쓰시오.\n(D) 공격을 차단하기 위해 관리자가 실행해야 하는 명령어를 쓰시오.",
+    "answer": "정답\n(A) ARP Spoofing(ARP 스푸핑) 공격\n(B) 관리자가 알고 있는 Gateway(175.113.81.1)의 실제 MAC 주소는 a1-b1-c1-d1-e1-f1이지만, ARP 테이블에는 90-9f-5e-00-2f-16으로 변조되어 있다. 동일한 MAC 주소가 175.113.81.65에도 등록되어 있어 ARP Spoofing 공격으로 판단된다.\n(C) 175.113.81.65 (MAC: 90-9f-5e-00-2f-16)\n(D) arp -s 175.113.81.1 a1-b1-c1-d1-e1-f1 (Gateway IP에 대한 ARP 캐시를 정적으로 설정하여 위조된 ARP 응답으로 덮어쓰이지 않도록 한다.)",
+    "explanation": "제시된 표는 ARP 변조를 의심할 근거이며 공격자 신원을 확정하는 증거는 아닙니다. 정적 ARP 설정은 이 호스트의 해당 매핑 보호 방법이지 전체 네트워크 공격을 완전히 차단하는 방법은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답, D: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "ARP Spoofing",
+            "ARP 스푸핑",
+            "ARP Spoofing 공격",
+            "ARP 스푸핑 공격"
+          ]
+        },
+        {
+          "label": "B",
+          "mode": "criteria",
+          "groups": [
+            [
+              "175.113.81.1"
+            ],
+            [
+              "a1-b1-c1-d1-e1-f1",
+              "a1:b1:c1:d1:e1:f1"
+            ],
+            [
+              "90-9f-5e-00-2f-16",
+              "90:9f:5e:00:2f:16"
+            ],
+            [
+              "변조",
+              "불일치",
+              "다르",
+              "상이"
+            ]
+          ]
+        },
+        {
+          "label": "C",
+          "mode": "criteria",
+          "groups": [
+            [
+              "175.113.81.65"
+            ],
+            [
+              "90-9f-5e-00-2f-16",
+              "90:9f:5e:00:2f:16"
+            ]
+          ]
+        },
+        {
+          "label": "D",
+          "mode": "exact",
+          "strict": true,
+          "aliases": [
+            "arp -s 175.113.81.1 a1-b1-c1-d1-e1-f1",
+            "arp -s 175.113.81.1 a1:b1:c1:d1:e1:f1"
+          ]
+        }
+      ],
+      "sample": "A: ARP 스푸핑\nB: 175.113.81.1의 정상 MAC a1-b1-c1-d1-e1-f1이 90-9f-5e-00-2f-16으로 변조되어 있다.\nC: 175.113.81.65, 90-9f-5e-00-2f-16\nD: arp -s 175.113.81.1 a1-b1-c1-d1-e1-f1"
+    },
+    "reference": "https://man7.org/linux/man-pages/man8/arp.8.html",
+    "sourceUrl": "https://information-security.tistory.com/293",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 16,
+    "exam": "제1회",
+    "examKey": "serial-1",
+    "originalQuestion": "16. 다음은 네트워크 관리자가 확인한 ARP 테이블이다. 물음에 답하시오.\nGateway 정보 : 175.113.81.1 (MAC: a1-b1-c1-d1-e1-f1) - 관리자가 알고 있는 정보\n[ARP 테이블]\nInternet Address    Physical Address      Type\n175.113.81.65       90-9f-5e-00-2f-16    dynamic\n175.113.81.1        90-9f-5e-00-2f-16    dynamic\n175.113.81.55       f4-e1-5e-7f-f0-8f    dynamic\n175.113.81.88       f4-e1-5e-7f-80-16    dynamic\n(A) 어떤 공격인지 판단하여 쓰시오.\n(B) 공격이라고 추정하는 이유를 서술하시오.\n(C) 공격자로 의심되는 IP와 MAC 주소를 쓰시오.\n(D) 공격을 차단하기 위해 관리자가 실행해야 하는 명령어를 쓰시오.",
+    "originalAnswer": "정답\n(A) ARP Spoofing(ARP 스푸핑) 공격\n(B) 관리자가 알고 있는 Gateway(175.113.81.1)의 실제 MAC 주소는 a1-b1-c1-d1-e1-f1이지만, ARP 테이블에는 90-9f-5e-00-2f-16으로 변조되어 있다. 동일한 MAC 주소가 175.113.81.65에도 등록되어 있어 ARP Spoofing 공격으로 판단된다.\n(C) 175.113.81.65 (MAC: 90-9f-5e-00-2f-16)\n(D) arp -s 175.113.81.1 a1-b1-c1-d1-e1-f1 (Gateway IP에 대한 ARP 캐시를 정적으로 설정하여 위조된 ARP 응답으로 덮어쓰이지 않도록 한다.)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-2-q01",
     "subject": "네트워크보안",
     "kind": "단답형",
-    "origin": "복원 기출 재구성",
-    "prompt": "iptables에서 패킷을 거부하면서 설정에 따라 ICMP 오류 또는 TCP RST를 반환하는 타깃 이름을 쓰시오.",
-    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
-    "answer": "REJECT",
-    "explanation": "REJECT는 차단과 함께 거절 응답을 보낸다. TCP 규칙에 --reject-with tcp-reset을 적용하면 RST를 반환할 수 있다. DROP과의 선택은 정책·운영 조건에 달려 있다.",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "1. 다음 설명의 빈칸 (가), (나), (다)를 채우시오.\n소스 IP 주소가 정당한 IP 주소 범위 안에 있다면 네트워크에 들어가고 나가는 트래픽을 허락하는 방식에서,\n( 가 ) : 로컬 네트워크로 들어가는 트래픽을 필터링하는 것\n( 나 ) : 로컬 네트워크에서 나가는 트래픽을 필터링하는 것\n( 다 ) : 특정 IP 또는 IP 대역을 가상의 인터페이스로 보내어 필터링하는 기법",
+    "answer": "정답 가 : Ingress 필터링 나 : Egress 필터링 다 : Blackhole 필터링(Null Routing)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 가: 답, 나: 답, 다: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "가",
+          "mode": "exact",
+          "aliases": [
+            "Ingress 필터링"
+          ],
+          "strict": false
+        },
+        {
+          "label": "나",
+          "mode": "exact",
+          "aliases": [
+            "Egress 필터링"
+          ],
+          "strict": false
+        },
+        {
+          "label": "다",
+          "mode": "exact",
+          "aliases": [
+            "Blackhole 필터링(Null Routing)",
+            "Blackhole 필터링",
+            "Null Routing"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "가: Ingress 필터링\n나: Egress 필터링\n다: Blackhole 필터링(Null Routing)"
+    },
+    "reference": "https://www.rfc-editor.org/rfc/rfc2827.html",
+    "sourceUrl": "https://information-security.tistory.com/292",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 2회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 1,
+    "exam": "제2회",
+    "examKey": "serial-2",
+    "originalQuestion": "1. 다음 설명의 빈칸 (가), (나), (다)를 채우시오.\n소스 IP 주소가 정당한 IP 주소 범위 안에 있다면 네트워크에 들어가고 나가는 트래픽을 허락하는 방식에서,\n( 가 ) : 로컬 네트워크로 들어가는 트래픽을 필터링하는 것\n( 나 ) : 로컬 네트워크에서 나가는 트래픽을 필터링하는 것\n( 다 ) : 특정 IP 또는 IP 대역을 가상의 인터페이스로 보내어 필터링하는 기법",
+    "originalAnswer": "정답 가 : Ingress 필터링 나 : Egress 필터링 다 : Blackhole 필터링(Null Routing)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-2-q05",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "5. 다음 보안 취약점 점검 도구에 관한 설명이다. 빈칸 (A), (B)를 채우시오.\nTripwire는 파일 시스템의 ( A )을 점검하는 도구이며, ( B )는 미국 Tenable사가 개발하여 배포하는 취약점 점검 도구로 패스워드 취약점, TCP/IP 스택 DoS, 취약한 서버 설정 등 알려진 취약점을 점검하여 text, HTML 등 다양한 형태의 보고서를 제공한다.",
+    "answer": "정답 A : 무결성 B : Nessus",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "무결성",
+            "Integrity",
+            "파일 무결성"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "Nessus",
+            "네서스",
+            "Nessus",
+            "네서스"
+          ],
+          "strict": true
+        }
+      ],
+      "sample": "A: 무결성\nB: Nessus"
+    },
+    "reference": "https://www.tenable.com/products/nessus",
+    "sourceUrl": "https://information-security.tistory.com/292",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 2회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 5,
+    "exam": "제2회",
+    "examKey": "serial-2",
+    "originalQuestion": "5. 다음 보안 취약점 점검 도구에 관한 설명이다. 빈칸 (A), (B)를 채우시오.\nTripwire는 파일 시스템의 ( A )을 점검하는 도구이며, ( B )는 미국 Tenable사가 개발하여 배포하는 취약점 점검 도구로 패스워드 취약점, TCP/IP 스택 DoS, 취약한 서버 설정 등 알려진 취약점을 점검하여 text, HTML 등 다양한 형태의 보고서를 제공한다.",
+    "originalAnswer": "정답 A : 무결성 B : Nessus",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-2-q07",
+    "subject": "정보보안일반",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "7. 정보보안의 3요소에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n정보자산의 중요도를 파악하기 위해 자산에 보장되어야 하는 보안의 3요소를 파악한다. ( A ) : 정보의 유출 측면에서의 특성 - 인가된 사용자만 정보에 접근 가능 ( B ) : 정보의 변조 측면에서의 특성 - 정보가 허가 없이 변경되지 않음을 보장 ( C ) : 정보의 상실 측면에서의 특성 - 인가된 사용자가 필요할 때 정보에 접근 가능",
+    "answer": "정답 A : 기밀성(Confidentiality) B : 무결성(Integrity) C : 가용성(Availability)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "기밀성(Confidentiality)",
+            "기밀성",
+            "Confidentiality"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "무결성(Integrity)",
+            "무결성",
+            "Integrity",
+            "파일 무결성"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "가용성(Availability)",
+            "가용성",
+            "Availability"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 기밀성(Confidentiality)\nB: 무결성(Integrity)\nC: 가용성(Availability)"
+    },
+    "reference": "https://csrc.nist.gov/glossary/term/information_security",
+    "sourceUrl": "https://information-security.tistory.com/292",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 2회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 7,
+    "exam": "제2회",
+    "examKey": "serial-2",
+    "originalQuestion": "7. 정보보안의 3요소에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n정보자산의 중요도를 파악하기 위해 자산에 보장되어야 하는 보안의 3요소를 파악한다. ( A ) : 정보의 유출 측면에서의 특성 - 인가된 사용자만 정보에 접근 가능 ( B ) : 정보의 변조 측면에서의 특성 - 정보가 허가 없이 변경되지 않음을 보장 ( C ) : 정보의 상실 측면에서의 특성 - 인가된 사용자가 필요할 때 정보에 접근 가능",
+    "originalAnswer": "정답 A : 기밀성(Confidentiality) B : 무결성(Integrity) C : 가용성(Availability)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-2-q08",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "8. 다음에서 설명하는 공격의 명칭과 대응 방법에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) 공격이란 여러 호스트가 특정 공격 대상에게 다량의 ICMP Echo Request를 보내게 하여 서비스 거부를 유발시키는 공격이다. 대응 방법 : - 다른 네트워크로부터 자신의 네트워크로 들어오는 ( B ) 패킷을 막도록 라우터를 설정한다. - 호스트는 IP Broadcast Address로 전송된 ( C ) 패킷에 대해 응답하지 않도록 시스템을 설정한다.",
+    "answer": "정답 A : 스머프(Smurf) B : Directed Broadcast C : ICMP Echo Request",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "스머프(Smurf)",
+            "스머프",
+            "Smurf"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "Directed Broadcast"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "ICMP Echo Request"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 스머프(Smurf)\nB: Directed Broadcast\nC: ICMP Echo Request"
+    },
+    "reference": "https://www.rfc-editor.org/rfc/rfc2644.html",
+    "sourceUrl": "https://information-security.tistory.com/292",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 2회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 8,
+    "exam": "제2회",
+    "examKey": "serial-2",
+    "originalQuestion": "8. 다음에서 설명하는 공격의 명칭과 대응 방법에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) 공격이란 여러 호스트가 특정 공격 대상에게 다량의 ICMP Echo Request를 보내게 하여 서비스 거부를 유발시키는 공격이다. 대응 방법 : - 다른 네트워크로부터 자신의 네트워크로 들어오는 ( B ) 패킷을 막도록 라우터를 설정한다. - 호스트는 IP Broadcast Address로 전송된 ( C ) 패킷에 대해 응답하지 않도록 시스템을 설정한다.",
+    "originalAnswer": "정답 A : 스머프(Smurf) B : Directed Broadcast C : ICMP Echo Request",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-2-q09",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 다음에서 설명하는 스위치 환경의 스니핑 공격 기법의 명칭을 쓰시오.\n스위치의 MAC 주소 테이블이 가득 차면 모든 네트워크 세그먼트 트래픽을 브로드캐스트하는 특징을 악용하여, 공격자가 위조된 MAC 주소를 지속적으로 네트워크에 전송하여 스위치의 MAC 주소 테이블을 오버플로우시켜 허브처럼 동작하게 만들어 패킷을 스니핑하는 공격이다.",
+    "answer": "정답: Switch Jamming(스위치 재밍) 또는 MAC Flooding",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
     "grading": {
       "mode": "exact",
       "aliases": [
-        "REJECT"
-      ]
+        "Switch Jamming(스위치 재밍) 또는 MAC Flooding",
+        "Switch Jamming 또는 MAC Flooding",
+        "스위치 재밍",
+        "Switch Jamming",
+        "MAC Flooding",
+        "MAC 플러딩"
+      ],
+      "sample": "Switch Jamming(스위치 재밍) 또는 MAC Flooding"
+    },
+    "reference": "https://information-security.tistory.com/292",
+    "sourceUrl": "https://information-security.tistory.com/292",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 2회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제2회",
+    "examKey": "serial-2",
+    "originalQuestion": "9. 다음에서 설명하는 스위치 환경의 스니핑 공격 기법의 명칭을 쓰시오.\n스위치의 MAC 주소 테이블이 가득 차면 모든 네트워크 세그먼트 트래픽을 브로드캐스트하는 특징을 악용하여, 공격자가 위조된 MAC 주소를 지속적으로 네트워크에 전송하여 스위치의 MAC 주소 테이블을 오버플로우시켜 허브처럼 동작하게 만들어 패킷을 스니핑하는 공격이다.",
+    "originalAnswer": "정답: Switch Jamming(스위치 재밍) 또는 MAC Flooding",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-3-q03",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "3. 다음에서 설명하는 현상이 발생하는 공격의 명칭을 쓰시오.\n서버의 연결 대기 큐(Backlog Queue)가 가득 차 있고, 다수의 SYN_RECEIVED 상태의 연결이 유지되며 정상적인 사용자의 신규 접속이 불가능한 상태가 발생하였다.",
+    "answer": "정답: TCP SYN Flooding",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "TCP SYN Flooding",
+        "SYN Flooding",
+        "SYN Flood",
+        "TCP SYN Flood",
+        "SYN 플러딩",
+        "TCP SYN 플러딩"
+      ],
+      "sample": "TCP SYN Flooding"
+    },
+    "reference": "https://www.rfc-editor.org/rfc/rfc4987.html",
+    "sourceUrl": "https://information-security.tistory.com/291",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 3회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 3,
+    "exam": "제3회",
+    "examKey": "serial-3",
+    "originalQuestion": "3. 다음에서 설명하는 현상이 발생하는 공격의 명칭을 쓰시오.\n서버의 연결 대기 큐(Backlog Queue)가 가득 차 있고, 다수의 SYN_RECEIVED 상태의 연결이 유지되며 정상적인 사용자의 신규 접속이 불가능한 상태가 발생하였다.",
+    "originalAnswer": "정답: TCP SYN Flooding",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-3-q04",
+    "subject": "정보보안일반",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "4. 접근 통제 정책에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 객체의 소유자가 재량으로 다른 사용자에게 접근 권한을 부여하거나 취소할 수 있는 접근 통제 방식\n( B ) : 주체의 보안 등급과 객체의 보안 등급을 비교하여 접근을 제한하는 방식으로 보안 운영체제에서 주로 사용\n( C ) : 주체에 할당된 역할에 기반하여 객체에 대한 접근을 제한하는 방식",
+    "answer": "정답\nA : DAC(임의적 접근 통제, Discretionary Access Control)\nB : MAC(강제적 접근 통제, Mandatory Access Control)\nC : RBAC(역할 기반 접근 통제, Role-Based Access Control)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "DAC(임의적 접근 통제, Discretionary Access Control)",
+            "DAC",
+            "임의적 접근 통제",
+            "Discretionary Access Control"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "MAC(강제적 접근 통제, Mandatory Access Control)",
+            "MAC",
+            "강제적 접근 통제",
+            "Mandatory Access Control"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "RBAC(역할 기반 접근 통제, Role-Based Access Control)",
+            "RBAC",
+            "역할 기반 접근 통제",
+            "Role-Based Access Control"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: DAC(임의적 접근 통제, Discretionary Access Control)\nB: MAC(강제적 접근 통제, Mandatory Access Control)\nC: RBAC(역할 기반 접근 통제, Role-Based Access Control)"
+    },
+    "reference": "https://csrc.nist.gov/glossary/term/discretionary_access_control",
+    "sourceUrl": "https://information-security.tistory.com/291",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 3회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 4,
+    "exam": "제3회",
+    "examKey": "serial-3",
+    "originalQuestion": "4. 접근 통제 정책에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 객체의 소유자가 재량으로 다른 사용자에게 접근 권한을 부여하거나 취소할 수 있는 접근 통제 방식\n( B ) : 주체의 보안 등급과 객체의 보안 등급을 비교하여 접근을 제한하는 방식으로 보안 운영체제에서 주로 사용\n( C ) : 주체에 할당된 역할에 기반하여 객체에 대한 접근을 제한하는 방식",
+    "originalAnswer": "정답\nA : DAC(임의적 접근 통제, Discretionary Access Control)\nB : MAC(강제적 접근 통제, Mandatory Access Control)\nC : RBAC(역할 기반 접근 통제, Role-Based Access Control)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-3-q07",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "7. 다음에서 설명하는 OWASP Top 10 공격 기법의 명칭을 쓰시오.\n애플리케이션이 신뢰할 수 없는 데이터를 적절한 검증 없이 웹 브라우저로 전송할 때 발생하며, 공격자가 피해자의 브라우저에서 악성 스크립트를 실행하여 사용자 세션 탈취, 웹 사이트 변조, 악의적인 사이트 이동 등의 피해를 유발하는 공격이다.",
+    "answer": "정답: XSS(Cross Site Script)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "XSS(Cross Site Script)",
+        "XSS",
+        "Cross Site Script",
+        "Cross Site Scripting",
+        "크로스 사이트 스크립팅",
+        "크로스사이트 스크립팅"
+      ],
+      "sample": "XSS(Cross Site Script)"
+    },
+    "reference": "https://owasp.org/www-community/attacks/xss/",
+    "sourceUrl": "https://information-security.tistory.com/291",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 3회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 7,
+    "exam": "제3회",
+    "examKey": "serial-3",
+    "originalQuestion": "7. 다음에서 설명하는 OWASP Top 10 공격 기법의 명칭을 쓰시오.\n애플리케이션이 신뢰할 수 없는 데이터를 적절한 검증 없이 웹 브라우저로 전송할 때 발생하며, 공격자가 피해자의 브라우저에서 악성 스크립트를 실행하여 사용자 세션 탈취, 웹 사이트 변조, 악의적인 사이트 이동 등의 피해를 유발하는 공격이다.",
+    "originalAnswer": "정답: XSS(Cross Site Script)",
+    "correction": "XSS의 정식 명칭은 Cross-Site Scripting입니다.",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-3-q10",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "10. 위험 대응 보호 대책에 관한 설명이다. 각각의 명칭을 쓰시오.\n(1) 사업의 목적을 달성하기 위하여 보안 통제를 적용하여 위험 수준을 낮추는 방안\n(2) 위험이 존재하는 프로세스나 사업 자체를 수행하지 않고 포기하는 방안\n(3) 보험이나 외주 등을 통해 잠재적 위험의 재정적 책임을 제3자에게 이전하는 방안",
+    "answer": "정답 (1) 위험 감소(Risk Reduction) (2) 위험 회피(Risk Avoidance) (3) 위험 전가(Risk Transfer)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 1: 답, 2: 답, 3: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "1",
+          "mode": "exact",
+          "aliases": [
+            "위험 감소(Risk Reduction)",
+            "위험 감소",
+            "Risk Reduction",
+            "위험 완화",
+            "Risk Mitigation"
+          ],
+          "strict": false
+        },
+        {
+          "label": "2",
+          "mode": "exact",
+          "aliases": [
+            "위험 회피(Risk Avoidance)",
+            "위험 회피",
+            "Risk Avoidance"
+          ],
+          "strict": false
+        },
+        {
+          "label": "3",
+          "mode": "exact",
+          "aliases": [
+            "위험 전가(Risk Transfer)",
+            "위험 전가",
+            "Risk Transfer",
+            "위험 전이",
+            "위험 이전"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "1: 위험 감소(Risk Reduction)\n2: 위험 회피(Risk Avoidance)\n3: 위험 전가(Risk Transfer)"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+    "sourceUrl": "https://information-security.tistory.com/291",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 3회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 10,
+    "exam": "제3회",
+    "examKey": "serial-3",
+    "originalQuestion": "10. 위험 대응 보호 대책에 관한 설명이다. 각각의 명칭을 쓰시오.\n(1) 사업의 목적을 달성하기 위하여 보안 통제를 적용하여 위험 수준을 낮추는 방안\n(2) 위험이 존재하는 프로세스나 사업 자체를 수행하지 않고 포기하는 방안\n(3) 보험이나 외주 등을 통해 잠재적 위험의 재정적 책임을 제3자에게 이전하는 방안",
+    "originalAnswer": "정답 (1) 위험 감소(Risk Reduction) (2) 위험 회피(Risk Avoidance) (3) 위험 전가(Risk Transfer)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-4-q02",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "2. 다음은 OWASP Top 10의 취약점 설명이다. 각각의 취약점 명칭을 쓰시오.\n(1) 신뢰할 수 없는 데이터가 명령어나 질의문의 일부분으로서 인터프리터로 보내질 때 발생하며, 공격자의 악의적인 데이터는 예상치 못한 명령을 실행하거나 권한 없이 데이터에 접근하도록 인터프리터를 속인다.\n(2) 신뢰할 수 없는 데이터를 적절한 검증 없이 웹 브라우저로 보낼 때 발생하며, 공격자가 피해자의 브라우저에 스크립트를 실행하여 세션 탈취, 웹 사이트 변조, 악의적인 사이트로 이동시킬 수 있다.\n(3) 로그온된 피해자의 취약한 웹 애플리케이션에 피해자의 세션 쿠키와 인증 정보를 자동으로 포함하여 위조된 HTTP 요청을 강제로 보내도록 하는 공격이다.",
+    "answer": "정답 (1) Injection(인젝션) (2) XSS(Cross Site Script) (3) CSRF(Cross Site Request Forgery)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 1: 답, 2: 답, 3: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "1",
+          "mode": "exact",
+          "aliases": [
+            "Injection(인젝션)",
+            "Injection",
+            "인젝션"
+          ],
+          "strict": false
+        },
+        {
+          "label": "2",
+          "mode": "exact",
+          "aliases": [
+            "XSS(Cross Site Script)",
+            "XSS",
+            "Cross Site Script",
+            "Cross Site Scripting",
+            "크로스 사이트 스크립팅",
+            "크로스사이트 스크립팅"
+          ],
+          "strict": false
+        },
+        {
+          "label": "3",
+          "mode": "exact",
+          "aliases": [
+            "CSRF(Cross Site Request Forgery)",
+            "CSRF",
+            "Cross Site Request Forgery"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "1: Injection(인젝션)\n2: XSS(Cross Site Script)\n3: CSRF(Cross Site Request Forgery)"
+    },
+    "reference": "https://owasp.org/www-community/attacks/xss/",
+    "sourceUrl": "https://information-security.tistory.com/290",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 4회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 2,
+    "exam": "제4회",
+    "examKey": "serial-4",
+    "originalQuestion": "2. 다음은 OWASP Top 10의 취약점 설명이다. 각각의 취약점 명칭을 쓰시오.\n(1) 신뢰할 수 없는 데이터가 명령어나 질의문의 일부분으로서 인터프리터로 보내질 때 발생하며, 공격자의 악의적인 데이터는 예상치 못한 명령을 실행하거나 권한 없이 데이터에 접근하도록 인터프리터를 속인다.\n(2) 신뢰할 수 없는 데이터를 적절한 검증 없이 웹 브라우저로 보낼 때 발생하며, 공격자가 피해자의 브라우저에 스크립트를 실행하여 세션 탈취, 웹 사이트 변조, 악의적인 사이트로 이동시킬 수 있다.\n(3) 로그온된 피해자의 취약한 웹 애플리케이션에 피해자의 세션 쿠키와 인증 정보를 자동으로 포함하여 위조된 HTTP 요청을 강제로 보내도록 하는 공격이다.",
+    "originalAnswer": "정답 (1) Injection(인젝션) (2) XSS(Cross Site Script) (3) CSRF(Cross Site Request Forgery)",
+    "correction": "XSS의 정식 명칭은 Cross-Site Scripting입니다.",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-4-q07",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "7. 다음에서 설명하는 보안 용어를 각각 쓰시오.\n( A ) : 수집된 정보를 분석하여 공격 시그니처를 저장한 데이터베이스를 구축하고 저장된 정보와 비교하여 알려진 특정 공격을 탐지하는 시스템\n( B ) : 실제 공격 행위를 탐지하지 못하고 정상으로 판단하는 오류\n( C ) : 공격 행위가 아닌 정상 트래픽을 공격으로 잘못 탐지하는 오류",
+    "answer": "정답 A : IDS(침입탐지 시스템) B : False Negative(미탐) C : False Positive(오탐)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "IDS(침입탐지 시스템)",
+            "IDS",
+            "침입탐지 시스템"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "False Negative(미탐)",
+            "False Negative",
+            "미탐"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "False Positive(오탐)",
+            "False Positive",
+            "오탐"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: IDS(침입탐지 시스템)\nB: False Negative(미탐)\nC: False Positive(오탐)"
+    },
+    "reference": "https://csrc.nist.gov/glossary/term/false_negative",
+    "sourceUrl": "https://information-security.tistory.com/290",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 4회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 7,
+    "exam": "제4회",
+    "examKey": "serial-4",
+    "originalQuestion": "7. 다음에서 설명하는 보안 용어를 각각 쓰시오.\n( A ) : 수집된 정보를 분석하여 공격 시그니처를 저장한 데이터베이스를 구축하고 저장된 정보와 비교하여 알려진 특정 공격을 탐지하는 시스템\n( B ) : 실제 공격 행위를 탐지하지 못하고 정상으로 판단하는 오류\n( C ) : 공격 행위가 아닌 정상 트래픽을 공격으로 잘못 탐지하는 오류",
+    "originalAnswer": "정답 A : IDS(침입탐지 시스템) B : False Negative(미탐) C : False Positive(오탐)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-5-q02",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "2. 다음에서 설명하는 보안 표준의 명칭을 쓰시오.\n특정 보안 취약점에 대해 여러 단체나 기관에서 일관성 없이 표현하던 것을 공통으로 지칭하고 공유하기 위해 만든 표준화된 취약점 코드 체계이다.",
+    "answer": "정답: CVE(Common Vulnerabilities and Exposures)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "CVE(Common Vulnerabilities and Exposures)",
+        "CVE",
+        "Common Vulnerabilities and Exposures"
+      ],
+      "sample": "CVE(Common Vulnerabilities and Exposures)"
+    },
+    "reference": "https://www.cve.org/",
+    "sourceUrl": "https://information-security.tistory.com/289",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 5회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 2,
+    "exam": "제5회",
+    "examKey": "serial-5",
+    "originalQuestion": "2. 다음에서 설명하는 보안 표준의 명칭을 쓰시오.\n특정 보안 취약점에 대해 여러 단체나 기관에서 일관성 없이 표현하던 것을 공통으로 지칭하고 공유하기 위해 만든 표준화된 취약점 코드 체계이다.",
+    "originalAnswer": "정답: CVE(Common Vulnerabilities and Exposures)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-5-q03",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "3. FTP 서비스를 운영하는 서버에서 다음과 같은 현상이 확인되었다. 어떤 유형의 공격인지 쓰시오.\n서버의 TCP 연결 대기 큐(Backlog Queue)가 가득 차 있으며 다수의 SYN_RECEIVED 상태의 연결이 유지되고 있고, 정상적인 사용자의 FTP 접속이 불가능한 상태이다.",
+    "answer": "정답: TCP SYN Flooding 공격",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "TCP SYN Flooding 공격",
+        "TCP SYN Flooding",
+        "SYN Flooding",
+        "SYN Flood",
+        "TCP SYN Flood",
+        "SYN 플러딩",
+        "TCP SYN 플러딩"
+      ],
+      "sample": "TCP SYN Flooding 공격"
+    },
+    "reference": "https://information-security.tistory.com/289",
+    "sourceUrl": "https://information-security.tistory.com/289",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 5회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 3,
+    "exam": "제5회",
+    "examKey": "serial-5",
+    "originalQuestion": "3. FTP 서비스를 운영하는 서버에서 다음과 같은 현상이 확인되었다. 어떤 유형의 공격인지 쓰시오.\n서버의 TCP 연결 대기 큐(Backlog Queue)가 가득 차 있으며 다수의 SYN_RECEIVED 상태의 연결이 유지되고 있고, 정상적인 사용자의 FTP 접속이 불가능한 상태이다.",
+    "originalAnswer": "정답: TCP SYN Flooding 공격",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-5-q06",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "6. 다음에서 설명하는 공격의 명칭을 각각 쓰시오.\n( A ) : 실행 가능한 스크립트 파일을 서버에 업로드하여 원격에서 제어하는 공격\n( B ) : 데이터베이스 질의문을 조작하기 위해 입력 인자에 질의문을 삽입하는 공격",
+    "answer": "정답 A : 파일 업로드 공격(웹쉘 업로드) B : SQL Injection 공격",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "파일 업로드 공격(웹쉘 업로드)",
+            "파일 업로드 공격",
+            "웹쉘 업로드",
+            "파일 업로드",
+            "웹쉘 업로드 공격"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "SQL Injection 공격",
+            "SQL Injection",
+            "SQL 인젝션",
+            "SQL 삽입",
+            "SQL 주입"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 파일 업로드 공격(웹쉘 업로드)\nB: SQL Injection 공격"
+    },
+    "reference": "https://owasp.org/www-community/attacks/xss/",
+    "sourceUrl": "https://information-security.tistory.com/289",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 5회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 6,
+    "exam": "제5회",
+    "examKey": "serial-5",
+    "originalQuestion": "6. 다음에서 설명하는 공격의 명칭을 각각 쓰시오.\n( A ) : 실행 가능한 스크립트 파일을 서버에 업로드하여 원격에서 제어하는 공격\n( B ) : 데이터베이스 질의문을 조작하기 위해 입력 인자에 질의문을 삽입하는 공격",
+    "originalAnswer": "정답 A : 파일 업로드 공격(웹쉘 업로드) B : SQL Injection 공격",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-5-q09",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 위험 관리 기법 중 위험을 인지하였으나 별도의 통제를 수행하지 않고 그대로 받아들이며 진행하는 방식의 명칭을 쓰시오.",
+    "answer": "정답: 위험 수용(Risk Acceptance)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "위험 수용(Risk Acceptance)",
+        "위험 수용",
+        "Risk Acceptance",
+        "위험 보유"
+      ],
+      "sample": "위험 수용(Risk Acceptance)"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+    "sourceUrl": "https://information-security.tistory.com/289",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 5회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제5회",
+    "examKey": "serial-5",
+    "originalQuestion": "9. 위험 관리 기법 중 위험을 인지하였으나 별도의 통제를 수행하지 않고 그대로 받아들이며 진행하는 방식의 명칭을 쓰시오.",
+    "originalAnswer": "정답: 위험 수용(Risk Acceptance)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-5-q10",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "10. 다음 빈칸 (A), (B), (C)를 채우시오.\n정보보안의 3가지 목적은 기밀성, ( A ), ( B )이며, 위험관리계획 수립 시 ( C )를 통해 업무의 우선순위 선정 및 보호 대책 수준을 도출한다.",
+    "answer": "정답 A : 무결성(Integrity) B : 가용성(Availability) C : 업무영향분석(BIA, Business Impact Analysis)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "무결성(Integrity)",
+            "무결성",
+            "Integrity",
+            "파일 무결성"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "가용성(Availability)",
+            "가용성",
+            "Availability"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "업무영향분석(BIA, Business Impact Analysis)",
+            "업무영향분석",
+            "BIA",
+            "Business Impact Analysis"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 무결성(Integrity)\nB: 가용성(Availability)\nC: 업무영향분석(BIA, Business Impact Analysis)"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+    "sourceUrl": "https://information-security.tistory.com/289",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 5회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 10,
+    "exam": "제5회",
+    "examKey": "serial-5",
+    "originalQuestion": "10. 다음 빈칸 (A), (B), (C)를 채우시오.\n정보보안의 3가지 목적은 기밀성, ( A ), ( B )이며, 위험관리계획 수립 시 ( C )를 통해 업무의 우선순위 선정 및 보호 대책 수준을 도출한다.",
+    "originalAnswer": "정답 A : 무결성(Integrity) B : 가용성(Availability) C : 업무영향분석(BIA, Business Impact Analysis)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-6-q01",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "1. TCP 스캔 유형에 따른 플래그 응답을 채우시오.\n(1) TCP Open Scan 시 포트가 닫힌 경우 공격자가 ( A ) 플래그를 송신하면 수신 호스트는 ( B ) 플래그로 응답한다.\n(2) TCP Half-Open Scan 시 포트가 열린 경우 공격자가 ( C ) 플래그를 송신하면 수신 호스트는 ( D )로 응답하고, 공격자는 다시 ( E ) 플래그를 송신하여 연결을 끊는다.",
+    "answer": "정답\nA : SYN\nB : RST + ACK\nC : SYN\nD : SYN + ACK\nE : RST",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답, D: 답, E: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "SYN"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "RST + ACK"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "SYN"
+          ],
+          "strict": false
+        },
+        {
+          "label": "D",
+          "mode": "exact",
+          "aliases": [
+            "SYN + ACK"
+          ],
+          "strict": false
+        },
+        {
+          "label": "E",
+          "mode": "exact",
+          "aliases": [
+            "RST"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: SYN\nB: RST + ACK\nC: SYN\nD: SYN + ACK\nE: RST"
+    },
+    "reference": "https://www.rfc-editor.org/rfc/rfc9293.html",
+    "sourceUrl": "https://information-security.tistory.com/285",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 6회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 1,
+    "exam": "제6회",
+    "examKey": "serial-6",
+    "originalQuestion": "1. TCP 스캔 유형에 따른 플래그 응답을 채우시오.\n(1) TCP Open Scan 시 포트가 닫힌 경우 공격자가 ( A ) 플래그를 송신하면 수신 호스트는 ( B ) 플래그로 응답한다.\n(2) TCP Half-Open Scan 시 포트가 열린 경우 공격자가 ( C ) 플래그를 송신하면 수신 호스트는 ( D )로 응답하고, 공격자는 다시 ( E ) 플래그를 송신하여 연결을 끊는다.",
+    "originalAnswer": "정답\nA : SYN\nB : RST + ACK\nC : SYN\nD : SYN + ACK\nE : RST",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-6-q05",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "5. 유닉스 시스템에서 다음 명령어 수행 시 참조되는 로그 파일명을 각각 쓰시오.\n(A) who 명령어 (B) last 명령어 (C) lastcomm 명령어",
+    "answer": "정답\nA : utmp\nB : wtmp\nC : acct 또는 pacct",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "utmp"
+          ],
+          "strict": true
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "wtmp"
+          ],
+          "strict": true
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "acct 또는 pacct",
+            "acct",
+            "pacct"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: utmp\nB: wtmp\nC: acct 또는 pacct"
+    },
+    "reference": "https://man7.org/linux/man-pages/man5/utmp.5.html",
+    "sourceUrl": "https://information-security.tistory.com/285",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 6회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 5,
+    "exam": "제6회",
+    "examKey": "serial-6",
+    "originalQuestion": "5. 유닉스 시스템에서 다음 명령어 수행 시 참조되는 로그 파일명을 각각 쓰시오.\n(A) who 명령어 (B) last 명령어 (C) lastcomm 명령어",
+    "originalAnswer": "정답\nA : utmp\nB : wtmp\nC : acct 또는 pacct",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-6-q08",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "8. 위험 분석과 관련된 용어에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 조직이 보호해야 할 대상으로 정보, 하드웨어, 소프트웨어, 시설 등과 관련 인력, 기업 이미지 등의 무형자산을 포함한다.\n( B ) : 자산에 손실을 초래할 수 있는 원치 않는 사건의 잠재적 원인이나 행위자\n( C ) : 자산의 잠재적 속성이나 처한 환경으로 위협에 이용되는 관리적·물리적·기술적 약점",
+    "answer": "정답\nA : 자산(Asset)\nB : 위협(Threat)\nC : 취약점(Vulnerability)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "자산(Asset)",
+            "자산",
+            "Asset"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "위협(Threat)",
+            "위협",
+            "Threat"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "취약점(Vulnerability)",
+            "취약점",
+            "Vulnerability"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 자산(Asset)\nB: 위협(Threat)\nC: 취약점(Vulnerability)"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+    "sourceUrl": "https://information-security.tistory.com/285",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 6회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 8,
+    "exam": "제6회",
+    "examKey": "serial-6",
+    "originalQuestion": "8. 위험 분석과 관련된 용어에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 조직이 보호해야 할 대상으로 정보, 하드웨어, 소프트웨어, 시설 등과 관련 인력, 기업 이미지 등의 무형자산을 포함한다.\n( B ) : 자산에 손실을 초래할 수 있는 원치 않는 사건의 잠재적 원인이나 행위자\n( C ) : 자산의 잠재적 속성이나 처한 환경으로 위협에 이용되는 관리적·물리적·기술적 약점",
+    "originalAnswer": "정답\nA : 자산(Asset)\nB : 위협(Threat)\nC : 취약점(Vulnerability)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-6-q09",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 다음은 개인정보의 기술적·관리적 보호조치 항목을 포함하는 문서이다. 이 문서의 명칭을 쓰시오.\n1. 개인정보 보호책임자의 자격요건 및 지정에 관한 사항\n2. 개인정보 보호책임자와 개인정보취급자의 역할 및 책임에 관한 사항\n3. 개인정보의 기술적·관리적 보호조치 이행 여부의 내부 점검에 관한 사항\n4. 개인정보 처리업무를 위탁하는 경우 수탁자에 대한 관리 및 감독에 관한 사항\n5. 개인정보 분실·도난·누출·변조·훼손 발생 시 대응절차 및 방법에 관한 사항",
+    "answer": "정답: 내부관리계획",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "내부관리계획",
+        "내부 관리계획"
+      ],
+      "sample": "내부관리계획"
+    },
+    "reference": "https://law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1029332009",
+    "sourceUrl": "https://information-security.tistory.com/285",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 6회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제6회",
+    "examKey": "serial-6",
+    "originalQuestion": "9. 다음은 개인정보의 기술적·관리적 보호조치 항목을 포함하는 문서이다. 이 문서의 명칭을 쓰시오.\n1. 개인정보 보호책임자의 자격요건 및 지정에 관한 사항\n2. 개인정보 보호책임자와 개인정보취급자의 역할 및 책임에 관한 사항\n3. 개인정보의 기술적·관리적 보호조치 이행 여부의 내부 점검에 관한 사항\n4. 개인정보 처리업무를 위탁하는 경우 수탁자에 대한 관리 및 감독에 관한 사항\n5. 개인정보 분실·도난·누출·변조·훼손 발생 시 대응절차 및 방법에 관한 사항",
+    "originalAnswer": "정답: 내부관리계획",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-6-q10",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "10. 다음에서 설명하는 통제 유형의 명칭을 각각 쓰시오.\n( A ) : 오류나 부정이 발생하는 것을 예방할 목적으로 행사하는 통제로, 발생 가능한 잠재적 문제를 사전에 식별하여 대처하는 능동적 통제이다.\n( B ) : 관계자 외의 사람이 특정 시설이나 설비에 접근할 수 없게 하는 통제\n( C ) : 승인받지 못한 사람이 정보통신망을 통해 자산에 접근하지 못하도록 막는 통제",
+    "answer": "정답\nA : 예방 통제\nB : 물리적 접근 통제\nC : 논리적 접근 통제",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "예방 통제"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "물리적 접근 통제"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "논리적 접근 통제"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 예방 통제\nB: 물리적 접근 통제\nC: 논리적 접근 통제"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+    "sourceUrl": "https://information-security.tistory.com/285",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 6회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 10,
+    "exam": "제6회",
+    "examKey": "serial-6",
+    "originalQuestion": "10. 다음에서 설명하는 통제 유형의 명칭을 각각 쓰시오.\n( A ) : 오류나 부정이 발생하는 것을 예방할 목적으로 행사하는 통제로, 발생 가능한 잠재적 문제를 사전에 식별하여 대처하는 능동적 통제이다.\n( B ) : 관계자 외의 사람이 특정 시설이나 설비에 접근할 수 없게 하는 통제\n( C ) : 승인받지 못한 사람이 정보통신망을 통해 자산에 접근하지 못하도록 막는 통제",
+    "originalAnswer": "정답\nA : 예방 통제\nB : 물리적 접근 통제\nC : 논리적 접근 통제",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-7-q06",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "6. 와이어샤크(Wireshark)에서 DNS 응답(Response) 패킷만 출력하는 필터 표현식을 쓰시오.",
+    "answer": "정답: dns.flags.response == 1 또는 dns.response_to",
+    "explanation": "출처의 dns.response_to는 분석에 성공해 요청과 연결된 응답을 가리킵니다. 모든 DNS 응답을 고르는 일반 필터로는 dns.flags.response == 1을 사용합니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "strict": true,
+      "aliases": [
+        "dns.flags.response == 1",
+        "dns.flags.response==1",
+        "dns.flags.response == true",
+        "dns.flags.response==true"
+      ],
+      "sample": "dns.flags.response == 1"
+    },
+    "reference": "https://www.wireshark.org/docs/dfref/d/dns.html",
+    "sourceUrl": "https://information-security.tistory.com/284",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 7회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 6,
+    "exam": "제7회",
+    "examKey": "serial-7",
+    "originalQuestion": "6. 와이어샤크(Wireshark)에서 DNS 응답(Response) 패킷만 출력하는 필터 표현식을 쓰시오.",
+    "originalAnswer": "정답: dns.flags.response == 1 또는 dns.response_to",
+    "correction": "일반 DNS 응답 필터: dns.flags.response == 1",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-7-q07",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "7. 다음에서 설명하는 공격의 명칭을 쓰시오.\n공격자가 원격에서 웹 서버에 명령을 수행할 수 있도록 작성한 웹 스크립트 파일을 업로드하여 웹 서버에서 명령을 실행하고 관리자 권한을 획득한 후 웹 페이지 소스코드 열람, 서버 내 파일 조작, 백도어 프로그램 설치 등을 수행하는 공격이다.",
+    "answer": "정답: WebShell(웹쉘)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "WebShell(웹쉘)",
+        "WebShell",
+        "웹쉘",
+        "Web Shell",
+        "웹 셸"
+      ],
+      "sample": "WebShell(웹쉘)"
+    },
+    "reference": "https://attack.mitre.org/techniques/T1505/003/",
+    "sourceUrl": "https://information-security.tistory.com/284",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 7회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 7,
+    "exam": "제7회",
+    "examKey": "serial-7",
+    "originalQuestion": "7. 다음에서 설명하는 공격의 명칭을 쓰시오.\n공격자가 원격에서 웹 서버에 명령을 수행할 수 있도록 작성한 웹 스크립트 파일을 업로드하여 웹 서버에서 명령을 실행하고 관리자 권한을 획득한 후 웹 페이지 소스코드 열람, 서버 내 파일 조작, 백도어 프로그램 설치 등을 수행하는 공격이다.",
+    "originalAnswer": "정답: WebShell(웹쉘)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-7-q09",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 통제 시점에 따른 분류에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 발생 가능한 잠재적 문제들을 식별하여 사전에 대처하는 통제\n( B ) : 예방 통제를 우회하여 발생되는 문제점을 찾아내기 위한 통제\n( C ) : 탐지된 위협에 대처하거나 피해를 줄이는 통제",
+    "answer": "정답 A : 예방 통제 B : 탐지 통제 C : 교정 통제(시정 통제)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "예방 통제"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "탐지 통제"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "교정 통제(시정 통제)",
+            "교정 통제",
+            "시정 통제"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 예방 통제\nB: 탐지 통제\nC: 교정 통제(시정 통제)"
+    },
+    "reference": "https://information-security.tistory.com/284",
+    "sourceUrl": "https://information-security.tistory.com/284",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 7회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제7회",
+    "examKey": "serial-7",
+    "originalQuestion": "9. 통제 시점에 따른 분류에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 발생 가능한 잠재적 문제들을 식별하여 사전에 대처하는 통제\n( B ) : 예방 통제를 우회하여 발생되는 문제점을 찾아내기 위한 통제\n( C ) : 탐지된 위협에 대처하거나 피해를 줄이는 통제",
+    "originalAnswer": "정답 A : 예방 통제 B : 탐지 통제 C : 교정 통제(시정 통제)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-8-q04",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "4. 다음에서 설명하는 리눅스 디렉토리의 명칭을 쓰시오.\n현재 실행 중인 프로세스의 정보를 기록하고 있는 가상 파일 시스템이 위치하는 디렉토리이다.",
+    "answer": "정답: /proc",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "/proc"
+      ],
+      "sample": "/proc"
+    },
+    "reference": "https://man7.org/linux/man-pages/man5/proc.5.html",
+    "sourceUrl": "https://information-security.tistory.com/280",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 8회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 4,
+    "exam": "제8회",
+    "examKey": "serial-8",
+    "originalQuestion": "4. 다음에서 설명하는 리눅스 디렉토리의 명칭을 쓰시오.\n현재 실행 중인 프로세스의 정보를 기록하고 있는 가상 파일 시스템이 위치하는 디렉토리이다.",
+    "originalAnswer": "정답: /proc",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-8-q10",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "10. 위험 처리 방법에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 위험의 잠재 손실 비용을 감수하는 것으로, 어떤 대책을 도입하더라도 완전히 제거할 수 없어 일정 수준 이하의 위험을 감수하고 사업을 진행하는 방법 ( B ) : 위험이 존재하는 프로세스나 사업을 수행하지 않고 포기하는 방법 ( C ) : 보험이나 외주 등으로 잠재적 비용을 제3자에게 이전하거나 할당하는 방법",
+    "answer": "정답 A : 위험 수용(Risk Acceptance) B : 위험 회피(Risk Avoidance) C : 위험 전가(Risk Transfer)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "위험 수용(Risk Acceptance)",
+            "위험 수용",
+            "Risk Acceptance",
+            "위험 보유"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "위험 회피(Risk Avoidance)",
+            "위험 회피",
+            "Risk Avoidance"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "위험 전가(Risk Transfer)",
+            "위험 전가",
+            "Risk Transfer",
+            "위험 전이",
+            "위험 이전"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 위험 수용(Risk Acceptance)\nB: 위험 회피(Risk Avoidance)\nC: 위험 전가(Risk Transfer)"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+    "sourceUrl": "https://information-security.tistory.com/280",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 8회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 10,
+    "exam": "제8회",
+    "examKey": "serial-8",
+    "originalQuestion": "10. 위험 처리 방법에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 위험의 잠재 손실 비용을 감수하는 것으로, 어떤 대책을 도입하더라도 완전히 제거할 수 없어 일정 수준 이하의 위험을 감수하고 사업을 진행하는 방법 ( B ) : 위험이 존재하는 프로세스나 사업을 수행하지 않고 포기하는 방법 ( C ) : 보험이나 외주 등으로 잠재적 비용을 제3자에게 이전하거나 할당하는 방법",
+    "originalAnswer": "정답 A : 위험 수용(Risk Acceptance) B : 위험 회피(Risk Avoidance) C : 위험 전가(Risk Transfer)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-9-q02",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "2. 스머프(Smurf) 공격 과정이다. 빈칸 (A), (B), (C)를 채우시오.\n공격자가 희생자의 IP로 위조하여 ICMP ( A ) 를 브로드캐스트 주소로 전송한다. 브로드캐스트 범위 내 호스트들이 희생자 IP로 ICMP ( B ) 를 전송한다. 이를 방어하기 위해 라우터에서 ( C ) 패킷이 포워드되지 않도록 설정한다.",
+    "answer": "정답 A : Echo Request B : Echo Reply C : Directed Broadcast",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "Echo Request"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "Echo Reply"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "Directed Broadcast"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: Echo Request\nB: Echo Reply\nC: Directed Broadcast"
+    },
+    "reference": "https://www.rfc-editor.org/rfc/rfc2644.html",
+    "sourceUrl": "https://information-security.tistory.com/274",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 9회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 2,
+    "exam": "제9회",
+    "examKey": "serial-9",
+    "originalQuestion": "2. 스머프(Smurf) 공격 과정이다. 빈칸 (A), (B), (C)를 채우시오.\n공격자가 희생자의 IP로 위조하여 ICMP ( A ) 를 브로드캐스트 주소로 전송한다. 브로드캐스트 범위 내 호스트들이 희생자 IP로 ICMP ( B ) 를 전송한다. 이를 방어하기 위해 라우터에서 ( C ) 패킷이 포워드되지 않도록 설정한다.",
+    "originalAnswer": "정답 A : Echo Request B : Echo Reply C : Directed Broadcast",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-11-q01",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "1. 다음에서 설명하는 Windows 암호화 기능의 명칭을 쓰시오.\nWindows 시스템에서 하나 이상의 볼륨(드라이브)을 암호화하는 기능으로, TPM(신뢰할 수 있는 플랫폼 모듈)을 사용하여 초기 시작 구성 요소의 무결성을 검사하는 암호화 방식이다.",
+    "answer": "정답: BitLocker",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "BitLocker"
+      ],
+      "sample": "BitLocker"
+    },
+    "reference": "https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/",
+    "sourceUrl": "https://information-security.tistory.com/270",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 11회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 1,
+    "exam": "제11회",
+    "examKey": "serial-11",
+    "originalQuestion": "1. 다음에서 설명하는 Windows 암호화 기능의 명칭을 쓰시오.\nWindows 시스템에서 하나 이상의 볼륨(드라이브)을 암호화하는 기능으로, TPM(신뢰할 수 있는 플랫폼 모듈)을 사용하여 초기 시작 구성 요소의 무결성을 검사하는 암호화 방식이다.",
+    "originalAnswer": "정답: BitLocker",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-11-q04",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "4. DNS 서버(192.168.1.18)의 named.conf에 2차 DNS 서버(192.168.10.3)의 Zone Transfer를 허용하는 설정을 작성하시오.\noptions {\n    directory \"/var/named\";\n    forward only;\n    forwarders { 8.8.8.8; };\n    datasize 1024M;\n    ( 빈칸 );\n};",
+    "answer": "정답: allow-transfer { 192.168.10.3; };",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "strict": true,
+      "aliases": [
+        "allow-transfer { 192.168.10.3; };",
+        "allow-transfer{192.168.10.3;};"
+      ],
+      "sample": "allow-transfer { 192.168.10.3; };"
+    },
+    "reference": "https://bind9.readthedocs.io/en/latest/reference.html",
+    "sourceUrl": "https://information-security.tistory.com/270",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 11회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 4,
+    "exam": "제11회",
+    "examKey": "serial-11",
+    "originalQuestion": "4. DNS 서버(192.168.1.18)의 named.conf에 2차 DNS 서버(192.168.10.3)의 Zone Transfer를 허용하는 설정을 작성하시오.\noptions {\n    directory \"/var/named\";\n    forward only;\n    forwarders { 8.8.8.8; };\n    datasize 1024M;\n    ( 빈칸 );\n};",
+    "originalAnswer": "정답: allow-transfer { 192.168.10.3; };",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-11-q10",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "10. 다음에서 설명하는 공격의 명칭을 쓰시오.\n공격자가 소프트웨어 빌드 단계와 관련된 서버를 해킹한 후 악성코드를 삽입하여, 개발사가 제품 패키징(컴파일) 작업 시 정상 파일에 악성 모듈이 삽입된 상태로 배포되는 공격이다.",
+    "answer": "정답: 공급망 공격(Supply Chain Attack)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "공급망 공격(Supply Chain Attack)",
+        "공급망 공격",
+        "Supply Chain Attack",
+        "공급망"
+      ],
+      "sample": "공급망 공격(Supply Chain Attack)"
+    },
+    "reference": "https://csrc.nist.gov/glossary/term/supply_chain_attack",
+    "sourceUrl": "https://information-security.tistory.com/270",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 11회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 10,
+    "exam": "제11회",
+    "examKey": "serial-11",
+    "originalQuestion": "10. 다음에서 설명하는 공격의 명칭을 쓰시오.\n공격자가 소프트웨어 빌드 단계와 관련된 서버를 해킹한 후 악성코드를 삽입하여, 개발사가 제품 패키징(컴파일) 작업 시 정상 파일에 악성 모듈이 삽입된 상태로 배포되는 공격이다.",
+    "originalAnswer": "정답: 공급망 공격(Supply Chain Attack)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-12-q01",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "1. 다음에서 설명하는 공격 기법의 명칭을 쓰시오.\n악성코드(Malware)와 광고(Advertising)의 합성어로, 온라인 광고 네트워크를 이용하여 정상적인 광고처럼 위장하고 사용자가 광고를 클릭하거나 단순히 광고가 로드될 때 악성코드를 전파하는 기법이다.",
+    "answer": "정답: Malvertising(멀버타이징)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "Malvertising(멀버타이징)",
+        "Malvertising",
+        "멀버타이징"
+      ],
+      "sample": "Malvertising(멀버타이징)"
+    },
+    "reference": "https://information-security.tistory.com/269",
+    "sourceUrl": "https://information-security.tistory.com/269",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 12회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 1,
+    "exam": "제12회",
+    "examKey": "serial-12",
+    "originalQuestion": "1. 다음에서 설명하는 공격 기법의 명칭을 쓰시오.\n악성코드(Malware)와 광고(Advertising)의 합성어로, 온라인 광고 네트워크를 이용하여 정상적인 광고처럼 위장하고 사용자가 광고를 클릭하거나 단순히 광고가 로드될 때 악성코드를 전파하는 기법이다.",
+    "originalAnswer": "정답: Malvertising(멀버타이징)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-13-q01",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "1. 다음에서 설명하는 네트워크 공격 기법의 명칭을 쓰시오.\n공격자가 MAC 주소를 위조한 ARP Reply 패킷을 희생자에게 지속적으로 전송하여 희생자의 ARP 캐시 테이블을 변조하고, 희생자의 패킷이 공격자에게 전달되도록 만들어 네트워크 트래픽을 도청하는 기법이다.",
+    "answer": "정답: ARP Spoofing(ARP 스푸핑)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "ARP Spoofing(ARP 스푸핑)",
+        "ARP Spoofing",
+        "ARP 스푸핑"
+      ],
+      "sample": "ARP Spoofing(ARP 스푸핑)"
+    },
+    "reference": "https://man7.org/linux/man-pages/man8/arp.8.html",
+    "sourceUrl": "https://information-security.tistory.com/260",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 13회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 1,
+    "exam": "제13회",
+    "examKey": "serial-13",
+    "originalQuestion": "1. 다음에서 설명하는 네트워크 공격 기법의 명칭을 쓰시오.\n공격자가 MAC 주소를 위조한 ARP Reply 패킷을 희생자에게 지속적으로 전송하여 희생자의 ARP 캐시 테이블을 변조하고, 희생자의 패킷이 공격자에게 전달되도록 만들어 네트워크 트래픽을 도청하는 기법이다.",
+    "originalAnswer": "정답: ARP Spoofing(ARP 스푸핑)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-13-q04",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "4. 다음에서 설명하는 서비스의 명칭을 쓰시오.\n대규모 데이터 저장소의 부하를 줄이기 위해 데이터를 캐시에 저장하는 도구로, 최근 이 서비스를 이용한 대규모 DDoS 증폭 공격이 발생하였다. 인터넷에 노출된 해당 서버가 별도 권한 설정 없이 공격 증폭 수단으로 악용될 수 있다.",
+    "answer": "정답: Memcached(멤캐시드)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "Memcached(멤캐시드)",
+        "Memcached",
+        "멤캐시드"
+      ],
+      "sample": "Memcached(멤캐시드)"
+    },
+    "reference": "https://information-security.tistory.com/260",
+    "sourceUrl": "https://information-security.tistory.com/260",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 13회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 4,
+    "exam": "제13회",
+    "examKey": "serial-13",
+    "originalQuestion": "4. 다음에서 설명하는 서비스의 명칭을 쓰시오.\n대규모 데이터 저장소의 부하를 줄이기 위해 데이터를 캐시에 저장하는 도구로, 최근 이 서비스를 이용한 대규모 DDoS 증폭 공격이 발생하였다. 인터넷에 노출된 해당 서버가 별도 권한 설정 없이 공격 증폭 수단으로 악용될 수 있다.",
+    "originalAnswer": "정답: Memcached(멤캐시드)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-13-q08",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "8. 어떤 기업이 위험에 대한 대응 전략으로 보험에 가입하는 방법을 선택하였다. 이는 어떤 위험 대응 전략인지 쓰시오.",
+    "answer": "정답: 위험 전가(Risk Transfer)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "위험 전가(Risk Transfer)",
+        "위험 전가",
+        "Risk Transfer",
+        "위험 전이",
+        "위험 이전"
+      ],
+      "sample": "위험 전가(Risk Transfer)"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+    "sourceUrl": "https://information-security.tistory.com/260",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 13회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 8,
+    "exam": "제13회",
+    "examKey": "serial-13",
+    "originalQuestion": "8. 어떤 기업이 위험에 대한 대응 전략으로 보험에 가입하는 방법을 선택하였다. 이는 어떤 위험 대응 전략인지 쓰시오.",
+    "originalAnswer": "정답: 위험 전가(Risk Transfer)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-15-q04",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "4. 다음에서 설명하는 DDoS 공격 기법의 명칭을 쓰시오.\nReflection 공격의 일종으로 UDP 1900번 포트를 사용하는 UPnP 표준 프로토콜을 악용하여 IoT 디바이스를 반사체로 삼아 공격 대상에게 증폭된 트래픽을 전송하는 공격이다.",
+    "answer": "정답: SSDP DRDoS(SSDP 분산 반사 서비스 거부 공격)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "SSDP DRDoS(SSDP 분산 반사 서비스 거부 공격)",
+        "SSDP DRDoS",
+        "SSDP 분산 반사 서비스 거부 공격"
+      ],
+      "sample": "SSDP DRDoS(SSDP 분산 반사 서비스 거부 공격)"
+    },
+    "reference": "https://information-security.tistory.com/417",
+    "sourceUrl": "https://information-security.tistory.com/417",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 15회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 4,
+    "exam": "제15회",
+    "examKey": "serial-15",
+    "originalQuestion": "4. 다음에서 설명하는 DDoS 공격 기법의 명칭을 쓰시오.\nReflection 공격의 일종으로 UDP 1900번 포트를 사용하는 UPnP 표준 프로토콜을 악용하여 IoT 디바이스를 반사체로 삼아 공격 대상에게 증폭된 트래픽을 전송하는 공격이다.",
+    "originalAnswer": "정답: SSDP DRDoS(SSDP 분산 반사 서비스 거부 공격)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-15-q07",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "7. 다음에서 설명하는 SSL/TLS 취약점 공격의 명칭을 쓰시오.\nSSL/TLS 협상 시 버전을 다운그레이드시켜 SSL 3.0을 사용하게 한 후 중간자 공격을 통해 정보를 탈취하는 공격이다. CBC 모드를 사용하는 경우 패딩된 암호 블록이 MAC에 의해 보호되지 않는 취약점을 이용한다.",
+    "answer": "정답: POODLE(Padding Oracle on Downgraded Legacy Encryption) 공격",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "POODLE(Padding Oracle on Downgraded Legacy Encryption) 공격",
+        "POODLE 공격",
+        "Padding Oracle on Downgraded Legacy Encryption",
+        "POODLE"
+      ],
+      "sample": "POODLE(Padding Oracle on Downgraded Legacy Encryption) 공격"
+    },
+    "reference": "https://information-security.tistory.com/417",
+    "sourceUrl": "https://information-security.tistory.com/417",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 15회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 7,
+    "exam": "제15회",
+    "examKey": "serial-15",
+    "originalQuestion": "7. 다음에서 설명하는 SSL/TLS 취약점 공격의 명칭을 쓰시오.\nSSL/TLS 협상 시 버전을 다운그레이드시켜 SSL 3.0을 사용하게 한 후 중간자 공격을 통해 정보를 탈취하는 공격이다. CBC 모드를 사용하는 경우 패딩된 암호 블록이 MAC에 의해 보호되지 않는 취약점을 이용한다.",
+    "originalAnswer": "정답: POODLE(Padding Oracle on Downgraded Legacy Encryption) 공격",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-15-q09",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 자산 및 시스템의 위험을 평가하여 수용 가능한 수준으로 위험을 완화하기 위한 대응책을 수립하는 일련의 과정을 무엇이라 하는가?",
+    "answer": "정답: 위험관리(Risk Management)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "위험관리(Risk Management)",
+        "위험관리",
+        "Risk Management"
+      ],
+      "sample": "위험관리(Risk Management)"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+    "sourceUrl": "https://information-security.tistory.com/417",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 15회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제15회",
+    "examKey": "serial-15",
+    "originalQuestion": "9. 자산 및 시스템의 위험을 평가하여 수용 가능한 수준으로 위험을 완화하기 위한 대응책을 수립하는 일련의 과정을 무엇이라 하는가?",
+    "originalAnswer": "정답: 위험관리(Risk Management)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-16-q05",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "5. 다음에서 설명하는 보안 솔루션의 명칭과 영문 약어를 쓰시오.\n엔드포인트 영역에 대한 지속적인 모니터링을 통해 행위 기반 위협 탐지·분석 및 대응 기능을 제공하는 솔루션이다.",
+    "answer": "정답: EDR(Endpoint Detection & Response)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "EDR(Endpoint Detection & Response)",
+        "EDR",
+        "Endpoint Detection & Response"
+      ],
+      "sample": "EDR(Endpoint Detection & Response)"
+    },
+    "reference": "https://information-security.tistory.com/764",
+    "sourceUrl": "https://information-security.tistory.com/764",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 16회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 5,
+    "exam": "제16회",
+    "examKey": "serial-16",
+    "originalQuestion": "5. 다음에서 설명하는 보안 솔루션의 명칭과 영문 약어를 쓰시오.\n엔드포인트 영역에 대한 지속적인 모니터링을 통해 행위 기반 위협 탐지·분석 및 대응 기능을 제공하는 솔루션이다.",
+    "originalAnswer": "정답: EDR(Endpoint Detection & Response)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-16-q10",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "10. 전송 계층 프로토콜인 UDP 기반으로 통신 시 SSL/TLS와 유사한 보안 기능을 제공하는 프로토콜의 명칭을 쓰시오.",
+    "answer": "정답: DTLS(Datagram Transport Layer Security)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "DTLS(Datagram Transport Layer Security)",
+        "DTLS",
+        "Datagram Transport Layer Security"
+      ],
+      "sample": "DTLS(Datagram Transport Layer Security)"
+    },
+    "reference": "https://www.rfc-editor.org/rfc/rfc9147.html",
+    "sourceUrl": "https://information-security.tistory.com/764",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 16회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 10,
+    "exam": "제16회",
+    "examKey": "serial-16",
+    "originalQuestion": "10. 전송 계층 프로토콜인 UDP 기반으로 통신 시 SSL/TLS와 유사한 보안 기능을 제공하는 프로토콜의 명칭을 쓰시오.",
+    "originalAnswer": "정답: DTLS(Datagram Transport Layer Security)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-18-q02",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "2. Virustotal에서 제작하였으며, 악성코드의 특성과 행위에 포함된 패턴을 이용하여 악성코드를 분류하는 도구의 명칭을 쓰시오.",
+    "answer": "정답: YARA",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "YARA"
+      ],
+      "sample": "YARA"
+    },
+    "reference": "https://github.com/VirusTotal/yara",
+    "sourceUrl": "https://information-security.tistory.com/572",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 18회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 2,
+    "exam": "제18회",
+    "examKey": "serial-18",
+    "originalQuestion": "2. Virustotal에서 제작하였으며, 악성코드의 특성과 행위에 포함된 패턴을 이용하여 악성코드를 분류하는 도구의 명칭을 쓰시오.",
+    "originalAnswer": "정답: YARA",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-18-q03",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "3. 소프트웨어 개발 보안 관련 취약점에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : DB와 연결된 애플리케이션의 입력값을 조작하여 의도하지 않은 쿼리 결과를\n반환하도록 하는 공격 기법\n( B ) : 게시판, 웹, 메일 등에 삽입된 악의적인 스크립트에 의해 쿠키 및 기타\n개인정보를 특정 사이트로 전송시키는 공격 기법\n( C ) : 적절한 검증 없이 사용자 입력값이 운영체제 명령어의 일부로 전달되어\n의도하지 않은 시스템 명령어가 실행되도록 하는 공격 기법",
+    "answer": "정답 A : SQL Injection B : XSS(Cross Site Script) C : 운영체제 명령어 삽입(OS Command Injection)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "SQL Injection",
+            "SQL 인젝션",
+            "SQL 삽입",
+            "SQL 주입"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "XSS(Cross Site Script)",
+            "XSS",
+            "Cross Site Script",
+            "Cross Site Scripting",
+            "크로스 사이트 스크립팅",
+            "크로스사이트 스크립팅"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "운영체제 명령어 삽입(OS Command Injection)",
+            "운영체제 명령어 삽입",
+            "OS Command Injection"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: SQL Injection\nB: XSS(Cross Site Script)\nC: 운영체제 명령어 삽입(OS Command Injection)"
+    },
+    "reference": "https://law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1029332009",
+    "sourceUrl": "https://information-security.tistory.com/572",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 18회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 3,
+    "exam": "제18회",
+    "examKey": "serial-18",
+    "originalQuestion": "3. 소프트웨어 개발 보안 관련 취약점에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : DB와 연결된 애플리케이션의 입력값을 조작하여 의도하지 않은 쿼리 결과를\n반환하도록 하는 공격 기법\n( B ) : 게시판, 웹, 메일 등에 삽입된 악의적인 스크립트에 의해 쿠키 및 기타\n개인정보를 특정 사이트로 전송시키는 공격 기법\n( C ) : 적절한 검증 없이 사용자 입력값이 운영체제 명령어의 일부로 전달되어\n의도하지 않은 시스템 명령어가 실행되도록 하는 공격 기법",
+    "originalAnswer": "정답 A : SQL Injection B : XSS(Cross Site Script) C : 운영체제 명령어 삽입(OS Command Injection)",
+    "correction": "XSS의 정식 명칭은 Cross-Site Scripting입니다.",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-18-q04",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "4. 마이크로소프트 오피스와 애플리케이션 사이에서 데이터를 전달하는 프로토콜로, 엑셀에서 이 기능이 활성화되면 악용될 수 있는 프로토콜의 명칭을 쓰시오.",
+    "answer": "정답: DDE(Dynamic Data Exchange)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "DDE(Dynamic Data Exchange)",
+        "DDE",
+        "Dynamic Data Exchange"
+      ],
+      "sample": "DDE(Dynamic Data Exchange)"
+    },
+    "reference": "https://information-security.tistory.com/572",
+    "sourceUrl": "https://information-security.tistory.com/572",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 18회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 4,
+    "exam": "제18회",
+    "examKey": "serial-18",
+    "originalQuestion": "4. 마이크로소프트 오피스와 애플리케이션 사이에서 데이터를 전달하는 프로토콜로, 엑셀에서 이 기능이 활성화되면 악용될 수 있는 프로토콜의 명칭을 쓰시오.",
+    "originalAnswer": "정답: DDE(Dynamic Data Exchange)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-18-q05",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "5. 위험 관리 구성 요소에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : ( B )으로부터 보호해야 할 대상\n( B ) : ( A )에 손실을 발생시키는 원인이나 행위\n( C ) : ( B )에 의하여 손실이 발생하게 되는 ( A )에 내재된 약점",
+    "answer": "정답 A : 자산(Asset) B : 위협(Threat) C : 취약점(Vulnerability)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "자산(Asset)",
+            "자산",
+            "Asset"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "위협(Threat)",
+            "위협",
+            "Threat"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "취약점(Vulnerability)",
+            "취약점",
+            "Vulnerability"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 자산(Asset)\nB: 위협(Threat)\nC: 취약점(Vulnerability)"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+    "sourceUrl": "https://information-security.tistory.com/572",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 18회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 5,
+    "exam": "제18회",
+    "examKey": "serial-18",
+    "originalQuestion": "5. 위험 관리 구성 요소에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : ( B )으로부터 보호해야 할 대상\n( B ) : ( A )에 손실을 발생시키는 원인이나 행위\n( C ) : ( B )에 의하여 손실이 발생하게 되는 ( A )에 내재된 약점",
+    "originalAnswer": "정답 A : 자산(Asset) B : 위협(Threat) C : 취약점(Vulnerability)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-18-q09",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 다음에서 설명하는 HTTP 관련 공격의 명칭을 쓰시오.\nHTTP 헤더의 CRLF(개행문자) 필드를 조작하여 불완전한 HTTP 헤더를 웹 서버로 지속적으로 전송함으로써 서버의 연결 자원을 고갈시켜 서비스의 가용성을 저하시키는 공격이다.",
+    "answer": "정답: Slow HTTP Header DoS 공격(Slowloris)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "Slow HTTP Header DoS 공격(Slowloris)",
+        "Slow HTTP Header DoS 공격",
+        "Slowloris",
+        "Slow HTTP Header DoS"
+      ],
+      "sample": "Slow HTTP Header DoS 공격(Slowloris)"
+    },
+    "reference": "https://httpd.apache.org/docs/2.4/mod/mod_reqtimeout.html",
+    "sourceUrl": "https://information-security.tistory.com/572",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 18회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제18회",
+    "examKey": "serial-18",
+    "originalQuestion": "9. 다음에서 설명하는 HTTP 관련 공격의 명칭을 쓰시오.\nHTTP 헤더의 CRLF(개행문자) 필드를 조작하여 불완전한 HTTP 헤더를 웹 서버로 지속적으로 전송함으로써 서버의 연결 자원을 고갈시켜 서비스의 가용성을 저하시키는 공격이다.",
+    "originalAnswer": "정답: Slow HTTP Header DoS 공격(Slowloris)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-19-q01",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "1. 위험 관리 구성 요소에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : ( B )로부터 보호해야 할 대상\n( B ) : ( A )에 손실을 발생시키는 원인이나 행위\n( C ) : ( B )에 의하여 손실이 발생하게 되는 ( A )에 내재된 약점",
+    "answer": "정답 A : 자산(Asset) B : 위협(Threat) C : 취약점(Vulnerability)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "자산(Asset)",
+            "자산",
+            "Asset"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "위협(Threat)",
+            "위협",
+            "Threat"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "취약점(Vulnerability)",
+            "취약점",
+            "Vulnerability"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 자산(Asset)\nB: 위협(Threat)\nC: 취약점(Vulnerability)"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+    "sourceUrl": "https://information-security.tistory.com/573",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기  19회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 1,
+    "exam": "제19회",
+    "examKey": "serial-19",
+    "originalQuestion": "1. 위험 관리 구성 요소에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : ( B )로부터 보호해야 할 대상\n( B ) : ( A )에 손실을 발생시키는 원인이나 행위\n( C ) : ( B )에 의하여 손실이 발생하게 되는 ( A )에 내재된 약점",
+    "originalAnswer": "정답 A : 자산(Asset) B : 위협(Threat) C : 취약점(Vulnerability)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-19-q02",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "2. 네트워크 진입 시 단말과 사용자를 인증하고, 단말에 대한 지속적인 보안 취약점 점검과 통제를 통해 내부 시스템을 보호하는 솔루션의 명칭과 영문 약어를 쓰시오.",
+    "answer": "정답: NAC(Network Access Control)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "NAC(Network Access Control)",
+        "NAC",
+        "Network Access Control"
+      ],
+      "sample": "NAC(Network Access Control)"
+    },
+    "reference": "https://information-security.tistory.com/573",
+    "sourceUrl": "https://information-security.tistory.com/573",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기  19회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 2,
+    "exam": "제19회",
+    "examKey": "serial-19",
+    "originalQuestion": "2. 네트워크 진입 시 단말과 사용자를 인증하고, 단말에 대한 지속적인 보안 취약점 점검과 통제를 통해 내부 시스템을 보호하는 솔루션의 명칭과 영문 약어를 쓰시오.",
+    "originalAnswer": "정답: NAC(Network Access Control)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-19-q03",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "3. 여러 개의 프로세스가 공유 자원에 동시에 접근할 때 접근하는 순서에 따라 비정상적인 결과가 발생하는 상황을 악용하는 공격 기법의 명칭을 쓰시오.",
+    "answer": "정답: Race Condition 공격(레이스 컨디션 공격)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "Race Condition 공격(레이스 컨디션 공격)",
+        "Race Condition 공격",
+        "레이스 컨디션 공격",
+        "Race Condition"
+      ],
+      "sample": "Race Condition 공격(레이스 컨디션 공격)"
+    },
+    "reference": "https://cwe.mitre.org/data/definitions/362.html",
+    "sourceUrl": "https://information-security.tistory.com/573",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기  19회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 3,
+    "exam": "제19회",
+    "examKey": "serial-19",
+    "originalQuestion": "3. 여러 개의 프로세스가 공유 자원에 동시에 접근할 때 접근하는 순서에 따라 비정상적인 결과가 발생하는 상황을 악용하는 공격 기법의 명칭을 쓰시오.",
+    "originalAnswer": "정답: Race Condition 공격(레이스 컨디션 공격)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-19-q05",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "5. IDS에 관한 설명이다. 빈칸 (A), (B)를 채우시오.\nIDS는 네트워크 패킷만 보고 공격을 탐지하는 ( A ) 기반 IDS와 서버에 직접 설치되어 관리자 권한 탈취 등으로 인해 발생하는 공격을 탐지하는 ( B ) 기반 IDS로 구분된다.",
+    "answer": "정답 A : 네트워크(NIDS) B : 호스트(HIDS)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "네트워크(NIDS)",
+            "네트워크",
+            "NIDS"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "호스트(HIDS)",
+            "호스트",
+            "HIDS"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 네트워크(NIDS)\nB: 호스트(HIDS)"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/94/final",
+    "sourceUrl": "https://information-security.tistory.com/573",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기  19회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 5,
+    "exam": "제19회",
+    "examKey": "serial-19",
+    "originalQuestion": "5. IDS에 관한 설명이다. 빈칸 (A), (B)를 채우시오.\nIDS는 네트워크 패킷만 보고 공격을 탐지하는 ( A ) 기반 IDS와 서버에 직접 설치되어 관리자 권한 탈취 등으로 인해 발생하는 공격을 탐지하는 ( B ) 기반 IDS로 구분된다.",
+    "originalAnswer": "정답 A : 네트워크(NIDS) B : 호스트(HIDS)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-20-q01",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "1. 다음은 특정 명령어를 수행한 결과이다. 빈칸에 들어갈 HTTP 메소드를 쓰시오.\nroot@kali:~# telnet webserver.com 80\nConnected to webserver.com.\n( ) * HTTP/1.0\nHTTP/1.1 200 OK\nServer: Microsoft-IIS/5.0\nAllow: GET,HEAD,POST,OPTIONS,TRACE",
+    "answer": "정답: OPTIONS",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "OPTIONS"
+      ],
+      "sample": "OPTIONS"
+    },
+    "reference": "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "sourceUrl": "https://information-security.tistory.com/574",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기  20회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 1,
+    "exam": "제20회",
+    "examKey": "serial-20",
+    "originalQuestion": "1. 다음은 특정 명령어를 수행한 결과이다. 빈칸에 들어갈 HTTP 메소드를 쓰시오.\nroot@kali:~# telnet webserver.com 80\nConnected to webserver.com.\n( ) * HTTP/1.0\nHTTP/1.1 200 OK\nServer: Microsoft-IIS/5.0\nAllow: GET,HEAD,POST,OPTIONS,TRACE",
+    "originalAnswer": "정답: OPTIONS",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-20-q03",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "3. 위험 분석 접근법에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 모든 시스템에 대해 보호의 기본 수준을 정하고, 표준화된 체크리스트를 기반으로 보호 대책을 선택하는 방식\n( B ) : 정립된 모델에 기초하여 자산 분석, 위협 분석, 취약성 분석의 각 단계를 수행하여 위험을 평가하는 방식\n( C ) : 고위험 영역을 식별하여 상세 위험 분석을 수행하고, 다른 영역은 베이스라인 접근법을 사용하는 방식",
+    "answer": "정답 A : 베이스라인(기준) 접근법 B : 상세 위험 분석 C : 복합 접근법",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "베이스라인(기준) 접근법",
+            "베이스라인 접근법",
+            "기준"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "상세 위험 분석"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "복합 접근법"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 베이스라인(기준) 접근법\nB: 상세 위험 분석\nC: 복합 접근법"
+    },
+    "reference": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+    "sourceUrl": "https://information-security.tistory.com/574",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기  20회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 3,
+    "exam": "제20회",
+    "examKey": "serial-20",
+    "originalQuestion": "3. 위험 분석 접근법에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 모든 시스템에 대해 보호의 기본 수준을 정하고, 표준화된 체크리스트를 기반으로 보호 대책을 선택하는 방식\n( B ) : 정립된 모델에 기초하여 자산 분석, 위협 분석, 취약성 분석의 각 단계를 수행하여 위험을 평가하는 방식\n( C ) : 고위험 영역을 식별하여 상세 위험 분석을 수행하고, 다른 영역은 베이스라인 접근법을 사용하는 방식",
+    "originalAnswer": "정답 A : 베이스라인(기준) 접근법 B : 상세 위험 분석 C : 복합 접근법",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-20-q04",
+    "subject": "정보보안일반",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "4. 접근 통제 정책에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 사용자나 사용자 그룹에 근거한 사용자 중심의 접근 제어를 수행하는 방법\n( B ) : 모든 객체는 정보의 비밀 수준에 근거하여 보안 레벨이 주어지고 허가된 사용자만 접근 가능하도록 제어하는 방법 (\nC ) : 사용자와 객체 상호관계를 역할을 기반으로 접근 권한을 부여하는 방법",
+    "answer": "정답 A : DAC(임의적 접근 통제) B : MAC(강제적 접근 통제) C : RBAC(역할 기반 접근 통제)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "DAC(임의적 접근 통제)",
+            "DAC",
+            "임의적 접근 통제"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "MAC(강제적 접근 통제)",
+            "MAC",
+            "강제적 접근 통제"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "RBAC(역할 기반 접근 통제)",
+            "RBAC",
+            "역할 기반 접근 통제"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: DAC(임의적 접근 통제)\nB: MAC(강제적 접근 통제)\nC: RBAC(역할 기반 접근 통제)"
+    },
+    "reference": "https://information-security.tistory.com/574",
+    "sourceUrl": "https://information-security.tistory.com/574",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기  20회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 4,
+    "exam": "제20회",
+    "examKey": "serial-20",
+    "originalQuestion": "4. 접근 통제 정책에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 사용자나 사용자 그룹에 근거한 사용자 중심의 접근 제어를 수행하는 방법\n( B ) : 모든 객체는 정보의 비밀 수준에 근거하여 보안 레벨이 주어지고 허가된 사용자만 접근 가능하도록 제어하는 방법 (\nC ) : 사용자와 객체 상호관계를 역할을 기반으로 접근 권한을 부여하는 방법",
+    "originalAnswer": "정답 A : DAC(임의적 접근 통제) B : MAC(강제적 접근 통제) C : RBAC(역할 기반 접근 통제)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-20-q05",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "5. IDS에 관한 설명이다. 빈칸 (A), (B)를 채우시오.\n( A ) : 정상적인 행위를 이상행위로 잘못 판단하여 탐지하는 상황\n( B ) : 실제 이상행위를 탐지하지 못하는 상황",
+    "answer": "정답 A : 오탐(False Positive) B : 미탐(False Negative)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "오탐(False Positive)",
+            "오탐",
+            "False Positive"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "미탐(False Negative)",
+            "미탐",
+            "False Negative"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 오탐(False Positive)\nB: 미탐(False Negative)"
+    },
+    "reference": "https://csrc.nist.gov/glossary/term/false_positive",
+    "sourceUrl": "https://information-security.tistory.com/574",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기  20회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 5,
+    "exam": "제20회",
+    "examKey": "serial-20",
+    "originalQuestion": "5. IDS에 관한 설명이다. 빈칸 (A), (B)를 채우시오.\n( A ) : 정상적인 행위를 이상행위로 잘못 판단하여 탐지하는 상황\n( B ) : 실제 이상행위를 탐지하지 못하는 상황",
+    "originalAnswer": "정답 A : 오탐(False Positive) B : 미탐(False Negative)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-20-q07",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "7. 다음에서 설명하는 용어를 각각 쓰시오.\n( A ) : 사토시 나카모토가 개발한 가상화폐\n( B ) : (A)에서 거래 데이터를 기록하는 분산 원장 저장소\n( C ) : Hash 연산을 수행하여 발생된 거래를 증명한 대가로 (A)를 획득하는 행위",
+    "answer": "정답 A : 비트코인(Bitcoin) B : 블록체인(Blockchain) C : 채굴(마이닝, Mining)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "비트코인(Bitcoin)",
+            "비트코인",
+            "Bitcoin"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "블록체인(Blockchain)",
+            "블록체인",
+            "Blockchain"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "채굴(마이닝, Mining)",
+            "채굴",
+            "마이닝",
+            "Mining"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 비트코인(Bitcoin)\nB: 블록체인(Blockchain)\nC: 채굴(마이닝, Mining)"
+    },
+    "reference": "https://information-security.tistory.com/574",
+    "sourceUrl": "https://information-security.tistory.com/574",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기  20회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 7,
+    "exam": "제20회",
+    "examKey": "serial-20",
+    "originalQuestion": "7. 다음에서 설명하는 용어를 각각 쓰시오.\n( A ) : 사토시 나카모토가 개발한 가상화폐\n( B ) : (A)에서 거래 데이터를 기록하는 분산 원장 저장소\n( C ) : Hash 연산을 수행하여 발생된 거래를 증명한 대가로 (A)를 획득하는 행위",
+    "originalAnswer": "정답 A : 비트코인(Bitcoin) B : 블록체인(Blockchain) C : 채굴(마이닝, Mining)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-20-q09",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 다음에서 설명하는 공격의 명칭을 쓰시오.\n클라우드 서비스 이용을 위해 서브 도메인에 CNAME을 설정하여 사용하다가, 서비스 이용을 중지하였지만 DNS의 CNAME 설정은 삭제하지 않아 공격자가 해당 서브 도메인을 자신의 서버로 연결하여 피싱 사이트 등으로 악용하는 공격이다.",
+    "answer": "정답: 서브도메인 하이재킹 또는 서브도메인 테이크오버(Subdomain Takeover)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "서브도메인 하이재킹 또는 서브도메인 테이크오버(Subdomain Takeover)",
+        "서브도메인 하이재킹 또는 서브도메인 테이크오버",
+        "Subdomain Takeover",
+        "서브도메인 하이재킹",
+        "서브도메인 테이크오버"
+      ],
+      "sample": "서브도메인 하이재킹 또는 서브도메인 테이크오버(Subdomain Takeover)"
+    },
+    "reference": "https://bind9.readthedocs.io/en/latest/reference.html",
+    "sourceUrl": "https://information-security.tistory.com/574",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기  20회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제20회",
+    "examKey": "serial-20",
+    "originalQuestion": "9. 다음에서 설명하는 공격의 명칭을 쓰시오.\n클라우드 서비스 이용을 위해 서브 도메인에 CNAME을 설정하여 사용하다가, 서비스 이용을 중지하였지만 DNS의 CNAME 설정은 삭제하지 않아 공격자가 해당 서브 도메인을 자신의 서버로 연결하여 피싱 사이트 등으로 악용하는 공격이다.",
+    "originalAnswer": "정답: 서브도메인 하이재킹 또는 서브도메인 테이크오버(Subdomain Takeover)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-22-q08",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "8. DNS 서비스에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n(1) DNS 서비스는 53번 포트를 사용하고 전송 계층 프로토콜로 ( A )를 사용한다.\n(2) DNS 서버는 반복적인 질의로 상위 DNS에 가해지는 부하를 줄이기 위해 ( B )를 사용하는데, 해당 정보가 유지되는 기간을 ( C )라고 한다.",
+    "answer": "정답 A : UDP(또는 TCP) B : Cache(DNS 캐시) C : TTL(Time To Live)",
+    "explanation": "DNS는 UDP와 TCP를 모두 사용합니다. TCP는 영역 전송에만 한정되지 않습니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "UDP(또는 TCP)",
+            "UDP",
+            "TCP"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "Cache(DNS 캐시)",
+            "Cache",
+            "DNS 캐시"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "TTL(Time To Live)",
+            "TTL",
+            "Time To Live"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: UDP(또는 TCP)\nB: Cache(DNS 캐시)\nC: TTL(Time To Live)"
+    },
+    "reference": "https://bind9.readthedocs.io/en/latest/reference.html",
+    "sourceUrl": "https://information-security.tistory.com/726",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 22회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 8,
+    "exam": "제22회",
+    "examKey": "serial-22",
+    "originalQuestion": "8. DNS 서비스에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n(1) DNS 서비스는 53번 포트를 사용하고 전송 계층 프로토콜로 ( A )를 사용한다.\n(2) DNS 서버는 반복적인 질의로 상위 DNS에 가해지는 부하를 줄이기 위해 ( B )를 사용하는데, 해당 정보가 유지되는 기간을 ( C )라고 한다.",
+    "originalAnswer": "정답 A : UDP(또는 TCP) B : Cache(DNS 캐시) C : TTL(Time To Live)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-22-q09",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 다음에서 설명하는 소프트웨어 테스트 방식의 명칭을 각각 쓰시오.\n( A ) : 애플리케이션의 소스 코드를 보지 않고 외부 인터페이스나 구조를 분석하여 취약점을 발견하는 방식\n( B ) : 개발된 소스 코드를 직접 분석하여 코딩상의 취약점을 찾는 방식",
+    "answer": "정답 A : 블랙박스 테스트(Black Box Test) B : 화이트박스 테스트(White Box Test)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "블랙박스 테스트(Black Box Test)",
+            "블랙박스 테스트",
+            "Black Box Test"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "화이트박스 테스트(White Box Test)",
+            "화이트박스 테스트",
+            "White Box Test"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 블랙박스 테스트(Black Box Test)\nB: 화이트박스 테스트(White Box Test)"
+    },
+    "reference": "https://information-security.tistory.com/726",
+    "sourceUrl": "https://information-security.tistory.com/726",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 22회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제22회",
+    "examKey": "serial-22",
+    "originalQuestion": "9. 다음에서 설명하는 소프트웨어 테스트 방식의 명칭을 각각 쓰시오.\n( A ) : 애플리케이션의 소스 코드를 보지 않고 외부 인터페이스나 구조를 분석하여 취약점을 발견하는 방식\n( B ) : 개발된 소스 코드를 직접 분석하여 코딩상의 취약점을 찾는 방식",
+    "originalAnswer": "정답 A : 블랙박스 테스트(Black Box Test) B : 화이트박스 테스트(White Box Test)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-23-q06",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "6. 다음 SQL Injection 대응 방법 설명에서 빈칸에 들어갈 용어를 쓰시오.\n파라미터를 받는 ( ) 객체를 상수 스트링(?)으로 정의하고, 파라미터를 setString과 같은 메소드로 설정하면 외부의 입력이 쿼리문의 구조를 바꾸는 것을 예방할 수 있다.",
+    "answer": "정답: Prepared Statement",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "Prepared Statement"
+      ],
+      "sample": "Prepared Statement"
+    },
+    "reference": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+    "sourceUrl": "https://information-security.tistory.com/727",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 23회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 6,
+    "exam": "제23회",
+    "examKey": "serial-23",
+    "originalQuestion": "6. 다음 SQL Injection 대응 방법 설명에서 빈칸에 들어갈 용어를 쓰시오.\n파라미터를 받는 ( ) 객체를 상수 스트링(?)으로 정의하고, 파라미터를 setString과 같은 메소드로 설정하면 외부의 입력이 쿼리문의 구조를 바꾸는 것을 예방할 수 있다.",
+    "originalAnswer": "정답: Prepared Statement",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-23-q07",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "7. 리눅스 PAM 모듈의 종류에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n(A ) : 실질적인 인증 기능, 패스워드 확인을 담당하는 모듈 ( B ) : 사용자의 시스템 사용 권한을 확인하는 모듈 password : 패스워드를 설정하거나 확인하는 데 사용하는 모듈 ( C ) : 사용자가 인증 성공 시 세션을 맺어주는 모듈",
+    "answer": "정답 A : auth B : account C : session",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "auth"
+          ],
+          "strict": true
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "account"
+          ],
+          "strict": true
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "session"
+          ],
+          "strict": true
+        }
+      ],
+      "sample": "A: auth\nB: account\nC: session"
+    },
+    "reference": "https://man7.org/linux/man-pages/man8/pam.8.html",
+    "sourceUrl": "https://information-security.tistory.com/727",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 23회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 7,
+    "exam": "제23회",
+    "examKey": "serial-23",
+    "originalQuestion": "7. 리눅스 PAM 모듈의 종류에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n(A ) : 실질적인 인증 기능, 패스워드 확인을 담당하는 모듈 ( B ) : 사용자의 시스템 사용 권한을 확인하는 모듈 password : 패스워드를 설정하거나 확인하는 데 사용하는 모듈 ( C ) : 사용자가 인증 성공 시 세션을 맺어주는 모듈",
+    "originalAnswer": "정답 A : auth B : account C : session",
+    "correction": "PAM의 auth는 인증, password는 인증 토큰(주로 비밀번호)의 변경을 담당합니다. 원문의 password 설명에서 확인과 변경을 혼동하지 않도록 주의하세요.",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-23-q08",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "8. 다음에서 설명하는 보안 테스트 도구의 명칭을 쓰시오.\nSalvatore Sanfilippo가 개발하였으며 ICMP, TCP, UDP 등 다양한 프로토콜을 지원한다. 다량의 공격용 패킷을 생성하여 DDoS 훈련 목적으로도 사용하는 도구이다.",
+    "answer": "정답: hping3",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "hping3"
+      ],
+      "sample": "hping3",
+      "strict": true
+    },
+    "reference": "https://github.com/antirez/hping",
+    "sourceUrl": "https://information-security.tistory.com/727",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 23회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 8,
+    "exam": "제23회",
+    "examKey": "serial-23",
+    "originalQuestion": "8. 다음에서 설명하는 보안 테스트 도구의 명칭을 쓰시오.\nSalvatore Sanfilippo가 개발하였으며 ICMP, TCP, UDP 등 다양한 프로토콜을 지원한다. 다량의 공격용 패킷을 생성하여 DDoS 훈련 목적으로도 사용하는 도구이다.",
+    "originalAnswer": "정답: hping3",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-23-q09",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 보안 점검 도구에 관한 설명이다. 빈칸 (A), (B)를 채우시오.\nTripwire는 파일 시스템의 ( A )을 점검하는 도구이다. ( B )는 미국 Tenable사가 개발하였고 네트워크에 연결된 다양한 시스템에 대해 자동화된 취약점 스캔을 지원하며 광범위한 취약점 DB를 보유한다.",
+    "answer": "정답 A : 무결성 B : Nessus",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "무결성",
+            "Integrity",
+            "파일 무결성"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "Nessus",
+            "네서스",
+            "Nessus",
+            "네서스"
+          ],
+          "strict": true
+        }
+      ],
+      "sample": "A: 무결성\nB: Nessus"
+    },
+    "reference": "https://www.tenable.com/products/nessus",
+    "sourceUrl": "https://information-security.tistory.com/727",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 23회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제23회",
+    "examKey": "serial-23",
+    "originalQuestion": "9. 보안 점검 도구에 관한 설명이다. 빈칸 (A), (B)를 채우시오.\nTripwire는 파일 시스템의 ( A )을 점검하는 도구이다. ( B )는 미국 Tenable사가 개발하였고 네트워크에 연결된 다양한 시스템에 대해 자동화된 취약점 스캔을 지원하며 광범위한 취약점 DB를 보유한다.",
+    "originalAnswer": "정답 A : 무결성 B : Nessus",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-23-q10",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "10. CVE-2014-0160으로 알려진 OpenSSL 취약점의 명칭을 쓰시오.\nOpenSSL의 하트비트 체크 로직의 취약점을 악용하여 시스템 메모리에서 중요 데이터를 탈취할 수 있는 취약점이다.",
+    "answer": "정답: HeartBleed(하트블리드)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "HeartBleed(하트블리드)",
+        "HeartBleed",
+        "하트블리드"
+      ],
+      "sample": "HeartBleed(하트블리드)"
+    },
+    "reference": "https://openssl-library.org/news/secadv/20140407.txt",
+    "sourceUrl": "https://information-security.tistory.com/727",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 23회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 10,
+    "exam": "제23회",
+    "examKey": "serial-23",
+    "originalQuestion": "10. CVE-2014-0160으로 알려진 OpenSSL 취약점의 명칭을 쓰시오.\nOpenSSL의 하트비트 체크 로직의 취약점을 악용하여 시스템 메모리에서 중요 데이터를 탈취할 수 있는 취약점이다.",
+    "originalAnswer": "정답: HeartBleed(하트블리드)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-24-q05",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "5. VLAN 주소 할당 방법에 관한 설명이다. 빈칸 (A), (B)를 채우시오.\n( A ) : VLAN 할당을 관리자가 각 스위치에서 직접 할당하는 방식\n( B ) : MAC 주소 등을 기반으로 VLAN 할당이 자동으로 이루어지는 방식",
+    "answer": "정답 A : 정적 VLAN(포트 기반 VLAN) B : 동적 VLAN(MAC 주소 기반 VLAN)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "정적 VLAN(포트 기반 VLAN)",
+            "정적 VLAN",
+            "포트 기반 VLAN"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "동적 VLAN(MAC 주소 기반 VLAN)",
+            "동적 VLAN",
+            "MAC 주소 기반 VLAN"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: 정적 VLAN(포트 기반 VLAN)\nB: 동적 VLAN(MAC 주소 기반 VLAN)"
+    },
+    "reference": "https://information-security.tistory.com/728",
+    "sourceUrl": "https://information-security.tistory.com/728",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 24회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 5,
+    "exam": "제24회",
+    "examKey": "serial-24",
+    "originalQuestion": "5. VLAN 주소 할당 방법에 관한 설명이다. 빈칸 (A), (B)를 채우시오.\n( A ) : VLAN 할당을 관리자가 각 스위치에서 직접 할당하는 방식\n( B ) : MAC 주소 등을 기반으로 VLAN 할당이 자동으로 이루어지는 방식",
+    "originalAnswer": "정답 A : 정적 VLAN(포트 기반 VLAN) B : 동적 VLAN(MAC 주소 기반 VLAN)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-24-q06",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "6. 검색 로봇에게 웹 사이트 페이지 수집을 허용·제한하는 국제 권고안으로, 웹 사이트의 루트 디렉토리에 위치해야 하는 일반 텍스트 파일의 명칭을 쓰시오.",
+    "answer": "정답: robots.txt",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "robots.txt"
+      ],
+      "sample": "robots.txt"
+    },
+    "reference": "https://www.rfc-editor.org/rfc/rfc9309.html",
+    "sourceUrl": "https://information-security.tistory.com/728",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 24회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 6,
+    "exam": "제24회",
+    "examKey": "serial-24",
+    "originalQuestion": "6. 검색 로봇에게 웹 사이트 페이지 수집을 허용·제한하는 국제 권고안으로, 웹 사이트의 루트 디렉토리에 위치해야 하는 일반 텍스트 파일의 명칭을 쓰시오.",
+    "originalAnswer": "정답: robots.txt",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-24-q09",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 유닉스에서 현재 실행 중인 프로세스 정보가 기록되며, 숨겨진 프로세스를 찾기 위해 참조하는 경로를 쓰시오.",
+    "answer": "정답: /proc",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "/proc"
+      ],
+      "sample": "/proc"
+    },
+    "reference": "https://information-security.tistory.com/728",
+    "sourceUrl": "https://information-security.tistory.com/728",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 24회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제24회",
+    "examKey": "serial-24",
+    "originalQuestion": "9. 유닉스에서 현재 실행 중인 프로세스 정보가 기록되며, 숨겨진 프로세스를 찾기 위해 참조하는 경로를 쓰시오.",
+    "originalAnswer": "정답: /proc",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-24-q12",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "12. 다음에서 설명하는 프로그램의 명칭을 쓰시오.\nApache SW 재단에서 개발한 Java 기반 오픈소스 로깅 라이브러리로, 2021년 말 JNDI Lookup 메소드 호출 시 입력값 검증 없이 임의의 코드가 실행되는 심각한 취약점이 발견되어 전 세계적으로 큰 이슈가 되었다.",
+    "answer": "정답: Log4J",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "Log4J"
+      ],
+      "sample": "Log4J"
+    },
+    "reference": "https://logging.apache.org/log4j/2.x/security.html",
+    "sourceUrl": "https://information-security.tistory.com/728",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 24회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 12,
+    "exam": "제24회",
+    "examKey": "serial-24",
+    "originalQuestion": "12. 다음에서 설명하는 프로그램의 명칭을 쓰시오.\nApache SW 재단에서 개발한 Java 기반 오픈소스 로깅 라이브러리로, 2021년 말 JNDI Lookup 메소드 호출 시 입력값 검증 없이 임의의 코드가 실행되는 심각한 취약점이 발견되어 전 세계적으로 큰 이슈가 되었다.",
+    "originalAnswer": "정답: Log4J",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-25-q09",
+    "subject": "정보보안관리 및 법규",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "9. 프로그램에 의도적으로 잘못된 형식 또는 무작위 데이터를 입력하여 취약점이나 버그를 찾는 SW 테스트 기법의 명칭을 쓰시오.",
+    "answer": "정답: Fuzzing(퍼징)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "Fuzzing(퍼징)",
+        "Fuzzing",
+        "퍼징",
+        "Fuzz Test",
+        "퍼즈 테스트"
+      ],
+      "sample": "Fuzzing(퍼징)"
+    },
+    "reference": "https://owasp.org/www-community/Fuzzing",
+    "sourceUrl": "https://information-security.tistory.com/729",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 25회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 9,
+    "exam": "제25회",
+    "examKey": "serial-25",
+    "originalQuestion": "9. 프로그램에 의도적으로 잘못된 형식 또는 무작위 데이터를 입력하여 취약점이나 버그를 찾는 SW 테스트 기법의 명칭을 쓰시오.",
+    "originalAnswer": "정답: Fuzzing(퍼징)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-27-q05",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "5. 리눅스 시스템 로그 파일에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 현재 시스템에 로그인한 사용자의 상태가 기록되는 로그\n( B ) : 사용자의 로그인·로그아웃·시스템 재부팅 정보가 누적되어 기록되는 로그\n( C ) : 마지막으로 성공한 로그인 정보가 기록되는 로그",
+    "answer": "정답 A : utmp B : wtmp C : lastlog",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "utmp"
+          ],
+          "strict": true
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "wtmp"
+          ],
+          "strict": true
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "lastlog"
+          ],
+          "strict": true
+        }
+      ],
+      "sample": "A: utmp\nB: wtmp\nC: lastlog"
+    },
+    "reference": "https://man7.org/linux/man-pages/man5/utmp.5.html",
+    "sourceUrl": "https://information-security.tistory.com/731",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 27회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 5,
+    "exam": "제27회",
+    "examKey": "serial-27",
+    "originalQuestion": "5. 리눅스 시스템 로그 파일에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 현재 시스템에 로그인한 사용자의 상태가 기록되는 로그\n( B ) : 사용자의 로그인·로그아웃·시스템 재부팅 정보가 누적되어 기록되는 로그\n( C ) : 마지막으로 성공한 로그인 정보가 기록되는 로그",
+    "originalAnswer": "정답 A : utmp B : wtmp C : lastlog",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-27-q10",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "10. 매니저와 에이전트 구조로 되어 있고, 네트워크 장비의 상태를 모니터링하고 관리하기 위해 사용되는 TCP/IP 기반 네트워크 프로토콜의 명칭과 영문 약어를 쓰시오.",
+    "answer": "정답: SNMP(Simple Network Management Protocol)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "SNMP(Simple Network Management Protocol)",
+        "SNMP",
+        "Simple Network Management Protocol"
+      ],
+      "sample": "SNMP(Simple Network Management Protocol)"
+    },
+    "reference": "https://www.rfc-editor.org/rfc/rfc3411.html",
+    "sourceUrl": "https://information-security.tistory.com/731",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 27회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 10,
+    "exam": "제27회",
+    "examKey": "serial-27",
+    "originalQuestion": "10. 매니저와 에이전트 구조로 되어 있고, 네트워크 장비의 상태를 모니터링하고 관리하기 위해 사용되는 TCP/IP 기반 네트워크 프로토콜의 명칭과 영문 약어를 쓰시오.",
+    "originalAnswer": "정답: SNMP(Simple Network Management Protocol)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-27-q12",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "12. 네트워크 논리 그룹을 구분하여 보안을 강화하고 브로드캐스트 도메인의 범위를 줄여 네트워크 성능 향상을 지원하는 LAN 기술의 명칭을 쓰시오.",
+    "answer": "정답: VLAN(Virtual LAN)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "VLAN(Virtual LAN)",
+        "VLAN",
+        "Virtual LAN"
+      ],
+      "sample": "VLAN(Virtual LAN)"
+    },
+    "reference": "https://information-security.tistory.com/731",
+    "sourceUrl": "https://information-security.tistory.com/731",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 27회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 12,
+    "exam": "제27회",
+    "examKey": "serial-27",
+    "originalQuestion": "12. 네트워크 논리 그룹을 구분하여 보안을 강화하고 브로드캐스트 도메인의 범위를 줄여 네트워크 성능 향상을 지원하는 LAN 기술의 명칭을 쓰시오.",
+    "originalAnswer": "정답: VLAN(Virtual LAN)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-27-q15",
+    "subject": "시스템보안",
+    "kind": "서술형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "15. 다음 파일 권한의 의미를 상세히 서술하시오.\n-rwxr-x--x",
+    "answer": "정답: 소유자(Owner)는 읽기·쓰기·실행이 모두 가능하다. 그룹(Group)에 속한 사용자들은 읽기와 실행은 가능하나 쓰기는 불가하다. 기타 다른 사용자(Others)는 실행만 가능하며 읽기와 쓰기는 불가하다.",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "1: 소유자 권한, 2: 그룹 권한, 3: 기타 사용자 권한을 한 줄씩 적으세요. 각 항목은 허용된 권한만 읽기 쓰기 실행 또는 rwx/r-x/--x 형태로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "1",
+          "mode": "exact",
+          "aliases": [
+            "읽기 쓰기 실행",
+            "rwx",
+            "읽기·쓰기·실행",
+            "읽기, 쓰기, 실행"
+          ]
+        },
+        {
+          "label": "2",
+          "mode": "exact",
+          "aliases": [
+            "읽기 실행",
+            "r-x",
+            "읽기·실행",
+            "읽기와 실행 가능, 쓰기 불가"
+          ]
+        },
+        {
+          "label": "3",
+          "mode": "exact",
+          "aliases": [
+            "실행",
+            "--x",
+            "실행만 가능",
+            "읽기와 쓰기 불가, 실행 가능"
+          ]
+        }
+      ],
+      "sample": "1: 읽기 쓰기 실행\n2: 읽기 실행\n3: 실행"
+    },
+    "reference": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+    "sourceUrl": "https://information-security.tistory.com/731",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 27회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 15,
+    "exam": "제27회",
+    "examKey": "serial-27",
+    "originalQuestion": "15. 다음 파일 권한의 의미를 상세히 서술하시오.\n-rwxr-x--x",
+    "originalAnswer": "정답: 소유자(Owner)는 읽기·쓰기·실행이 모두 가능하다. 그룹(Group)에 속한 사용자들은 읽기와 실행은 가능하나 쓰기는 불가하다. 기타 다른 사용자(Others)는 실행만 가능하며 읽기와 쓰기는 불가하다.",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-28-q04",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "4. 웹 브라우저에서 JavaScript(document.cookie) 등을 통한 쿠키 접근을 차단하기 위해 쿠키에 설정해야 하는 보안 속성을 쓰시오.",
+    "answer": "정답: HttpOnly",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "HttpOnly"
+      ],
+      "sample": "HttpOnly"
+    },
+    "reference": "https://www.rfc-editor.org/rfc/rfc6265.html",
+    "sourceUrl": "https://information-security.tistory.com/732",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 28회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 4,
+    "exam": "제28회",
+    "examKey": "serial-28",
+    "originalQuestion": "4. 웹 브라우저에서 JavaScript(document.cookie) 등을 통한 쿠키 접근을 차단하기 위해 쿠키에 설정해야 하는 보안 속성을 쓰시오.",
+    "originalAnswer": "정답: HttpOnly",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-28-q07",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "7. 리눅스에서 ps 명령어를 신뢰할 수 없는 상황(루트킷 감염 등)에서 실행 중인 프로세스가 오픈한 파일 목록을 확인하는 명령어를 쓰시오.",
+    "answer": "정답: lsof",
+    "explanation": "lsof는 열린 파일 목록을 확인합니다. 루트킷 환경에서는 lsof도 변조될 수 있어 신뢰할 수 있는 별도 도구·환경에서 확인해야 합니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "lsof"
+      ],
+      "sample": "lsof",
+      "strict": true
+    },
+    "reference": "https://man7.org/linux/man-pages/man8/lsof.8.html",
+    "sourceUrl": "https://information-security.tistory.com/732",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 28회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 7,
+    "exam": "제28회",
+    "examKey": "serial-28",
+    "originalQuestion": "7. 리눅스에서 ps 명령어를 신뢰할 수 없는 상황(루트킷 감염 등)에서 실행 중인 프로세스가 오픈한 파일 목록을 확인하는 명령어를 쓰시오.",
+    "originalAnswer": "정답: lsof",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-29-q01",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "1. 리눅스 PAM 모듈의 종류에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 사용자의 시스템 사용 권한을 확인하는 모듈\n( B ) : 실질적인 인증 기능, 패스워드 확인을 담당하는 모듈 password : 패스워드를 설정하거나 확인하는 데 사용하는 모듈\n( C ) : 사용자가 인증 성공 시 세션을 맺어주는 모듈",
+    "answer": "정답 A : account B : auth C : session",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "account"
+          ],
+          "strict": true
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "auth"
+          ],
+          "strict": true
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "session"
+          ],
+          "strict": true
+        }
+      ],
+      "sample": "A: account\nB: auth\nC: session"
+    },
+    "reference": "https://information-security.tistory.com/733",
+    "sourceUrl": "https://information-security.tistory.com/733",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 29회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 1,
+    "exam": "제29회",
+    "examKey": "serial-29",
+    "originalQuestion": "1. 리눅스 PAM 모듈의 종류에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n( A ) : 사용자의 시스템 사용 권한을 확인하는 모듈\n( B ) : 실질적인 인증 기능, 패스워드 확인을 담당하는 모듈 password : 패스워드를 설정하거나 확인하는 데 사용하는 모듈\n( C ) : 사용자가 인증 성공 시 세션을 맺어주는 모듈",
+    "originalAnswer": "정답 A : account B : auth C : session",
+    "correction": "PAM의 auth는 인증, password는 인증 토큰(주로 비밀번호)의 변경을 담당합니다. 원문의 password 설명에서 확인과 변경을 혼동하지 않도록 주의하세요.",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-29-q05",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "5. 다음 소스코드에 관한 물음에 답하시오.\nint main(int argc, char *argv[]) {\nchar buffer[16];\nif (argc > 1) {\nstrcpy(buffer, argv[1]);\nprintf(\"%s\\n\", buffer);\n}\nreturn 0;\n}\n(1) 어떤 취약점이 존재하는가?\n(2) 취약한 함수명은 무엇인가?",
+    "answer": "정답 (1) 버퍼 오버플로우(스택 버퍼 오버플로우) (2) strcpy()",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 1: 답, 2: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "1",
+          "mode": "exact",
+          "aliases": [
+            "버퍼 오버플로우",
+            "스택 버퍼 오버플로우",
+            "Buffer Overflow",
+            "Stack Buffer Overflow"
+          ]
+        },
+        {
+          "label": "2",
+          "mode": "exact",
+          "strict": true,
+          "aliases": [
+            "strcpy",
+            "strcpy()"
+          ]
+        }
+      ],
+      "sample": "1: 스택 버퍼 오버플로우\n2: strcpy()"
+    },
+    "reference": "https://man7.org/linux/man-pages/man3/strcpy.3.html",
+    "sourceUrl": "https://information-security.tistory.com/733",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 29회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 5,
+    "exam": "제29회",
+    "examKey": "serial-29",
+    "originalQuestion": "5. 다음 소스코드에 관한 물음에 답하시오.\nint main(int argc, char *argv[]) {\nchar buffer[16];\nif (argc > 1) {\nstrcpy(buffer, argv[1]);\nprintf(\"%s\\n\", buffer);\n}\nreturn 0;\n}\n(1) 어떤 취약점이 존재하는가?\n(2) 취약한 함수명은 무엇인가?",
+    "originalAnswer": "정답 (1) 버퍼 오버플로우(스택 버퍼 오버플로우) (2) strcpy()",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-29-q06",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "6. 다음에서 설명하는 리눅스 파일의 경로를 완성하시오.\n사용자 계정의 비밀번호 해시와 비밀번호 만료 정보를 저장하고 있으며,\n유출 시 Rainbow 테이블 등을 이용한 비밀번호 추측 공격으로 이어질 수 있다.\n/etc/( A )",
+    "answer": "정답: A : shadow",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "strict": true,
+      "aliases": [
+        "shadow",
+        "/etc/shadow"
+      ],
+      "sample": "shadow"
+    },
+    "reference": "https://man7.org/linux/man-pages/man5/shadow.5.html",
+    "sourceUrl": "https://information-security.tistory.com/733",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 29회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 6,
+    "exam": "제29회",
+    "examKey": "serial-29",
+    "originalQuestion": "6. 다음에서 설명하는 리눅스 파일의 경로를 완성하시오.\n사용자 계정의 비밀번호 해시와 비밀번호 만료 정보를 저장하고 있으며,\n유출 시 Rainbow 테이블 등을 이용한 비밀번호 추측 공격으로 이어질 수 있다.\n/etc/( A )",
+    "originalAnswer": "정답: A : shadow",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-29-q07",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "7. DNS 서비스에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n(1) DNS 서비스는 53번 포트를 사용하고 전송 계층 프로토콜로 ( A )를 사용한다.\n(2) DNS 서버는 반복적인 질의로 상위 DNS에 가해지는 부하를 줄이기 위해 ( B )를 사용하는데, 해당 정보가 유지되는 기간을\n( C )라고 한다.",
+    "answer": "정답 A : UDP(또는 TCP) B : Cache(DNS 캐시) C : TTL(Time To Live)",
+    "explanation": "DNS는 UDP와 TCP를 모두 사용합니다. TCP는 영역 전송에만 한정되지 않습니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "UDP(또는 TCP)",
+            "UDP",
+            "TCP"
+          ],
+          "strict": false
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "Cache(DNS 캐시)",
+            "Cache",
+            "DNS 캐시"
+          ],
+          "strict": false
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "TTL(Time To Live)",
+            "TTL",
+            "Time To Live"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "A: UDP(또는 TCP)\nB: Cache(DNS 캐시)\nC: TTL(Time To Live)"
+    },
+    "reference": "https://bind9.readthedocs.io/en/latest/reference.html",
+    "sourceUrl": "https://information-security.tistory.com/733",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 29회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 7,
+    "exam": "제29회",
+    "examKey": "serial-29",
+    "originalQuestion": "7. DNS 서비스에 관한 설명이다. 빈칸 (A), (B), (C)를 채우시오.\n(1) DNS 서비스는 53번 포트를 사용하고 전송 계층 프로토콜로 ( A )를 사용한다.\n(2) DNS 서버는 반복적인 질의로 상위 DNS에 가해지는 부하를 줄이기 위해 ( B )를 사용하는데, 해당 정보가 유지되는 기간을\n( C )라고 한다.",
+    "originalAnswer": "정답 A : UDP(또는 TCP) B : Cache(DNS 캐시) C : TTL(Time To Live)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-serial-29-q12",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "12. 리눅스에서 시스템에 로그인한 모든 사용자가 실행한 명령어 정보가 기록된 acct/pacct 파일의 내용을 확인하는 명령어를 쓰시오.",
+    "answer": "정답: lastcomm",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "lastcomm"
+      ],
+      "sample": "lastcomm",
+      "strict": true
+    },
+    "reference": "https://man7.org/linux/man-pages/man1/lastcomm.1.html",
+    "sourceUrl": "https://information-security.tistory.com/733",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "정보보안기사 실기 29회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 12,
+    "exam": "제29회",
+    "examKey": "serial-29",
+    "originalQuestion": "12. 리눅스에서 시스템에 로그인한 모든 사용자가 실행한 명령어 정보가 기록된 acct/pacct 파일의 내용을 확인하는 명령어를 쓰시오.",
+    "originalAnswer": "정답: lastcomm",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-2025-annual-4-q06",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "6. 다음 보기의 명령어 중 Windows에서 공유 폴더 목록을 확인하거나 공유를 설정·해제하는 명령어를 선택하시오.\n보기 : net user, cls, net share, chcp",
+    "answer": "정답: net share",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "net share"
+      ],
+      "sample": "net share",
+      "strict": true
+    },
+    "reference": "https://information-security.tistory.com/775",
+    "sourceUrl": "https://information-security.tistory.com/775",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "2025년 정보보안기사 실기 4회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 6,
+    "exam": "2025년 4회",
+    "examKey": "2025-annual-4",
+    "originalQuestion": "6. 다음 보기의 명령어 중 Windows에서 공유 폴더 목록을 확인하거나 공유를 설정·해제하는 명령어를 선택하시오.\n보기 : net user, cls, net share, chcp",
+    "originalAnswer": "정답: net share",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-2026-annual-1-q01",
+    "subject": "시스템보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "1. /etc/passwd 파일에서 패스워드 필드에 들어가는 값을 쓰시오.\nroot:( ):0:0:root:/root:/bin/bash",
+    "answer": "정답: x (패스워드가 /etc/shadow 파일에 별도 저장됨을 나타내는 값)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "strict": true,
+      "aliases": [
+        "x"
+      ],
+      "sample": "x"
+    },
+    "reference": "https://man7.org/linux/man-pages/man5/shadow.5.html",
+    "sourceUrl": "https://information-security.tistory.com/774",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "2026년 정보보안 기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 1,
+    "exam": "2026년 1회",
+    "examKey": "2026-annual-1",
+    "originalQuestion": "1. /etc/passwd 파일에서 패스워드 필드에 들어가는 값을 쓰시오.\nroot:( ):0:0:root:/root:/bin/bash",
+    "originalAnswer": "정답: x (패스워드가 /etc/shadow 파일에 별도 저장됨을 나타내는 값)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-2026-annual-1-q02",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "2. 다음에서 설명하는 중간자 공격 기법의 명칭을 쓰시오.\n공격자가 DNS 응답 패킷을 위조하여 피해자의 DNS 캐시에 잘못된 IP 주소를 저장하게 함으로써 피해자가 정상 사이트에 접속하려 할 때 공격자의 가짜 사이트로 유도하는 기법이다.",
+    "answer": "정답: DNS 스푸핑(DNS Spoofing)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "DNS 스푸핑(DNS Spoofing)",
+        "DNS 스푸핑",
+        "DNS Spoofing",
+        "DNS 캐시 포이즈닝",
+        "DNS Cache Poisoning"
+      ],
+      "sample": "DNS 스푸핑(DNS Spoofing)"
+    },
+    "reference": "https://bind9.readthedocs.io/en/latest/reference.html",
+    "sourceUrl": "https://information-security.tistory.com/774",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "2026년 정보보안 기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 2,
+    "exam": "2026년 1회",
+    "examKey": "2026-annual-1",
+    "originalQuestion": "2. 다음에서 설명하는 중간자 공격 기법의 명칭을 쓰시오.\n공격자가 DNS 응답 패킷을 위조하여 피해자의 DNS 캐시에 잘못된 IP 주소를 저장하게 함으로써 피해자가 정상 사이트에 접속하려 할 때 공격자의 가짜 사이트로 유도하는 기법이다.",
+    "originalAnswer": "정답: DNS 스푸핑(DNS Spoofing)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-2026-annual-1-q03",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "3. 다음 iptables 명령어에서 빈칸 (A), (B), (C)를 채우시오.\niptables -A INPUT -p ( A ) --icmp-type ( B ) -j ( C )\n(ICMP Echo Request 패킷을 차단하는 설정)",
+    "answer": "정답 A : icmp B : echo-request (또는 8) C : DROP (또는 REJECT)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답, C: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "icmp"
+          ],
+          "strict": true
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "echo-request (또는 8)",
+            "echo-request",
+            "8"
+          ],
+          "strict": true
+        },
+        {
+          "label": "C",
+          "mode": "exact",
+          "aliases": [
+            "DROP (또는 REJECT)",
+            "DROP",
+            "REJECT"
+          ],
+          "strict": true
+        }
+      ],
+      "sample": "A: icmp\nB: echo-request (또는 8)\nC: DROP (또는 REJECT)"
     },
     "reference": "https://man7.org/linux/man-pages/man8/iptables-extensions.8.html",
-    "reviewedAt": "2026-10-13",
-    "reviewStatus": "기술 문서 대조",
-    "exam": "2017년 제10회",
-    "sourceQuestion": 13,
-    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
-    "sourceUrl": "https://seobinggo.com/248",
-    "bank": "past"
-  },
-  {
-    "id": "r17-01",
-    "subject": "시스템보안",
-    "kind": "단답형",
-    "origin": "복원 기출 재구성",
-    "prompt": "평문 비밀번호를 알아내지 않고 탈취한 비밀번호 해시를 인증에 재사용하는 공격 명칭을 쓰시오.",
-    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
-    "answer": "Pass the Hash",
-    "explanation": "탈취한 해시를 인증에 사용한다. Kerberos 티켓을 재사용하는 Pass the Ticket과 구별한다.",
-    "grading": {
-      "mode": "exact",
-      "aliases": [
-        "Pass the Hash",
-        "PtH",
-        "패스 더 해시",
-        "패스더해시"
-      ]
-    },
-    "reference": "https://attack.mitre.org/techniques/T1550/002/",
-    "reviewedAt": "2026-10-13",
-    "reviewStatus": "기술 문서 대조",
-    "exam": "2021년 제17회",
-    "sourceQuestion": 1,
-    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
-    "sourceUrl": "https://it-freelancer.tistory.com/1119",
-    "bank": "past"
-  },
-  {
-    "id": "r17-03",
-    "subject": "정보보안일반",
-    "kind": "단답형",
-    "origin": "복원 기출 재구성",
-    "prompt": "실제 관찰된 공격자의 전술·기술을 정리한 MITRE 지식 기반의 이름을 쓰시오.",
-    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
-    "answer": "ATT&CK",
-    "explanation": "ATT&CK는 공격자 행동을 전술과 기술로 체계화한다. CVSS처럼 취약점 심각도를 수치화하는 체계는 아니다.",
-    "grading": {
-      "mode": "exact",
-      "aliases": [
-        "ATT&CK",
-        "MITRE ATT&CK",
-        "ATTACK"
-      ]
-    },
-    "reference": "https://attack.mitre.org/",
-    "reviewedAt": "2026-10-13",
-    "reviewStatus": "기술 문서 대조",
-    "exam": "2021년 제17회",
+    "sourceUrl": "https://information-security.tistory.com/774",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "2026년 정보보안 기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
     "sourceQuestion": 3,
-    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
-    "sourceUrl": "https://it-freelancer.tistory.com/1119",
-    "bank": "past"
+    "exam": "2026년 1회",
+    "examKey": "2026-annual-1",
+    "originalQuestion": "3. 다음 iptables 명령어에서 빈칸 (A), (B), (C)를 채우시오.\niptables -A INPUT -p ( A ) --icmp-type ( B ) -j ( C )\n(ICMP Echo Request 패킷을 차단하는 설정)",
+    "originalAnswer": "정답 A : icmp B : echo-request (또는 8) C : DROP (또는 REJECT)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
   },
   {
-    "id": "r17-04",
+    "id": "exam-2026-annual-1-q04",
     "subject": "애플리케이션보안",
     "kind": "단답형",
-    "origin": "복원 기출 재구성",
-    "prompt": "다른 서비스에서 유출된 계정·비밀번호 쌍을 여러 사이트의 로그인에 재사용하는 공격 명칭을 쓰시오.",
-    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
-    "answer": "크리덴셜 스터핑",
-    "explanation": "이미 확보된 계정·비밀번호 쌍을 재사용한다. 임의의 비밀번호를 전수 대입하는 공격과 구별한다.",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "4. 다음 보안 점검 도구에 관한 물음에 답하시오.\n(1) Tripwire는 파일 시스템의 ( )을 점검하는 도구이다.\n(2) 미국 Tenable사가 개발한 자동화된 취약점 스캔 도구의 명칭을 쓰시오.",
+    "answer": "정답 (1) 무결성(파일 무결성) (2) Nessus(네서스)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 1: 답, 2: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
     "grading": {
-      "mode": "exact",
-      "aliases": [
-        "크리덴셜 스터핑",
-        "credential stuffing",
-        "자격증명 스터핑"
-      ]
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "1",
+          "mode": "exact",
+          "aliases": [
+            "무결성(파일 무결성)",
+            "무결성",
+            "파일 무결성",
+            "Integrity"
+          ],
+          "strict": false
+        },
+        {
+          "label": "2",
+          "mode": "exact",
+          "aliases": [
+            "Nessus(네서스)",
+            "Nessus",
+            "네서스",
+            "Nessus",
+            "네서스"
+          ],
+          "strict": false
+        }
+      ],
+      "sample": "1: 무결성(파일 무결성)\n2: Nessus(네서스)"
     },
-    "reference": "https://owasp.org/www-community/attacks/Credential_stuffing",
-    "reviewedAt": "2026-10-13",
-    "reviewStatus": "기술 문서 대조",
-    "exam": "2021년 제17회",
+    "reference": "https://www.tenable.com/products/nessus",
+    "sourceUrl": "https://information-security.tistory.com/774",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "2026년 정보보안 기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
     "sourceQuestion": 4,
-    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
-    "sourceUrl": "https://it-freelancer.tistory.com/1119",
-    "bank": "past"
+    "exam": "2026년 1회",
+    "examKey": "2026-annual-1",
+    "originalQuestion": "4. 다음 보안 점검 도구에 관한 물음에 답하시오.\n(1) Tripwire는 파일 시스템의 ( )을 점검하는 도구이다.\n(2) 미국 Tenable사가 개발한 자동화된 취약점 스캔 도구의 명칭을 쓰시오.",
+    "originalAnswer": "정답 (1) 무결성(파일 무결성) (2) Nessus(네서스)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
   },
   {
-    "id": "r17-05",
+    "id": "exam-2026-annual-1-q06",
     "subject": "정보보안일반",
     "kind": "단답형",
-    "origin": "복원 기출 재구성",
-    "prompt": "취약점의 주요 특성을 바탕으로 심각도를 수치화하는 공통 평가 체계의 약자를 쓰시오.",
-    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
-    "answer": "CVSS",
-    "explanation": "CVSS는 취약점 심각도를 표현한다. CVE는 취약점 식별 체계다. 버전에 따라 평가 요소와 계산 방식이 다르다.",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "6. 임의 길이의 입력 데이터를 고정 길이의 출력값으로 변환하며 역산이 불가능하여 무결성 검증·패스워드 저장 등에 사용되는 암호화 방식을 쓰시오.",
+    "answer": "정답: 해시 함수(Hash Function)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
     "grading": {
       "mode": "exact",
       "aliases": [
-        "CVSS",
-        "Common Vulnerability Scoring System"
-      ]
+        "해시 함수(Hash Function)",
+        "해시 함수",
+        "Hash Function",
+        "해시",
+        "hash"
+      ],
+      "sample": "해시 함수(Hash Function)"
     },
-    "reference": "https://www.first.org/cvss/",
-    "reviewedAt": "2026-10-13",
-    "reviewStatus": "기술 문서 대조",
-    "exam": "2021년 제17회",
-    "sourceQuestion": 5,
-    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
-    "sourceUrl": "https://it-freelancer.tistory.com/1119",
-    "bank": "past"
+    "reference": "https://csrc.nist.gov/glossary/term/hash_function",
+    "sourceUrl": "https://information-security.tistory.com/774",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "2026년 정보보안 기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 6,
+    "exam": "2026년 1회",
+    "examKey": "2026-annual-1",
+    "originalQuestion": "6. 임의 길이의 입력 데이터를 고정 길이의 출력값으로 변환하며 역산이 불가능하여 무결성 검증·패스워드 저장 등에 사용되는 암호화 방식을 쓰시오.",
+    "originalAnswer": "정답: 해시 함수(Hash Function)",
+    "correction": "암호학적 해시 함수는 데이터를 복호화하는 암호화 방식이 아닙니다. 역상 계산이 현실적으로 어렵도록 설계되며, 비밀번호 저장에는 전용 비밀번호 해시와 솔트를 사용합니다.",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
   },
   {
-    "id": "r17-16",
-    "subject": "애플리케이션보안",
+    "id": "exam-2026-annual-1-q08",
+    "subject": "정보보안관리 및 법규",
     "kind": "단답형",
-    "origin": "복원 기출 재구성",
-    "prompt": "Apache에서 기본 문서가 없는 디렉터리의 파일 목록을 생성하도록 허용하는 Options 항목은?",
-    "hint": "요구한 용어·숫자·설정값만 작성하세요.",
-    "answer": "Indexes",
-    "explanation": "Indexes는 mod_autoindex의 디렉터리 목록 생성을 허용한다. 노출을 제한하려면 해당 디렉터리의 설정에서 비활성화한다.",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "8. 프로그램에 의도적으로 잘못된 형식 또는 무작위 데이터를 입력하여 취약점이나 버그를 찾는 SW 테스트 기법의 명칭을 쓰시오.",
+    "answer": "정답: 퍼징(Fuzzing) 또는 퍼즈 테스트(Fuzz Test)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
     "grading": {
       "mode": "exact",
       "aliases": [
-        "Indexes"
-      ]
+        "퍼징(Fuzzing) 또는 퍼즈 테스트(Fuzz Test)",
+        "퍼징 또는 퍼즈 테스트",
+        "Fuzzing",
+        "Fuzz Test",
+        "퍼징",
+        "퍼즈 테스트"
+      ],
+      "sample": "퍼징(Fuzzing) 또는 퍼즈 테스트(Fuzz Test)"
     },
-    "reference": "https://httpd.apache.org/docs/2.4/mod/core.html",
-    "reviewedAt": "2026-10-13",
-    "reviewStatus": "기술 문서 대조",
-    "exam": "2021년 제17회",
-    "sourceQuestion": 16,
-    "reconstruction": "주제와 핵심 답을 바탕으로 새 문장으로 재구성. 원문 전체·공식 정답이 아님.",
-    "sourceUrl": "https://it-freelancer.tistory.com/1119",
-    "bank": "past"
+    "reference": "https://information-security.tistory.com/774",
+    "sourceUrl": "https://information-security.tistory.com/774",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "2026년 정보보안 기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 8,
+    "exam": "2026년 1회",
+    "examKey": "2026-annual-1",
+    "originalQuestion": "8. 프로그램에 의도적으로 잘못된 형식 또는 무작위 데이터를 입력하여 취약점이나 버그를 찾는 SW 테스트 기법의 명칭을 쓰시오.",
+    "originalAnswer": "정답: 퍼징(Fuzzing) 또는 퍼즈 테스트(Fuzz Test)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-2026-annual-1-q10",
+    "subject": "애플리케이션보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "10. IIS 웹 서버에서 URL 패턴을 정의하여 요청 URL을 다른 URL로 재작성하거나 리디렉션하는 기능을 제공하는 확장 모듈의 명칭을 쓰시오.",
+    "answer": "정답: URL Rewrite 모듈",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "URL Rewrite 모듈"
+      ],
+      "sample": "URL Rewrite 모듈"
+    },
+    "reference": "https://learn.microsoft.com/en-us/iis/extensions/url-rewrite-module/using-the-url-rewrite-module",
+    "sourceUrl": "https://information-security.tistory.com/774",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "2026년 정보보안 기사 실기 1회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 10,
+    "exam": "2026년 1회",
+    "examKey": "2026-annual-1",
+    "originalQuestion": "10. IIS 웹 서버에서 URL 패턴을 정의하여 요청 URL을 다른 URL로 재작성하거나 리디렉션하는 기능을 제공하는 확장 모듈의 명칭을 쓰시오.",
+    "originalAnswer": "정답: URL Rewrite 모듈",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-2026-annual-2-q01",
+    "subject": "네트워크보안",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "1. DNS에 관한 물음이다. 빈칸 (a), (b)를 채우시오.\n(a) DNS 서버에 대한 기본설정 파일로서 zone에 대한 설정을 관리하는 파일\n(b) 네임서버 설정 및 도메인 검색 규칙을 지정하는 파일",
+    "answer": "정답\na : named.conf\nb : resolv.conf",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "각 항목을 한 줄씩 A: 답, B: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "A",
+          "mode": "exact",
+          "aliases": [
+            "named.conf"
+          ],
+          "strict": true
+        },
+        {
+          "label": "B",
+          "mode": "exact",
+          "aliases": [
+            "resolv.conf"
+          ],
+          "strict": true
+        }
+      ],
+      "sample": "A: named.conf\nB: resolv.conf"
+    },
+    "reference": "https://man7.org/linux/man-pages/man5/resolv.conf.5.html",
+    "sourceUrl": "https://information-security.tistory.com/837",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "2026년 정보보안기사 실기 2회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 1,
+    "exam": "2026년 2회",
+    "examKey": "2026-annual-2",
+    "originalQuestion": "1. DNS에 관한 물음이다. 빈칸 (a), (b)를 채우시오.\n(a) DNS 서버에 대한 기본설정 파일로서 zone에 대한 설정을 관리하는 파일\n(b) 네임서버 설정 및 도메인 검색 규칙을 지정하는 파일",
+    "originalAnswer": "정답\na : named.conf\nb : resolv.conf",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-2026-annual-2-q10",
+    "subject": "정보보안일반",
+    "kind": "단답형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "10. 암호화와 복호화에 동일한 비밀키를 사용하는 암호화 방식의 명칭을 쓰시오.",
+    "answer": "정답: 대칭키 암호화 알고리즘(대칭키 암호화 방식)",
+    "explanation": "답안 표현은 학습용 기준입니다. 공식 채점표가 공개된 문항이라는 뜻은 아닙니다.",
+    "hint": "용어 또는 명령어를 작성하세요. 명령어의 기호·대소문자는 그대로 입력하세요.",
+    "grading": {
+      "mode": "exact",
+      "aliases": [
+        "대칭키 암호화 알고리즘(대칭키 암호화 방식)",
+        "대칭키 암호화 알고리즘",
+        "대칭키 암호화 방식",
+        "대칭키 암호화",
+        "대칭키 암호",
+        "Symmetric Key Encryption",
+        "Symmetric Encryption"
+      ],
+      "sample": "대칭키 암호화 알고리즘(대칭키 암호화 방식)"
+    },
+    "reference": "https://csrc.nist.gov/glossary/term/symmetric_cryptography",
+    "sourceUrl": "https://information-security.tistory.com/837",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "2026년 정보보안기사 실기 2회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 10,
+    "exam": "2026년 2회",
+    "examKey": "2026-annual-2",
+    "originalQuestion": "10. 암호화와 복호화에 동일한 비밀키를 사용하는 암호화 방식의 명칭을 쓰시오.",
+    "originalAnswer": "정답: 대칭키 암호화 알고리즘(대칭키 암호화 방식)",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
+  },
+  {
+    "id": "exam-2026-annual-2-q18",
+    "subject": "시스템보안",
+    "kind": "실무형",
+    "bank": "reconstructed",
+    "origin": "인터넷 복원 자료",
+    "prompt": "18. SUID·SGID에 관한 물음에 답하시오.\n(1) SUID 설정 시 발생 가능한 위험을 서술하시오.\n(2) SGID 설정 시 발생 가능한 위험을 서술하시오.\n(3) SUID·SGID 제거 명령어를 쓰시오.\n(4) SUID 설정된 파일을 찾는 명령어에서 find / -perm -( )에 들어갈 값은?\n(5) SGID 설정된 파일을 찾는 명령어에서 find / -perm -( )에 들어갈 값은?",
+    "answer": "정답\n(1) SUID 설정 시 일반 사용자가 해당 파일을 실행하면 파일 소유자의 권한을 획득할 수 있어 root 권한 탈취 등이 가능하다.\n(2) SGID 설정 시 일반 사용자가 해당 파일을 실행하면 파일 소유 그룹의 권한으로 명령을 실행할 수 있어 권한 상승이 가능하다.\n(3) chmod -s <file_name>\n(4) 4000\n(5) 2000",
+    "explanation": "setuid/setgid는 실행 시 유효 사용자/그룹 권한에 영향을 줍니다. 특수 비트가 있다고 항상 권한 상승에 성공하는 것은 아닙니다. 환경의 nosuid 등 정책도 영향을 줍니다.",
+    "hint": "각 항목을 한 줄씩 1: 답, 2: 답, 3: 답, 4: 답, 5: 답 형식으로 작성하세요. 서술 항목은 문장으로 작성하세요. 3번 명령어의 대상 파일은 <file_name>으로 표기하세요.",
+    "grading": {
+      "mode": "parts",
+      "parts": [
+        {
+          "label": "1",
+          "mode": "criteria",
+          "groups": [
+            [
+              "소유자",
+              "owner"
+            ],
+            [
+              "권한",
+              "euid",
+              "유효 사용자"
+            ]
+          ]
+        },
+        {
+          "label": "2",
+          "mode": "criteria",
+          "groups": [
+            [
+              "소유 그룹",
+              "소유그룹",
+              "group"
+            ],
+            [
+              "권한",
+              "egid",
+              "유효 그룹"
+            ]
+          ]
+        },
+        {
+          "label": "3",
+          "mode": "exact",
+          "strict": true,
+          "aliases": [
+            "chmod -s <file_name>",
+            "chmod u-s,g-s <file_name>",
+            "chmod ug-s <file_name>",
+            "chmod a-s <file_name>"
+          ]
+        },
+        {
+          "label": "4",
+          "mode": "exact",
+          "strict": true,
+          "aliases": [
+            "4000"
+          ]
+        },
+        {
+          "label": "5",
+          "mode": "exact",
+          "strict": true,
+          "aliases": [
+            "2000"
+          ]
+        }
+      ],
+      "sample": "1: 소유자 권한으로 실행되어 권한 상승 위험이 있다.\n2: 소유 그룹 권한으로 실행되어 권한 상승 위험이 있다.\n3: chmod u-s,g-s <file_name>\n4: 4000\n5: 2000"
+    },
+    "reference": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+    "sourceUrl": "https://information-security.tistory.com/837",
+    "sourceAuthor": "WhiteGuidance",
+    "sourceTitle": "2026년 정보보안기사 실기 2회",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko",
+    "sourceQuestion": 18,
+    "exam": "2026년 2회",
+    "examKey": "2026-annual-2",
+    "originalQuestion": "18. SUID·SGID에 관한 물음에 답하시오.\n(1) SUID 설정 시 발생 가능한 위험을 서술하시오.\n(2) SGID 설정 시 발생 가능한 위험을 서술하시오.\n(3) SUID·SGID 제거 명령어를 쓰시오.\n(4) SUID 설정된 파일을 찾는 명령어에서 find / -perm -( )에 들어갈 값은?\n(5) SGID 설정된 파일을 찾는 명령어에서 find / -perm -( )에 들어갈 값은?",
+    "originalAnswer": "정답\n(1) SUID 설정 시 일반 사용자가 해당 파일을 실행하면 파일 소유자의 권한을 획득할 수 있어 root 권한 탈취 등이 가능하다.\n(2) SGID 설정 시 일반 사용자가 해당 파일을 실행하면 파일 소유 그룹의 권한으로 명령을 실행할 수 있어 권한 상승이 가능하다.\n(3) chmod -s <file_name>\n(4) 4000\n(5) 2000",
+    "correction": "",
+    "reviewDate": "2026-10-14",
+    "reviewStatus": "질문 조건·답안 개념·채점 기준 확인",
+    "officialAnswerVerified": false
   }
 ]

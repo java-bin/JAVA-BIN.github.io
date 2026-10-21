@@ -1,14 +1,58 @@
 (()=>{'use strict';const root=document.getElementById('chaechae-preview'),$=s=>root.querySelector(s),home=$('[data-home-view]'),quiz=$('[data-quiz-view]'),answer=$('textarea'),result=$('[data-result]'),notice=$('#notice'),collection=$('#collection-panel'),sourcePanel=$('#source-panel'),submission=$('#submission-view');let bank=[],pastBank=[],legacyBank=[],queue=[],index=0,storageOK=true;const KEY='chaeso-cbt-v1';let saved={drafts:{},results:{},stars:[]};try{const data=JSON.parse(localStorage.getItem(KEY)||'null');if(data&&typeof data==='object')saved={drafts:data.drafts||{},results:data.results||{},stars:Array.isArray(data.stars)?data.stars:[]}}catch{storageOK=false}function persist(){try{localStorage.setItem(KEY,JSON.stringify(saved))}catch{storageOK=false;notice.textContent='저장 공간을 사용할 수 없어 현재 탭에서만 기록합니다.'}}const normalize=s=>String(s).normalize('NFKC').toLowerCase().replace(/\s+/gu,'');
 const commandNormalize=s=>String(s).normalize('NFKC').trim().replace(/\s+/gu,' ');
+
+// 답안 입력은 번호+마침표 형식으로 통일하며, 문제 원문/그림은 수정하지 않습니다.
+const numberOfLabel=v=>{const x=String(v).trim().toUpperCase();return /^[A-Z]$/.test(x)?String(x.charCodeAt(0)-64):x};
+const numberizeAnswer=s=>String(s||'').replace(/(^|[\n\s,;/])(?:정답\s*)?([A-Ga-g])\s*[:：.)]\s*/gu,(_,sep,key)=>sep+numberOfLabel(key)+'. ');
+const numberizeHint=(q)=>{
+ const parts=q.grading?.mode==='parts';
+ if(parts)return '각 항목을 1. 답, 2. 답, 3. 답 형식으로 작성하세요. (문제의 A=1, B=2, C=3)';
+ return String(q.hint||'').replace(/(?:A\s*[:：.]\s*답[^\n]*|A\s*[:：.]\s*[^\n]*B\s*[:：.])/giu,'1. 답, 2. 답, 3. 답').replace(/([A-Ga-g])\s*[:：.]\s*(?=답)/gu,(_,x)=>numberOfLabel(x)+'. ');
+};
+// 명칭이 확실히 같은 보안 용어만 동의어로 처리합니다.
+const synonymGroups=[
+ ['sqlinjection','sql인젝션','sql삽입공격','sqli'],
+ ['arpspoofing','arp스푸핑','arp위조'],
+ ['dnsspoofing','dns스푸핑','dns위조'],
+ ['sessionhijacking','세션하이재킹','세션탈취'],
+ ['synflooding','syn플러딩','syn홍수공격'],
+ ['crosssitescripting','크로스사이트스크립팅','xss'],
+ ['crosssiterequestforgery','사이트간요청위조','csrf','xsrf'],
+ ['denialofservice','서비스거부공격','dos'],
+ ['distributeddenialofservice','분산서비스거부공격','ddos'],
+ ['maninthemiddle','중간자공격','mitm'],
+ ['buffer overflow','버퍼오버플로우','버퍼넘침'],
+ ['bruteforce','무차별대입공격','무차별대입'],
+ ['dictionaryattack','사전공격','사전대입공격'],
+ ['phishing','피싱'],['smishing','스미싱'],['vishing','비싱'],
+ ['salt','솔트'],['hash','해시'],['firewall','방화벽'],
+ ['intrusiondetectionsystem','침입탐지시스템','ids'],
+ ['intrusionpreventionsystem','침입방지시스템','ips'],
+ ['virtualprivatenetwork','가상사설망','vpn'],
+ ['accesscontrollist','접근제어목록','acl'],
+ ['rolebasedaccesscontrol','역할기반접근통제','rbac'],
+ ['discretionaryaccesscontrol','임의적접근통제','dac'],
+ ['mandatoryaccesscontrol','강제적접근통제','mac'],
+ ['publickeyinfrastructure','공개키기반구조','pki'],
+ ['certificateauthority','인증기관','ca'],
+ ['digital signature','전자서명','디지털서명']
+].map(g=>g.map(normalize));
+function equivalent(a,b){const x=normalize(a),y=normalize(b);return x===y||synonymGroups.some(g=>g.includes(x)&&g.includes(y))}
+
+
+// 객관식 문항에서만 A/①/1 같은 선택지 표기를 동일하게 취급합니다.
+const choiceNumber=s=>{const raw=String(s).trim(),t=raw.normalize('NFKC').replace(/[.．)）]$/u,'').trim();if(/^[1-9]$/u.test(t))return t;if(/^[A-Ia-i]$/u.test(t))return String(t.toUpperCase().charCodeAt(0)-64);const circled='①②③④⑤⑥⑦⑧⑨';const i=circled.indexOf(raw);return i<0?null:String(i+1)};
+const isChoiceQuestion=q=>/객관식|선택형|선다형|보기\s*중|다음\s*중|옳은\s*것|틀린\s*것|고르시오|선택하시오/u.test([q.kind,q.hint,q.prompt].join(' '));
+
 function finish(checks){
  if(!checks.length)return{status:'review',checks:[{label:'자동채점 기준 없음',ok:false,ambiguous:true}]};
  const n=checks.filter(c=>c.ok).length;
  return{status:checks.some(c=>c.ambiguous)?'review':n===checks.length?'correct':n?'partial':'wrong',checks};
 }
-function evaluate(rule,input,label){
+function evaluate(rule,input,label,allowChoice=false){
  if(rule.mode==='exact'){
   const clean=rule.strict?commandNormalize:normalize;
-  const ok=Array.isArray(rule.aliases)&&rule.aliases.some(v=>clean(v)===clean(input));
+  const ok=Array.isArray(rule.aliases)&&rule.aliases.some(v=>(rule.strict?clean(v)===clean(input):equivalent(v,input))||(allowChoice&&choiceNumber(v)!==null&&choiceNumber(v)===choiceNumber(input)));
   return[{label:label||'답안',ok}];
  }
  if(rule.mode==='criteria'){
@@ -34,47 +78,18 @@ function grade(question,input){
   if(used.size<chunks.length&&matched.length>=need)return{status:'review',checks:[...checks,{label:'추가로 쓴 항목의 타당성을 확인하세요.',ok:false,ambiguous:true}]};
   return finish(checks);
  }
- if(rule.mode!=='parts')return finish(evaluate(rule,input,'답안'));
- const pattern=/(?:^|\n)\s*(?:\(([A-Ga-g1-9가나다라마바사ㄱㄴㄷㄹㅁㅂㅅ]|[1-9]-[1-9])\)|([A-Ga-g1-9가나다라마바사ㄱㄴㄷㄹㅁㅂㅅ]|[1-9]-[1-9])\s*[:：.)])\s*/g;
+ if(rule.mode!=='parts')return finish(evaluate(rule,input,'답안',isChoiceQuestion(question)));
+ // 번호. 형식만 받습니다. A/B/C 표기 답안은 허용하지 않습니다.
+ const pattern=/(?:^|\n|[,;]\s*)\s*([1-9][0-9]*)\s*\.\s*/g;
  const matches=[...input.matchAll(pattern)],sections={},duplicates=new Set();
- for(let i=0;i<matches.length;i++){const m=matches[i],label=(m[1]||m[2]).toUpperCase();if(Object.hasOwn(sections,label))duplicates.add(label);sections[label]=(sections[label]||'')+input.slice(m.index+m[0].length,i+1<matches.length?matches[i+1].index:input.length)}
- if(!matches.length)return{status:'review',checks:[{label:'가이드에 따라 항목 번호·문자를 붙여 한 줄씩 작성하세요.',ok:false,ambiguous:true}]};
- const checks=[];for(const part of rule.parts||[]){const value=sections[part.label];if(value===undefined||!value.trim()){for(const label of part.mode==='criteria'?(part.groups||[]).map(g=>g[0]):['답안'])checks.push({label:part.label+' · '+label+' · 미응답',ok:false});continue}const items=evaluate(part,value,part.label);if(duplicates.has(part.label))for(const item of items){item.ok=false;item.ambiguous=true}checks.push(...items)}
+ for(let i=0;i<matches.length;i++){const m=matches[i],label=m[1];if(Object.hasOwn(sections,label))duplicates.add(label);sections[label]=(sections[label]||'')+input.slice(m.index+m[0].length,i+1<matches.length?matches[i+1].index:input.length)}
+ if(!matches.length||/^(?!\s*\d+\s*\.)/u.test(input))return{status:'review',checks:[{label:'1. 답, 2. 답 형식으로 숫자와 마침표를 사용하세요.',ok:false,ambiguous:true}]};
+ const checks=[];for(const part of rule.parts||[]){const partNumber=numberOfLabel(part.label);const value=sections[partNumber];if(value===undefined||!value.trim()){for(const label of part.mode==='criteria'?(part.groups||[]).map(g=>g[0]):['답안'])checks.push({label:partNumber+' · '+label+' · 미응답',ok:false});continue}const items=evaluate(part,value,partNumber);if(duplicates.has(partNumber))for(const item of items){item.ok=false;item.ambiguous=true}checks.push(...items)}
  return finish(checks);
 }
-// 객관식 선택지 표기와 답안만 1~4로 통일한다. 서술형의 A/B 항목은 유지한다.
-function choiceMap(q){
- const lines=String(q.prompt||'').split(/\n/);
- const found=[];
- for(const line of lines){
-  const m=line.match(/^\s*(?:([A-Da-d])\s*[.)：:]|\(?([1-4])\)?\s*[.)：:])\s*\S/);
-  if(m)found.push(m[1]?m[1].toUpperCase():m[2]);
- }
- // 선택지 네 개가 실제로 표시된 문제에만 적용
- return found.length===4&&new Set(found).size===4?found:null;
-}
-function choiceText(text,q){
- const choices=choiceMap(q);if(!choices)return String(text||'');
- return String(text||'').split('\n').map(line=>{
-  const m=line.match(/^(\s*)([A-Da-d]|[1-4])\s*[.)：:]\s*(.*)$/);
-  if(!m)return line;
-  const pos=choices.indexOf(/[A-Da-d]/.test(m[2])?m[2].toUpperCase():m[2]);
-  return pos<0?line:m[1]+(pos+1)+'. '+m[3];
- }).join('\n');
-}
-function choiceAnswer(q,value){
- const choices=choiceMap(q);if(!choices)return value;
- const trimmed=String(value).trim();
- if(!/^[1-4]$/.test(trimmed))return value;
- const label=choices[Number(trimmed)-1];
- // 기존 A~D 정답 키가 들어 있는 exact 채점에만 문자로 변환
- const rule=q.grading;
- if(rule?.mode==='exact'&&Array.isArray(rule.aliases)&&rule.aliases.some(a=>/^[A-Da-d]$/.test(String(a).trim())))return label;
- return value;
-}
-function currentGrade(q,value){const auto=grade(q,choiceAnswer(q,value)),previous=saved.results[q.id];if(auto.status==='review'&&previous?.manual&&previous.answer===value)return{status:previous.status,checks:previous.checks,manual:true};return auto}
+function currentGrade(q,value){const auto=grade(q,value),previous=saved.results[q.id];if(auto.status==='review'&&previous?.manual&&previous.answer===value)return{status:previous.status,checks:previous.checks,manual:true};return auto}
 
-window.ChaesoGrade=grade;const names={correct:'정답',partial:'부분정답',wrong:'오답',review:'확인 필요'};function shuffle(list){const next=[...list];for(let i=next.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[next[i],next[j]]=[next[j],next[i]]}return next}function saveDraft(){if(queue[index]){saved.drafts[queue[index].id]=answer.value;persist()}}function showHome(){saveDraft();home.hidden=false;quiz.hidden=true;submission.hidden=true}function start(list,random=true){if(!list.length){notice.textContent='아직 해당하는 문제가 없습니다.';return}saveDraft();queue=random?shuffle(list):[...list];index=0;home.hidden=true;quiz.hidden=false;submission.hidden=true;render()}function render(){const q=queue[index];$('[data-category]').textContent=q.subject;$('[data-prompt]').textContent=choiceText(q.prompt,q);let figures=$('#question-figures');if(!figures){figures=document.createElement('div');figures.id='question-figures';$('[data-prompt]').insertAdjacentElement('afterend',figures)}figures.replaceChildren();for(const [i,item] of (q.images||[]).entries()){if(!/^figures\/[a-f0-9]+\.png$/.test(item.src))continue;const a=document.createElement('a');a.href=item.src;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label','문제 그림 '+(i+1)+' 크게 보기');const img=document.createElement('img');img.src=item.src;img.alt=item.alt||'문제 조건 그림';img.loading='eager';img.style.cssText='display:block;max-width:100%;height:auto;margin:12px 0;background:white;border-radius:8px';img.onerror=()=>{img.alt='문제 그림을 불러오지 못했습니다. figures 폴더가 같은 경로에 있는지 확인하세요.'};a.append(img);figures.append(a)}$('[data-format]').textContent=choiceText(q.hint,q);$('[data-format]').append(document.createTextNode(' · '+q.origin+(q.exam?' · '+q.exam:'')));$('#quiz-progress').textContent=`${index+1} / ${queue.length} · ${q.kind}`;answer.value=saved.drafts[q.id]||'';result.hidden=true;$('#bookmark').textContent=saved.stars.includes(q.id)?'★ 저장됨':'☆ 저장';$('#bookmark').setAttribute('aria-pressed',String(saved.stars.includes(q.id)));$('#previous').disabled=index===0;$('#next').disabled=false;$('#next').textContent=index===queue.length-1?'제출하기':'다음 →'}answer.addEventListener('input',saveDraft);function showResult(q,grading){result.hidden=false;result.replaceChildren();if(grading){const title=document.createElement('div');title.className='status-label';title.textContent=names[grading.status]+' · '+grading.checks.filter(c=>c.ok).length+'/'+grading.checks.length+' 요소 충족';result.append(title);const list=document.createElement('ul');list.className='checks';for(const check of grading.checks){const li=document.createElement('li');li.textContent=(check.ok?'✓ ':'○ ')+check.label+(check.ambiguous?' — 답안 의미·형식 확인':'');list.append(li)}result.append(list)}const model=document.createElement('p');model.style.whiteSpace='pre-wrap';model.textContent='복원 출처 답안\n'+q.answer;const explanation=document.createElement('p');explanation.textContent=q.explanation;const link=document.createElement('a');link.href=q.reference;link.target='_blank';link.rel='noopener noreferrer';link.textContent='관련 개념·기술 문서 ↗';const note=document.createElement('small');note.textContent='학습용 판정이며 공식 시험 채점 결과가 아닙니다. 등록되지 않은 동의어·서술 표현은 출처 답안과 비교하세요.';result.append(model);if(q.correction){const correction=document.createElement('p');correction.textContent='검수 보충 · '+q.correction;result.append(correction)}result.append(explanation,link);if(q.sourceUrl){const source=document.createElement('a');source.href=q.sourceUrl;source.target='_blank';source.rel='noopener noreferrer';source.style.display='block';source.textContent='원문 출처 ↗ · '+q.sourceAuthor+' · '+q.exam+' · 게시글 '+q.sourceQuestion+'번';result.append(source);const license=document.createElement('a');license.href=q.licenseUrl;license.target='_blank';license.rel='noopener noreferrer';license.textContent='CC BY-NC-ND 4.0 · 원문 유지 · 비영리 이용';license.style.display='block';result.append(license)}result.append(note);if(grading?.status==='review'){const box=document.createElement('div');const p=document.createElement('p');p.textContent='자동 판정이 어려운 답안입니다. 복원 답안과 검수 보충을 비교한 뒤 직접 판정하면 제출 점수에도 반영됩니다.';box.append(p);for(const [label,status,n,total] of [['정답으로 기록','correct',1,1],['부분정답으로 기록','partial',1,2],['오답으로 기록','wrong',0,1]]){const b=document.createElement('button');b.className='secondary';b.style.margin='4px';b.textContent=label;b.onclick=()=>{const checks=Array.from({length:total},(_,i)=>({label:'직접 비교 판정',ok:i<n}));const g={status,checks,manual:true};saved.results[q.id]={...g,answer:answer.value,time:Date.now()};persist();showResult(q,g)};box.append(b)}result.append(box)}}$('[data-grade]').onclick=()=>{const q=queue[index],grading=currentGrade(q,answer.value);if(grading.status==='empty'){result.hidden=false;result.textContent='답안을 먼저 작성하세요.';return}saveDraft();saved.results[q.id]={status:grading.status,answer:answer.value,time:Date.now(),manual:!!grading.manual,checks:grading.checks};persist();showResult(q,grading)};$('[data-model]').onclick=()=>showResult(queue[index],null);$('#bookmark').onclick=()=>{const id=queue[index].id;saved.stars=saved.stars.includes(id)?saved.stars.filter(x=>x!==id):[...saved.stars,id];persist();$('#bookmark').textContent=saved.stars.includes(id)?'★ 저장됨':'☆ 저장';$('#bookmark').setAttribute('aria-pressed',String(saved.stars.includes(id)))};$('#next').onclick=()=>{saveDraft();if(index<queue.length-1){index++;render()}else submitSession()};$('#previous').onclick=()=>{saveDraft();if(index>0){index--;render()}};function submitSession(){
+window.ChaesoGrade=grade;const names={correct:'정답',partial:'부분정답',wrong:'오답',review:'확인 필요'};function shuffle(list){const next=[...list];for(let i=next.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[next[i],next[j]]=[next[j],next[i]]}return next}function saveDraft(){if(queue[index]){saved.drafts[queue[index].id]=answer.value;persist()}}function showHome(){saveDraft();home.hidden=false;quiz.hidden=true;submission.hidden=true}function start(list,random=true){if(!list.length){notice.textContent='아직 해당하는 문제가 없습니다.';return}saveDraft();queue=random?shuffle(list):[...list];index=0;home.hidden=true;quiz.hidden=false;submission.hidden=true;render()}function render(){const q=queue[index];$('[data-category]').textContent=q.subject;$('[data-prompt]').textContent=q.prompt;let figures=$('#question-figures');if(!figures){figures=document.createElement('div');figures.id='question-figures';$('[data-prompt]').insertAdjacentElement('afterend',figures)}figures.replaceChildren();for(const [i,item] of (q.images||[]).entries()){if(!/^figures\/[a-f0-9]+\.png$/.test(item.src))continue;const a=document.createElement('a');a.href=item.src;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label','문제 그림 '+(i+1)+' 크게 보기');const img=document.createElement('img');img.src=item.src;img.alt=item.alt||'문제 조건 그림';img.loading='eager';img.style.cssText='display:block;max-width:100%;height:auto;margin:12px 0;background:white;border-radius:8px';img.onerror=()=>{img.alt='문제 그림을 불러오지 못했습니다. figures 폴더가 같은 경로에 있는지 확인하세요.'};a.append(img);figures.append(a)}$('[data-format]').textContent=numberizeHint(q);$('[data-format]').append(document.createTextNode(' · '+q.origin+(q.exam?' · '+q.exam:'')));$('#quiz-progress').textContent=`${index+1} / ${queue.length} · ${q.kind}`;answer.value=saved.drafts[q.id]||'';result.hidden=true;$('#bookmark').textContent=saved.stars.includes(q.id)?'★ 저장됨':'☆ 저장';$('#bookmark').setAttribute('aria-pressed',String(saved.stars.includes(q.id)));$('#previous').disabled=index===0;$('#next').disabled=false;$('#next').textContent=index===queue.length-1?'제출하기':'다음 →'}answer.addEventListener('input',saveDraft);function showResult(q,grading){result.hidden=false;result.replaceChildren();if(grading){const title=document.createElement('div');title.className='status-label';title.textContent=names[grading.status]+' · '+grading.checks.filter(c=>c.ok).length+'/'+grading.checks.length+' 요소 충족';result.append(title);const list=document.createElement('ul');list.className='checks';for(const check of grading.checks){const li=document.createElement('li');li.textContent=(check.ok?'✓ ':'○ ')+check.label+(check.ambiguous?' — 답안 의미·형식 확인':'');list.append(li)}result.append(list)}const model=document.createElement('p');model.style.whiteSpace='pre-wrap';model.textContent='복원 출처 답안 (숫자 표기)\n'+numberizeAnswer(q.answer);const explanation=document.createElement('p');explanation.textContent=q.explanation;const link=document.createElement('a');link.href=q.reference;link.target='_blank';link.rel='noopener noreferrer';link.textContent='관련 개념·기술 문서 ↗';const note=document.createElement('small');note.textContent='학습용 판정이며 공식 시험 채점 결과가 아닙니다. 등록되지 않은 동의어·서술 표현은 출처 답안과 비교하세요.';result.append(model);if(q.correction){const correction=document.createElement('p');correction.textContent='검수 보충 · '+q.correction;result.append(correction)}result.append(explanation,link);if(q.sourceUrl){const source=document.createElement('a');source.href=q.sourceUrl;source.target='_blank';source.rel='noopener noreferrer';source.style.display='block';source.textContent='원문 출처 ↗ · '+q.sourceAuthor+' · '+q.exam+' · 게시글 '+q.sourceQuestion+'번';result.append(source);const license=document.createElement('a');license.href=q.licenseUrl;license.target='_blank';license.rel='noopener noreferrer';license.textContent='CC BY-NC-ND 4.0 · 원문 유지 · 비영리 이용';license.style.display='block';result.append(license)}result.append(note);if(grading?.status==='review'){const box=document.createElement('div');const p=document.createElement('p');p.textContent='자동 판정이 어려운 답안입니다. 복원 답안과 검수 보충을 비교한 뒤 직접 판정하면 제출 점수에도 반영됩니다.';box.append(p);for(const [label,status,n,total] of [['정답으로 기록','correct',1,1],['부분정답으로 기록','partial',1,2],['오답으로 기록','wrong',0,1]]){const b=document.createElement('button');b.className='secondary';b.style.margin='4px';b.textContent=label;b.onclick=()=>{const checks=Array.from({length:total},(_,i)=>({label:'직접 비교 판정',ok:i<n}));const g={status,checks,manual:true};saved.results[q.id]={...g,answer:answer.value,time:Date.now()};persist();showResult(q,g)};box.append(b)}result.append(box)}}$('[data-grade]').onclick=()=>{const q=queue[index],grading=currentGrade(q,answer.value);if(grading.status==='empty'){result.hidden=false;result.textContent='답안을 먼저 작성하세요.';return}saveDraft();saved.results[q.id]={status:grading.status,answer:answer.value,time:Date.now(),manual:!!grading.manual,checks:grading.checks};persist();showResult(q,grading)};$('[data-model]').onclick=()=>showResult(queue[index],null);$('#bookmark').onclick=()=>{const id=queue[index].id;saved.stars=saved.stars.includes(id)?saved.stars.filter(x=>x!==id):[...saved.stars,id];persist();$('#bookmark').textContent=saved.stars.includes(id)?'★ 저장됨':'☆ 저장';$('#bookmark').setAttribute('aria-pressed',String(saved.stars.includes(id)))};$('#next').onclick=()=>{saveDraft();if(index<queue.length-1){index++;render()}else submitSession()};$('#previous').onclick=()=>{saveDraft();if(index>0){index--;render()}};function submitSession(){
  saveDraft();
  const answered=queue.filter(q=>(saved.drafts[q.id]||'').trim());
  if(!answered.length){result.hidden=false;result.textContent='작성한 답안이 없습니다. 한 문제 이상 작성한 뒤 제출하세요.';return}

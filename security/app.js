@@ -97,14 +97,14 @@ window.ChaesoGrade=grade;const names={correct:'정답',partial:'부분정답',wr
   result.append(title);
  }
  const box=document.createElement('div');
- box.style.cssText='background:#e8f7ed;color:#14532d;border:1px solid #86c99a;border-radius:12px;padding:16px 18px;margin-top:12px;line-height:1.65';
+ box.style.cssText='background:#06120b;color:#e5e7eb;border:1px solid #166534;border-radius:12px;padding:14px 16px;margin-top:12px;line-height:1.6';
  const model=document.createElement('div');
- model.style.cssText='font-weight:700;white-space:pre-wrap;font-size:16px';
+ model.style.cssText='font-weight:600;white-space:pre-wrap;font-size:15px;color:#4ade80';
  model.textContent='정답: '+numberizeAnswer(q.answer);
  box.append(model);
  if(q.explanation){
   const explanation=document.createElement('div');
-  explanation.style.cssText='white-space:pre-wrap;margin-top:10px;font-size:14px';
+  explanation.style.cssText='white-space:pre-wrap;margin-top:6px;font-size:14px;color:#e5e7eb';
   explanation.textContent=q.explanation;
   box.append(explanation);
  }

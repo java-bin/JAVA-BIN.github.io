@@ -472,11 +472,12 @@ const memorialOverlay=document.createElement('div');
 memorialOverlay.style.cssText='position:fixed;inset:0;background:rgba(17,13,11,.83);z-index:100;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:18px;box-sizing:border-box';
 memorialOverlay.innerHTML=`<div style="width:min(850px,95vw);display:flex;align-items:center;justify-content:space-between;color:#f5e8d6;font:600 17px system-ui"><span id="memorialTitle">추모함</span><button id="memorialClose" style="background:#f3e7d7;color:#3c2c22;border:0;border-radius:8px;padding:9px 15px;cursor:pointer">닫기 ✕</button></div><div id="memorialViewport" style="width:min(850px,95vw);height:min(65dvh,570px);border:2px solid #9c7c5b;border-radius:8px;overflow:hidden;background:#241b16"></div><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button id="memorialDoors">유리문 닫기 / 열기</button></div>`;
 document.body.appendChild(memorialOverlay);
+const mobileMemorialStyle=document.createElement("style");mobileMemorialStyle.textContent="@media(max-width:600px){#memorialViewport{height:auto!important;aspect-ratio:1.32/1;max-height:52dvh}#memorialViewport canvas{display:block;width:100%!important;height:100%!important}}";document.head.appendChild(mobileMemorialStyle);
 for(const b of memorialOverlay.querySelectorAll('button'))b.style.cssText+=';padding:10px 15px;border:0;border-radius:9px;background:#d4b48d;color:#2c2018;font:600 13px system-ui;cursor:pointer';
 const memorialViewport=memorialOverlay.querySelector('#memorialViewport');
 const detailScene=new THREE.Scene();detailScene.background=new THREE.Color('#231a16');
 const detailCamera=new THREE.PerspectiveCamera(36,1,.1,50);detailCamera.position.set(0,.2,7.7);detailCamera.lookAt(0,0,0);
-const detailRenderer=new THREE.WebGLRenderer({antialias:true,alpha:false});detailRenderer.outputColorSpace=THREE.SRGBColorSpace;detailRenderer.toneMapping=THREE.ACESFilmicToneMapping;detailRenderer.toneMappingExposure=1.6;detailRenderer.setPixelRatio(Math.min(devicePixelRatio,1.25));memorialViewport.appendChild(detailRenderer.domElement);
+const detailRenderer=new THREE.WebGLRenderer({antialias:true,alpha:false});detailRenderer.outputColorSpace=THREE.SRGBColorSpace;detailRenderer.toneMapping=THREE.ACESFilmicToneMapping;detailRenderer.toneMappingExposure=1.6;detailRenderer.setPixelRatio(Math.min(devicePixelRatio,1.25));memorialViewport.appendChild(detailRenderer.domElement);detailRenderer.domElement.style.cssText="display:block;width:100%;height:100%;object-fit:contain";
 detailScene.add(new THREE.HemisphereLight('#fff0df','#6d4631',2));const detailLight=new THREE.PointLight('#fff0d6',22,13);detailLight.position.set(0,2.5,3);detailScene.add(detailLight);
 function detailBox(w,h,d,x,y,z,m,parent=detailScene){const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);parent.add(o);return o}
 const dWood=mat('#63594e'),dBack=mat('#817669'),dGold=mat('#b5a18a',.35,.15),dWhite=mat('#e8e1d4');
@@ -505,7 +506,7 @@ function resizeDetail(){
  detailCamera.aspect=w/h;
  // 모바일 세로 화면에서도 추모함의 전체 폭(유리문 포함 5.4)을 화면 안에 맞춘다.
  const vFov=THREE.MathUtils.degToRad(detailCamera.fov);
- const halfWidth=2.95,halfHeight=2.05,margin=1.12;
+ const halfWidth=3.35,halfHeight=2.12,margin=1.12;
  const horizontalDistance=halfWidth/(Math.tan(vFov/2)*detailCamera.aspect);
  const verticalDistance=halfHeight/Math.tan(vFov/2);
  const distance=Math.max(7.7,horizontalDistance,verticalDistance)*margin;
@@ -514,7 +515,7 @@ function resizeDetail(){
  detailCamera.updateProjectionMatrix();
 }
 function repaintDetail(){if(!activeMemorial)return;const data=window.MEMORIAL_DATA?.[activeMemorial.id+1]||{};detailPhoto.material.map=activeMemorial.photoPlane?.material.map||activeMemorial.texture;detailPhoto.material.color.set('#ffffff');detailPhoto.material.needsUpdate=true;const c=detailLabelCanvas.getContext('2d');c.clearRect(0,0,1024,600);c.fillStyle='#fff5e4';c.textAlign='center';c.textBaseline='middle';c.font='bold 86px sans-serif';c.fillText(data.name||'기억할 이름',512,148,910);c.font='43px sans-serif';const words=(data.message||'언제나 기억할게').split(' ');let lines=[''];for(const w of words){if((lines[lines.length-1]+' '+w).length>15)lines.push(w);else lines[lines.length-1]+=(lines[lines.length-1]?' ':'')+w;}lines.slice(0,5).forEach((line,i)=>c.fillText(line,512,290+i*58,900));detailLabelTex.needsUpdate=true;memorialOverlay.querySelector('#memorialTitle').textContent='추모함 '+String(activeMemorial.id+1).padStart(2,'0');}
-function openMemorial(item){walkTarget=null;pendingMemorial=null;activeMemorial=item;memorialOverlay.style.display='flex';doorsOpen=true;doorProgress=0;resizeDetail();repaintDetail();pressed.clear();}
+function openMemorial(item){walkTarget=null;pendingMemorial=null;activeMemorial=item;memorialOverlay.style.display='flex';doorsOpen=true;doorProgress=0;resizeDetail();requestAnimationFrame(resizeDetail);repaintDetail();pressed.clear();}
 function closeMemorial(){memorialOverlay.style.display='none';activeMemorial=null;pressed.clear();}
 memorialOverlay.querySelector('#memorialClose').onclick=closeMemorial;
 memorialOverlay.querySelector('#memorialDoors').onclick=()=>doorsOpen=!doorsOpen;
@@ -653,5 +654,5 @@ function playFrame(){requestAnimationFrame(playFrame);const dt=Math.min(clock.ge
 playFrame();
 document.getElementById('loadStatus').style.display='none';
 
-window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);if(activeMemorial)resizeDetail()});
 </script></body></html>

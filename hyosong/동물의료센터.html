@@ -1,0 +1,647 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>동물의료센터 — 반려견과 함께 걷는 추모관</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#ddd6cb;font-family:system-ui}#hint{position:absolute;top:15px;left:15px;padding:12px 15px;background:#ffffffd9;border-radius:12px;color:#3a302a;font-size:13px;line-height:1.5}canvas{display:block}</style><style>#loadStatus{position:fixed;inset:0;z-index:999;background:#e9e4dc;color:#292622;display:flex;align-items:center;justify-content:center;text-align:center;font:16px/1.8 system-ui;padding:25px;box-sizing:border-box}#loadStatus b{font-size:22px}#loadStatus small{display:block;color:#665e55;margin-top:12px}</style></head><body><div id="loadStatus"><div><b>동물의료센터</b><div id="loadMessage">3D 공간을 불러오는 중입니다…</div><small>화면이 계속 멈춰 있으면 인터넷 연결과 브라우저를 확인해 주세요.</small></div></div><script>window.addEventListener('error',function(e){document.getElementById('loadMessage').textContent='실행 오류: '+(e.message||'알 수 없는 오류')});window.addEventListener('unhandledrejection',function(e){document.getElementById('loadMessage').textContent='3D 로딩 오류: '+(e.reason?.message||e.reason||'외부 모듈을 불러오지 못했습니다')});setTimeout(function(){let el=document.getElementById('loadStatus');if(el&&el.style.display!=='none')document.getElementById('loadMessage').textContent='3D 라이브러리를 불러오지 못했습니다. 인터넷 연결이 필요합니다. (CDN 접속 실패 가능성)';},10000);</script><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"}}</script><script src="upload/memorial-data.js"></script><script type="module">
+import * as THREE from 'three';
+
+const scene=new THREE.Scene();scene.background=new THREE.Color('#e6e2dc');const camera=new THREE.PerspectiveCamera(43,innerWidth/innerHeight,.1,100);camera.position.set(1.0,7.5,23.5);const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.35));renderer.shadowMap.enabled=false;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.55;document.body.appendChild(renderer.domElement);// 카메라 조작은 아래의 3인칭 컨트롤러 하나만 사용한다.
+scene.add(new THREE.HemisphereLight(0xffffff,0xb8a28b,2.2));const sun=new THREE.DirectionalLight(0xffffff,2.2);sun.position.set(-5,9,8);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);scene.add(sun);
+const mat=(color,roughness=.65,metalness=0)=>new THREE.MeshStandardMaterial({color,roughness,metalness});const wood=mat('#85654c'),darkWood=mat('#694c38'),grey=mat('#8b847e'),topMat=mat('#faf9f6',.28),floor=mat('#b8aea0');function box(w,h,d,x,y,z,m,parent=scene){let o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
+// 로비 바닥은 수술실/약제실 바닥과 겹치지 않게 z=-3.55부터 추모관 경계 z=5.55까지만 배치한다.
+box(23,.13,9.10,0,-.085,1.0,floor);box(11,5.7,.24,0,2.85,-3.35,mat('#ad8a70'));
+// 사진 속 뒤쪽 세로 원목 루버: 하나의 벽을 따라 일정 간격으로 배치
+for(let i=0;i<68;i++){const x=-3.72+i*.132;box(.045,5.1,.09,x,2.68,-3.18,i%5===0?darkWood:wood)}
+// 실제 사진처럼 좌측과 중앙의 수직 간접광만
+for(let x of [-3.60,-3.44]){box(.026,5.0,.03,x,2.7,-3.115,new THREE.MeshBasicMaterial({color:'#ffd6a0'}));const l=new THREE.PointLight('#ffd5a2',.55,3);l.position.set(x,3,-2.9);scene.add(l)}
+// 대리석 텍스처는 고정 난수로 만든 얇은 회색 사선 무늬
+let cv=document.createElement('canvas');cv.width=1024;cv.height=512;let ctx=cv.getContext('2d');ctx.fillStyle='#f1f0ec';ctx.fillRect(0,0,1024,512);let seed=73;const rnd=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);for(let i=0;i<95;i++){let x=rnd()*1100-60,y=rnd()*600-60;ctx.beginPath();ctx.moveTo(x,y);ctx.bezierCurveTo(x+15,y-20,x+45,y+34,x+90,y-14);ctx.strokeStyle=i%4===0?'rgba(83,83,83,.35)':'rgba(105,105,105,.19)';ctx.lineWidth=.6+rnd()*1.5;ctx.stroke()}const tex=new THREE.CanvasTexture(cv);tex.colorSpace=THREE.SRGBColorSpace;tex.wrapS=tex.wrapT=THREE.RepeatWrapping;const marble=new THREE.MeshStandardMaterial({map:tex,roughness:.35});
+// 곡면 카운터: 사진처럼 왼쪽부터 휘어 오른쪽 직선으로 이어지는 한 덩어리
+const deskGroup=new THREE.Group();scene.add(deskGroup);deskGroup.position.z=-2.75;
+const pts=[[-3.7,1.7],[1.85,1.7],[2.48,1.65],[3.02,1.48],[3.45,1.14],[3.68,.64],[3.7,.1]];const curve=new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(p[0],0,p[1])),false,'centripetal');
+function band(y0,y1,depth,material){const verts=[],norms=[],uvs=[],indices=[];const steps=90;for(let i=0;i<=steps;i++){const t=i/steps,p=curve.getPoint(t),tan=curve.getTangent(t),nx=tan.z,nz=-tan.x;for(let j=0;j<2;j++){verts.push(p.x+nx*depth*.5,y0+(y1-y0)*j,p.z+nz*depth*.5);uvs.push(t*3,j)} }for(let i=0;i<steps;i++){let a=i*2,b=a+1,c=a+2,d=a+3;indices.push(a,c,b,b,c,d)}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uvs,2));g.setIndex(indices);g.computeVertexNormals();const mesh=new THREE.Mesh(g,material);mesh.material.side=THREE.DoubleSide;mesh.castShadow=true;mesh.receiveShadow=true;deskGroup.add(mesh)}
+band(.13,.49,.05,grey);band(.5,.535,.085,new THREE.MeshBasicMaterial({color:'#ffe0a2'}));band(.54,1.52,.09,marble);
+// 카운터 상판: 얇은 화이트 스톤, 곡선을 따라 끊김 없이
+for(let i=0;i<90;i++){let a=curve.getPoint(i/90),b=curve.getPoint((i+1)/90),mid=a.clone().add(b).multiplyScalar(.5),length=a.distanceTo(b)+.018;let o=box(length,.075,.64,mid.x,1.55,mid.z,topMat,deskGroup);o.rotation.y=-Math.atan2(b.z-a.z,b.x-a.x)}
+// 실제 사진의 넓은 창문: 접수대 왼편, 프레임과 하부 벽만 표현
+const extraCameraFade=[];const frameMat=mat('#d5d7d3',.35), glassMat=new THREE.MeshPhysicalMaterial({color:'#a9d6e0',transparent:true,opacity:.23,roughness:.08,metalness:.05,side:THREE.DoubleSide});
+// 왼쪽 측벽은 창문이 있는 부분만 구성 (나머지 공간은 비워둠)
+extraCameraFade.push(box(.16,5.65,3.2,-10.75,2.82,-1.75,mat('#e9e7e2')));
+extraCameraFade.push(box(.16,1.0,5.7,-10.75,.5,2.65,mat('#e9e7e2')));
+extraCameraFade.push(box(.045,3.45,5.7,-10.64,3.22,2.65,glassMat));
+for(const z of [-.2,2.65,5.5])extraCameraFade.push(box(.11,3.6,.075,-10.56,3.2,z,frameMat));
+for(const y of [1.05,3.05,4.96])extraCameraFade.push(box(.11,.08,5.8,-10.56,y,2.65,frameMat));
+// 수술실과 약제실은 로비에서 문 없이 통과하는 둥근 아치 입구.
+const doorWall=mat('#e8e5df'),doorTrim=mat('#c6b8a7');
+function openArch(x,z,title){
+ const half=1.48, spring=2.65, top=5.5;
+ // 실제 벽체: 아치 바깥을 막고 중앙 개구부만 비운다.
+ const left=x-1.48,right=x+1.48;
+ box(.23,spring,.24,left,spring/2,z,doorWall);
+ box(.23,spring,.24,right,spring/2,z,doorWall);
+ const shape=new THREE.Shape();
+ shape.moveTo(-half,top);shape.lineTo(-half,spring);
+ for(let i=0;i<=48;i++){const t=Math.PI-i*Math.PI/48;shape.lineTo(Math.cos(t)*half,spring+Math.sin(t)*half)}
+ shape.lineTo(half,top);shape.closePath();
+ const arch=new THREE.Mesh(new THREE.ShapeGeometry(shape),new THREE.MeshStandardMaterial({color:'#e8e5df',side:THREE.DoubleSide}));arch.position.set(x,0,z);scene.add(arch);
+ const trimCurve=new THREE.EllipseCurve(0,spring,half,half,0,Math.PI,false,0);
+ const trimPts=trimCurve.getPoints(48).map(v=>new THREE.Vector3(x+v.x,v.y,z+.075));
+ const rim=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(trimPts),48,.045,7,false),doorTrim);scene.add(rim);
+ const cv=document.createElement('canvas');cv.width=512;cv.height=128;const c=cv.getContext('2d');c.fillStyle='#f6f2eb';c.fillRect(0,0,512,128);c.fillStyle='#554c44';c.textAlign='center';c.font='bold 65px sans-serif';c.fillText(title,256,88);const tx=new THREE.CanvasTexture(cv);tx.colorSpace=THREE.SRGBColorSpace;
+ const sign=new THREE.Mesh(new THREE.PlaneGeometry(1.9,.48),new THREE.MeshBasicMaterial({map:tx,side:THREE.DoubleSide}));sign.position.set(x,5.08,z+.16);scene.add(sign);
+}
+// 전면 진료실 벽은 전체 높이로 막고, 두 아치 입구 자리만 비운다.
+box(2.36,5.5,.28,-9.76,2.75,-3.55,doorWall);
+box(11.16,5.5,.28,0,2.75,-3.55,doorWall);
+box(2.36,5.5,.28,9.76,2.75,-3.55,doorWall);
+// 벽의 아치 상단과 양쪽을 연결해 독립된 실내로 보이게 한다.
+box(.20,5.5,.28,-8.68,2.75,-3.55,doorWall);
+box(.20,5.5,.28,-5.52,2.75,-3.55,doorWall);
+box(.20,5.5,.28,5.52,2.75,-3.55,doorWall);
+box(.20,5.5,.28,8.68,2.75,-3.55,doorWall);
+openArch(-7.1,-3.55,'수술실');openArch(7.1,-3.55,'약제실');
+// 접수대 뒷벽은 중앙에만 남겨 양쪽 진료실 입구를 가리지 않는다.
+// 반려견 체중계: 인포메이션 오른쪽 벽 가까이 놓인 길쭉한 평판형.
+// 로비 중앙 통로에는 절대 걸치지 않는다.
+const scaleWhite=mat('#dedfdd',.92),scaleEdge=mat('#8c9292',.92);
+const SCALE_X=5.05,SCALE_Z=-1.75;
+box(.96,.065,1.90,SCALE_X,.055,SCALE_Z,scaleWhite);
+box(1.02,.025,1.96,SCALE_X,.012,SCALE_Z,scaleEdge);
+box(.66,.012,.27,SCALE_X,.095,SCALE_Z-.55,mat('#c4c9c8',1));
+// 창문 아래 실제 사진처럼 하나로 이어지는 긴 갈색 소파 (왼쪽 측벽 방향)
+const sofaBrown=mat('#86624f'),sofaSeat=mat('#99715c'),sofaLeg=mat('#534338');
+box(.94,.32,4.9,-9.97,.47,2.65,sofaSeat);
+box(.24,.8,4.9,-10.4,.83,2.65,sofaBrown);
+for(let z of [.32,4.98]){box(.96,.47,.19,-9.97,.68,z,sofaBrown);box(.12,.21,.15,-10.05,.16,z,sofaLeg)}
+// 창밖 나무는 실제 3D 오브젝트가 아닌 창에 그린 풍경으로 처리
+const landscape=document.createElement('canvas');landscape.width=1400;landscape.height=900;
+const lg=landscape.getContext('2d');
+const sky=lg.createLinearGradient(0,0,0,900);sky.addColorStop(0,'#a9d1e9');sky.addColorStop(.68,'#e3f0e9');sky.addColorStop(1,'#a9c6a4');lg.fillStyle=sky;lg.fillRect(0,0,1400,900);
+// 먼 산과 풀밭: 창밖의 풍경을 평면 그림으로만 렌더링한다.
+lg.fillStyle='#b1c6b5';lg.beginPath();lg.moveTo(0,700);for(let x=0;x<=1400;x+=15)lg.lineTo(x,630+Math.sin(x*.008)*42+Math.sin(x*.021)*18);lg.lineTo(1400,900);lg.lineTo(0,900);lg.fill();
+lg.fillStyle='#7caa78';lg.fillRect(0,770,1400,130);
+let treeSeed=73;function rand(){treeSeed=(treeSeed*1664525+1013904223)>>>0;return treeSeed/4294967296}
+function paintTree(x,base,scale){
+ lg.save();lg.translate(x,base);lg.scale(scale,scale);
+ // 나무줄기와 가지: 굵은 줄기에서 가느다란 가지가 자연스럽게 뻗는다.
+ lg.strokeStyle='#6b5743';lg.lineCap='round';lg.lineWidth=28;lg.beginPath();lg.moveTo(0,0);lg.bezierCurveTo(-10,-125,20,-245,0,-410);lg.stroke();
+ for(let i=0;i<15;i++){const side=i%2?1:-1;const y=-145-i*18;const reach=side*(85+rand()*100);lg.lineWidth=11-i*.42;lg.beginPath();lg.moveTo(0,y+32);lg.quadraticCurveTo(reach*.5,y-30,reach,y-75-rand()*55);lg.stroke()}
+ // 겹겹의 잎: 단색 타원 대신 작은 잎송이 수백 개와 밝고 어두운 층을 그린다.
+ for(let layer=0;layer<3;layer++)for(let i=0;i<250;i++){
+ const angle=rand()*Math.PI*2,r=Math.sqrt(rand()),xx=Math.cos(angle)*r*245,yy=-410+Math.sin(angle)*r*175;
+ const radius=9+rand()*20;lg.fillStyle=['#477c50','#5b925e','#75a66a','#92b978','#b1ca89','#386c4c'][(Math.floor(rand()*6)+layer)%6];
+ lg.beginPath();lg.ellipse(xx,yy,radius,radius*(.55+rand()*.55),rand()*Math.PI,0,Math.PI*2);lg.fill();
+ }lg.restore();
+}
+paintTree(260,850,.92);paintTree(810,900,1.12);paintTree(1290,850,.75);
+// 창틀 안쪽에 위치시켜 나무 그림이 로비로 튀어나오지 않게 한다.
+const sceneryTexture=new THREE.CanvasTexture(landscape);sceneryTexture.colorSpace=THREE.SRGBColorSpace;
+const scenery=new THREE.Mesh(new THREE.PlaneGeometry(5.65,3.45),new THREE.MeshBasicMaterial({map:sceneryTexture,side:THREE.DoubleSide,depthWrite:false}));scenery.rotation.y=Math.PI/2;scenery.position.set(-10.69,3.2,2.65);scene.add(scenery);
+// 건물 오른쪽 외벽의 자동 미닫이문. 평상시 닫혀 있고 강아지가 접근하면 좌우로 열린다.
+const entranceFrame=mat('#9a8068',.6), entranceGlass=new THREE.MeshPhysicalMaterial({color:'#d6eef1',transparent:true,opacity:.26,roughness:.12,depthWrite:false,side:THREE.DoubleSide});
+const entranceX=10.55, entranceZ=4.25;
+for(const z of [2.55,5.95])box(.14,3.65,.15,entranceX,1.82,z,entranceFrame);
+box(.16,.16,3.6,entranceX,3.65,entranceZ,entranceFrame);
+const autoDoorL=new THREE.Group(),autoDoorR=new THREE.Group();
+scene.add(autoDoorL,autoDoorR);
+function slidingGlassDoor(group,z){
+ box(.06,3.35,1.65,entranceX,1.72,z,entranceGlass,group);
+ for(const dz of [-.79,.79])box(.09,3.35,.075,entranceX,1.72,z+dz,entranceFrame,group);
+ box(.10,.08,1.65,entranceX,3.39,z,entranceFrame,group);
+ box(.10,.08,1.65,entranceX,.06,z,entranceFrame,group);
+ box(.10,.30,.09,entranceX-.10,1.35,z+(z<entranceZ?.52:-.52),entranceFrame,group);
+}
+slidingGlassDoor(autoDoorL,entranceZ-.83);slidingGlassDoor(autoDoorR,entranceZ+.83);
+let automaticDoorOpen=0;
+// 낮은 유리 가드는 자동문 양옆에만 둬서 입구 접근 동선을 가리지 않는다.
+function guardPanel(x,z,w,alongX=true){const h=1.05;
+ box(alongX?w:.045,h,alongX?.045:w,x,h/2,z,entranceGlass);
+ if(alongX){for(const dx of [-w/2,w/2])box(.045,h,.055,x+dx,h/2,z,entranceFrame)}
+ else{for(const dz of [-w/2,w/2])box(.055,h,.045,x,h/2,z+dz,entranceFrame)}
+ box(alongX?w:.05,.04,alongX?.05:w,x,h,z,entranceFrame);
+}
+// 강아지 안전용 ㄷ자 가드: 자동문보다 실내 쪽에 두되 가운데 접근로는 비운다.
+// 유리 가드는 낮고 투명하며, 문과 충돌하지 않도록 좌우 측면으로 돌려 설치한다.
+guardPanel(8.65,2.65,1.55,false);
+guardPanel(8.65,5.85,1.55,false);
+guardPanel(8.95,1.90,.65,true);
+guardPanel(8.95,6.60,.65,true);
+box(.46,.025,3.2,10.55,.012,4.25,mat('#b5a99b'));
+// 넓은 추모홀: 대기실과 같은 높이로 연결. 진한 오크 바닥과 따뜻한 조명.
+const memorialFloor=mat('#8c6d51',.77),memorialWood=mat('#6b4a36'),memorialDark=mat('#291e1a');
+const floorCanvas=document.createElement('canvas');floorCanvas.width=512;floorCanvas.height=512;
+const fc=floorCanvas.getContext('2d');fc.fillStyle='#9c8065';fc.fillRect(0,0,512,512);
+for(let i=0;i<22;i++){const y=i*24;fc.fillStyle=i%3===0?'#8c7056':'#a3886c';fc.fillRect(0,y,512,23);fc.strokeStyle='#5e4a3c';fc.lineWidth=1;fc.beginPath();fc.moveTo(0,y);fc.lineTo(512,y);fc.stroke();for(let j=0;j<7;j++){fc.strokeStyle='rgba(64,42,26,.16)';fc.beginPath();const xx=(j*89+i*37)%512;fc.moveTo(xx,y+5);fc.bezierCurveTo(xx+17,y+9,xx+29,y+3,xx+62,y+12);fc.stroke()}}
+const ft=new THREE.CanvasTexture(floorCanvas);ft.colorSpace=THREE.SRGBColorSpace;ft.wrapS=ft.wrapT=THREE.RepeatWrapping;ft.repeat.set(3,3);
+const woodFloorMat=new THREE.MeshStandardMaterial({map:ft,roughness:.78});box(23,.13,17.1,0,-.085,14.1,woodFloorMat);
+// 추모벽은 사진처럼 깊이감 있는 칸과 사진·이름·메시지를 위한 넓은 공간을 갖는다.
+box(17.5,5.4,.32,0,2.7,19.85,mat('#51483e'));
+box(17.5,.14,1.0,0,.07,19.1,memorialWood);
+const nicheMat=mat('#827363'),inset=mat('#62584d'),trim=mat('#b2a18a',.45),flame=new THREE.MeshBasicMaterial({color:'#ffe2a0'});
+const memorialPlaques=[];
+function plaqueCanvas(id){const cv=document.createElement('canvas');cv.width=512;cv.height=512;return cv}
+// 실제 깊이가 있는 유리 추모함: 뒤벽/옆벽/천장/바닥/유리문/사진/초/꽃/선물
+for(let row=0;row<3;row++)for(let col=0;col<7;col++){
+ const x=7.18-col*2.39,y=1.03+(2-row)*1.57,z=19.48;
+ const id=row*7+col;
+ // 왼쪽 위에서 오른쪽으로 01~21 번호를 추모함 상단에 배치
+ const numberCanvas=document.createElement('canvas');numberCanvas.width=512;numberCanvas.height=128;
+ const nc=numberCanvas.getContext('2d');nc.fillStyle='#33241c';nc.fillRect(0,0,512,128);
+ nc.strokeStyle='#b9976c';nc.lineWidth=5;nc.strokeRect(5,5,502,118);
+ nc.fillStyle='#f0d9b1';nc.textAlign='center';nc.textBaseline='middle';nc.font='bold 62px sans-serif';nc.fillText('F-'+String(id+1).padStart(2,'0'),256,66);
+ const numberTex=new THREE.CanvasTexture(numberCanvas);numberTex.colorSpace=THREE.SRGBColorSpace;
+ const numberPlate=new THREE.Mesh(new THREE.PlaneGeometry(.90,.225),new THREE.MeshBasicMaterial({map:numberTex,side:THREE.DoubleSide}));
+ numberPlate.position.set(x,y+.86,18.49);numberPlate.rotation.y=Math.PI;scene.add(numberPlate);
+ const inner=mat('#7c7062'),edge=mat('#655b50',.75),gold=mat('#b5a28a',.32,.25);
+ // 추모함 전면 z=18.63, 뒤쪽 z=19.65: 깊이 1m 이상
+ box(2.25,1.49,.12,x,y,19.70,inner);
+ box(.12,1.45,1.10,x-1.09,y,19.14,edge);box(.12,1.45,1.10,x+1.09,y,19.14,edge);
+ box(2.25,.11,1.10,x,y+.72,19.14,edge);box(2.25,.13,1.10,x,y-.70,19.14,edge);
+ box(2.10,.025,.91,x,y-.615,19.12,mat('#e1d9c9'));
+ // 사진은 추모함 뒤쪽에 세워 놓고, 앞쪽에 초와 꽃과 선물을 배치
+ box(.78,1.03,.055,x+.53,y+.13,19.56,gold);
+ const cv=plaqueCanvas(id),tx=new THREE.CanvasTexture(cv);tx.colorSpace=THREE.SRGBColorSpace;
+ const plaque=new THREE.Mesh(new THREE.PlaneGeometry(.70,.94),new THREE.MeshBasicMaterial({map:tx,side:THREE.DoubleSide}));
+ plaque.position.set(x+.53,y+.13,19.516);plaque.visible=false;plaque.rotation.y=Math.PI;plaque.userData.memorialId=id;scene.add(plaque);
+ // 사진은 캔버스에 합성하지 않고 원본 이미지를 직접 GPU 텍스처로 전송한다.
+ const photoPlane=new THREE.Mesh(new THREE.PlaneGeometry(.68,.91),new THREE.MeshBasicMaterial({color:'#ffffff',side:THREE.DoubleSide}));
+ photoPlane.position.set(x+.53,y+.13,19.505);photoPlane.rotation.y=Math.PI;photoPlane.visible=false;photoPlane.userData.memorialId=id;scene.add(photoPlane);
+ const msgCv=document.createElement('canvas');msgCv.width=512;msgCv.height=128;
+ const msgTx=new THREE.CanvasTexture(msgCv);msgTx.colorSpace=THREE.SRGBColorSpace;
+ const msgMesh=new THREE.Mesh(new THREE.PlaneGeometry(.91,.72),new THREE.MeshBasicMaterial({map:msgTx,transparent:true,side:THREE.DoubleSide}));
+ msgMesh.position.set(x-.51,y+.10,19.48);msgMesh.rotation.y=Math.PI;msgMesh.userData.memorialId=id;scene.add(msgMesh);
+ // 앞쪽 유리문과 얇은 금속 테두리. 클릭은 내부 사진과 하단 이름판으로 처리
+ const glass=new THREE.MeshPhysicalMaterial({color:'#d9eff0',transparent:true,opacity:.13,roughness:.08,metalness:0,depthWrite:false,side:THREE.DoubleSide});
+ const frontGlass=box(2.05,1.30,.018,x,y,18.59,glass);frontGlass.userData.memorialId=id;
+ for(const xx of [-1.08,1.08])box(.035,1.43,.055,x+xx,y,18.58,gold);
+ for(const yy of [-.71,.71])box(2.22,.035,.055,x,y+yy,18.58,gold);
+ box(.035,.22,.045,x+.93,y,18.54,gold);
+ // 좌우 유리문 경첩과 중앙 손잡이
+ for(const sx of [-1,1])for(const yy of [-.48,.48])box(.065,.16,.09,x+sx*1.035,y+yy,18.48,gold);
+ for(const sx of [-1,1])box(.042,.24,.085,x+sx*.09,y,18.46,gold);
+ // 상부 매립 조명과 내부 뒷벽의 부드러운 광택
+ box(1.86,.028,.10,x,y+.635,18.91,new THREE.MeshBasicMaterial({color:'#fff1d3'}));
+
+ const candle=mat('#f4e7d3'),flame=new THREE.MeshBasicMaterial({color:'#ffca6b'});
+ for(const dx of [-.72,-.53]){
+   box(.12,.23,.12,x+dx,y-.46,18.82,candle);
+   const fire=new THREE.Mesh(new THREE.ConeGeometry(.052,.14,10),flame);fire.position.set(x+dx,y-.27,18.82);scene.add(fire);
+ }
+ const vase=mat('#c6a68f');const vaseBody=new THREE.Mesh(new THREE.CylinderGeometry(.105,.15,.27,12),vase);vaseBody.position.set(x+.74,y-.44,18.90);scene.add(vaseBody);
+ for(let k=0;k<4;k++){
+   const flower=new THREE.Mesh(new THREE.SphereGeometry(.075,10,8),mat(k%2?'#e8b3ad':'#f5e0b7'));
+   flower.position.set(x+.65+k*.055,y-.22+(k%2)*.09,18.88+(k%2)*.05);scene.add(flower);
+ }
+ const gift=new THREE.Mesh(new THREE.BoxGeometry(.28,.17,.24),mat('#a8876d'));gift.position.set(x+.35,y-.52,18.85);scene.add(gift);
+ box(.035,.19,.27,x+.35,y-.42,18.85,gold);
+ // 작은 추모 유골함: 원통 몸체, 금속 뚜껑, 명패
+ const urn=new THREE.Mesh(new THREE.CylinderGeometry(.145,.16,.29,20),mat('#d6c2a1',.35,.12));urn.position.set(x+.05,y-.46,18.99);scene.add(urn);
+ const urnLid=new THREE.Mesh(new THREE.CylinderGeometry(.17,.17,.045,20),gold);urnLid.position.set(x+.05,y-.30,18.99);scene.add(urnLid);
+
+ const record=()=>window.MEMORIAL_DATA?.[id+1]||null;
+ function repaint(){const d=record(),c=cv.getContext('2d');c.clearRect(0,0,512,512);tx.needsUpdate=true;
+ const g=msgCv.getContext('2d');msgCv.width=768;msgCv.height=512;g.clearRect(0,0,768,512);g.fillStyle='#f8edda';g.textAlign='center';g.textBaseline='middle';
+ g.font='bold 64px sans-serif';g.fillText(d?.name||'기억할 이름',384,142,700);
+ g.font='35px sans-serif';const words=(d?.message||'언제나 기억할게').split(' ');let lines=[''];for(const w of words){if((lines[lines.length-1]+' '+w).length>13)lines.push(w);else lines[lines.length-1]+=(lines[lines.length-1]?' ':'')+w;}
+ lines.slice(0,4).forEach((line,i)=>g.fillText(line,384,245+i*57,690));msgTx.needsUpdate=true;}
+
+ repaint();memorialPlaques.push({plaque,id,repaint,msgMesh,frontGlass,texture:tx,photoPlane});
+ const photoPath=record()?.photo===null?null:(record()?.photo||'upload/'+String(id%6+1).padStart(2,'0')+'.jpg');
+ if(photoPath){const img=new Image();img.onload=()=>{const texture=new THREE.Texture(img);texture.colorSpace=THREE.SRGBColorSpace;texture.needsUpdate=true;photoPlane.material.map=texture;photoPlane.material.needsUpdate=true;photoPlane.visible=true;};img.onerror=()=>console.warn('추모 사진 파일을 찾을 수 없습니다:',photoPath);img.src=photoPath;}
+
+ // 각 추모함의 발광 장식은 유지하되 21개 개별 PointLight는 생략 (성능 개선).
+}
+// 넓은 추모관: 실제 소파와 러그, 따뜻한 조명, 벽은 전면 추모벽에만.
+const memorialSofa=mat('#8e735d'),cushion=mat('#a98c75');
+// 추모관 중앙은 비우고 소파는 오른쪽 외벽에 평행하게 배치한다.
+box(.94,.38,3.8,9.2,.48,12.1,cushion);
+box(.22,.88,3.9,9.72,.88,12.1,memorialSofa);
+for(const z of [10.25,13.95])box(1.04,.62,.2,9.2,.60,z,memorialSofa);
+box(2.2,.018,3.8,7.55,.025,12.1,mat('#6b5547'));
+// 넓은 잎 화분과 낮은 관엽 식물: 실제 3D 잎을 사용한다.
+const potClay=mat('#a47c60'),plantStem=mat('#4b6740'),plantLeaf=mat('#527b53');
+function memorialPlant(x,z,h=1){
+ const pot=new THREE.Mesh(new THREE.CylinderGeometry(.30*h,.23*h,.48*h,16),potClay);pot.position.set(x,.25*h,z);scene.add(pot);
+ const soil=new THREE.Mesh(new THREE.CylinderGeometry(.28*h,.28*h,.025*h,16),mat('#49372d'));soil.position.set(x,.50*h,z);scene.add(soil);
+ for(let i=0;i<9;i++){const a=i*Math.PI*2/9;const stem=new THREE.Mesh(new THREE.CylinderGeometry(.015*h,.023*h,.78*h,7),plantStem);stem.position.set(x+Math.cos(a)*.12*h,.85*h,z+Math.sin(a)*.12*h);stem.rotation.z=Math.sin(a)*.35;stem.rotation.x=Math.cos(a)*.35;scene.add(stem);
+ const leaf=new THREE.Mesh(new THREE.SphereGeometry(.26*h,12,8),plantLeaf);leaf.scale.set(.48,1.25,.25);leaf.position.set(x+Math.cos(a)*.38*h,1.20*h+(i%3)*.13*h,z+Math.sin(a)*.38*h);leaf.rotation.z=-Math.cos(a)*.55;scene.add(leaf);}
+}
+memorialPlant(-9.3,9.3,1.2);memorialPlant(-9.25,16.5,1.1);memorialPlant(8.5,17.0,1.05);memorialPlant(7.6,8.8,.85);
+for(const x of [-6.5,0,6.5]){const l=new THREE.PointLight('#ffd5a1',1.2,11);l.position.set(x,4.9,15.3);scene.add(l)}
+// 카운터 뒤에 서 있는 간호사: 남색 간호복, 허리까지 내려오는 긴 머리
+const nurse=new THREE.Group();nurse.position.set(.7,0,-2.53);scene.add(nurse);
+const navy=mat('#1e3654'),navyDark=mat('#182d49'),skin=mat('#edc4a9'),hair=mat('#29201d'),shoe=mat('#333941');
+function part(geometry,material,x,y,z,parent=nurse){const m=new THREE.Mesh(geometry,material);m.position.set(x,y,z);m.castShadow=true;parent.add(m);return m}
+// 다리와 신발
+for(const x of [-.17,.17]){part(new THREE.CylinderGeometry(.125,.12,.85,12),navyDark,x,.49,0);part(new THREE.BoxGeometry(.28,.13,.42),shoe,x,.07,.12)}
+// 남색 상의와 짧은 소매
+part(new THREE.CylinderGeometry(.31,.27,.82,16),navy,0,1.29,0);
+for(const x of [-.36,.36]){let arm=part(new THREE.CylinderGeometry(.115,.105,.52,12),navy,x,1.43,0);arm.rotation.z=x>0?-.12:.12;part(new THREE.CylinderGeometry(.078,.085,.32,10),skin,x*1.12,1.04,.015)}
+// 목, 얼굴, 귀
+part(new THREE.CylinderGeometry(.09,.095,.16,12),skin,0,1.79,0);
+part(new THREE.SphereGeometry(.235,20,16),skin,0,2.02,.04);
+for(const x of [-.225,.225])part(new THREE.SphereGeometry(.055,10,8),skin,x,2.01,.035);
+// 뒤쪽 머리카락은 허리까지 내려오도록 긴 머리 다발로 표현
+part(new THREE.SphereGeometry(.255,20,16),hair,0,2.16,-.09);
+for(let i=0;i<13;i++){const x=(i-6)*.044;const strand=part(new THREE.CylinderGeometry(.038,.052,1.12,7),hair,x,1.45,-.205-Math.cos(i*.8)*.035);strand.rotation.z=(i-6)*.016;}
+for(const x of [-.21,.21])part(new THREE.CylinderGeometry(.065,.065,.88,9),hair,x,1.61,.035);
+// 간호복 V넥과 가슴 주머니
+const neck=part(new THREE.ConeGeometry(.105,.16,3),skin,0,1.67,.285);neck.rotation.z=Math.PI;
+part(new THREE.BoxGeometry(.17,.14,.012),navyDark,.14,1.36,.29);
+// 인포메이션 직원 얼굴: 눈·코·입이 카메라에서 구별되도록 강조
+for(const x of [-.105,.105]){part(new THREE.SphereGeometry(.043,14,10),mat('#241c1a'),x,2.055,.255);part(new THREE.SphereGeometry(.012,8,8),mat('#ffffff'),x-.013,2.068,.287);}
+part(new THREE.SphereGeometry(.055,12,10),skin,0,1.985,.285);const nurseSmile=part(new THREE.TorusGeometry(.07,.014,6,18,Math.PI),mat('#8b4d48'),0,1.925,.271);nurseSmile.rotation.z=Math.PI;
+// 접수대 이름 외 임의 소품은 추가하지 않음
+function textTexture(str,w=1024,h=180){const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');g.fillStyle='#d5c6b2';g.fillRect(0,0,w,h);g.fillStyle='#45392f';g.textAlign='center';g.textBaseline='middle';g.font='bold 63px sans-serif';g.fillText(str,w/2,h/2);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t}
+const sign=new THREE.Mesh(new THREE.PlaneGeometry(3.7,.65),new THREE.MeshBasicMaterial({map:textTexture('동물의료센터'),side:THREE.DoubleSide}));sign.position.set(1.1,3.95,-3.09);scene.add(sign);
+const label=document.createElement('canvas');label.width=512;label.height=128;const lc=label.getContext('2d');lc.fillStyle='#333';lc.font='bold 50px sans-serif';lc.fillText('INFORMATION',10,75);const lt=new THREE.CanvasTexture(label);const labelMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.65,.42),new THREE.MeshBasicMaterial({map:lt,transparent:true,side:THREE.DoubleSide}));labelMesh.position.set(2.95,1.16,1.8);labelMesh.rotation.y=-.13;deskGroup.add(labelMesh);
+
+
+// 확장된 진료 구역: 기존보다 깊이 약 2배, 수술실/약제실 각각 독립
+const clean=mat('#e2e4e0',.95),tile=mat('#999d9e',1),steel=mat('#9ba6a7',.9),surgical=mat('#579d96'),medicine=mat('#e4d9c7');
+const clinicBack=-26.1,clinicFront=-3.55;
+box(22,.12,22.55,0,-.08,-14.825,tile);
+const roomWalls=[];
+function wallBox(w,h,d,x,y,z,m=clean){const o=box(w,h,d,x,y,z,m);roomWalls.push(o);return o;}
+// 중앙 벽: 앞에서 뒤까지 막혀 있고, 맨 끝 z=-24.6~-22.2에서만 연결
+wallBox(.24,5.5,18.65,0,2.75,-12.875);
+wallBox(.24,5.5,1.35,0,2.75,-25.425);
+// 양쪽 외벽은 창문 부분을 비워 진짜 창으로 만든다
+const backWall=wallBox(22,5.5,.2,0,2.75,-26.1);
+const sideWallL=wallBox(.2,5.5,8.0,-10.9,2.75,-7.55);
+wallBox(.2,1.25,6.8,-10.9,.625,-14.95);wallBox(.2,1.1,6.8,-10.9,4.95,-14.95);
+wallBox(.2,5.5,6.2,-10.9,2.75,-22.45);
+const sideWallR=wallBox(.2,5.5,8.0,10.9,2.75,-7.55);
+wallBox(.2,1.25,6.8,10.9,.625,-14.95);wallBox(.2,1.1,6.8,10.9,4.95,-14.95);
+wallBox(.2,5.5,6.2,10.9,2.75,-22.45);
+const roomGlass=new THREE.MeshPhysicalMaterial({color:'#c5dfe3',transparent:true,opacity:.32,roughness:.16,depthWrite:false,side:THREE.DoubleSide});
+for(const x of [-10.88,10.88]){
+ extraCameraFade.push(box(.035,3.15,6.75,x,2.85,-14.95,roomGlass));
+ for(const z of [-18.3,-14.95,-11.6])extraCameraFade.push(box(.12,3.2,.08,x,2.85,z,frameMat));
+ extraCameraFade.push(box(.13,.09,6.75,x,2.86,-14.95,frameMat));
+}
+// 창밖 나무: 납작한 풍경 그림, 외부 3D 오브젝트 없음
+function clinicTreeTexture(){const c=document.createElement('canvas');c.width=700;c.height=420;const g=c.getContext('2d');const sky=g.createLinearGradient(0,0,0,420);sky.addColorStop(0,'#c7dce3');sky.addColorStop(1,'#edf2e8');g.fillStyle=sky;g.fillRect(0,0,700,420);g.fillStyle='#b2c6a5';g.fillRect(0,345,700,75);let seed=51;const r=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);for(const [x,y,h] of [[120,335,230],[355,355,275],[590,340,215]]){g.strokeStyle='#745b46';g.lineWidth=13;g.lineCap='round';g.beginPath();g.moveTo(x,370);g.lineTo(x,y-h*.63);g.stroke();for(let i=0;i<12;i++){const yy=y-h*.65+r()*h*.42,xx=x+(r()-.5)*h*.7;g.strokeStyle='#795f48';g.lineWidth=3;g.beginPath();g.moveTo(x,y-h*.6);g.lineTo(xx,yy);g.stroke();}for(let i=0;i<85;i++){const ang=r()*6.28,rr=Math.sqrt(r()),xx=x+Math.cos(ang)*rr*h*.40,yy=y-h*.79+Math.sin(ang)*rr*h*.32;g.fillStyle=['#527e50','#69955b','#8bab6b','#436f4c','#a1b983'][Math.floor(r()*5)];g.beginPath();g.ellipse(xx,yy,5+r()*11,4+r()*8,r()*3,0,6.28);g.fill();}}const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t;}
+const clinicScenery=clinicTreeTexture();for(const x of [-11.06,11.06]){const m=new THREE.Mesh(new THREE.PlaneGeometry(6.7,3.1),new THREE.MeshBasicMaterial({map:clinicScenery,side:THREE.DoubleSide}));m.rotation.y=Math.PI/2;m.position.set(x,2.85,-14.95);scene.add(m);extraCameraFade.push(m);}
+// 후면 연결 출입구: 중앙벽 끝에서만 좌우 방을 오갈 수 있도록 비워 둔다.
+// z=-22.2 ~ -24.75 구간은 통로이며 의료기기/원장 배치를 금지한다.
+// 수술실: 수술대 하나, 기기와 수납장은 벽 쪽, 넓은 회전 동선
+box(1.5,.2,3.6,-5.5,1.06,-14.4,steel);box(1.35,.12,3.3,-5.5,1.2,-14.4,surgical);
+for(const z of [-15.7,-13.1])box(.12,.85,.12,-5.5,.56,z,steel);
+// 중앙벽에 부착된 수납장: 바닥 통로를 침범하지 않음
+box(.46,1.45,1.65,-.42,1.65,-13.0,mat('#607780',.8));
+box(.14,.85,1.05,-.39,2.2,-14.4,mat('#243c48')); // 중앙벽 고정 모니터
+// 의미 없는 바닥 상자는 제거
+const lampHead=new THREE.Mesh(new THREE.CylinderGeometry(.7,.45,.24,24),mat('#f5f5f1'));lampHead.position.set(-5.5,3.2,-14.4);scene.add(lampHead);
+const surgeryLight=new THREE.PointLight('#f8fff5',1.15,8);surgeryLight.position.set(-5.5,3.0,-14.4);scene.add(surgeryLight);
+// 수술실 실제 의료 설비: 이동 동선을 피해 중앙벽과 외벽에 고정한다.
+const medMetal=mat('#6f858c',.7),medDark=mat('#344b55',.8),medScreen=new THREE.MeshBasicMaterial({color:'#79b8a9'});
+// 중앙벽 부착형 마취기: 바닥에 의미 없는 상자를 두지 않는다.
+box(.52,1.12,.80,-.55,1.22,-17.4,medMetal);
+box(.10,.57,.60,-.85,2.03,-17.4,medDark);
+box(.015,.42,.46,-.915,2.06,-17.4,medScreen);
+for(const zz of [-17.67,-17.15])box(.10,.22,.12,-.88,1.37,zz,mat('#c9d4d2'));
+// 벽걸이 수납장과 멸균 기구 트레이, 환자 상태 모니터
+box(.48,1.15,2.0,-.43,2.75,-19.8,mat('#8da5a9',.85));
+for(const zz of [-20.45,-19.8,-19.15])box(.06,.06,.30,-.72,2.38,zz,mat('#dce6e5'));
+box(.13,.65,.95,-.43,2.20,-11.2,medDark);
+box(.02,.47,.70,-.51,2.22,-11.2,medScreen);
+// 수술대 위 관절형 수술등 (천장 고정)
+box(.11,1.10,.11,-5.5,4.5,-14.4,steel);
+// 외벽에 부착된 소형 세척대: 바닥 통로 확보
+box(.58,.15,1.25,-10.35,1.04,-19.6,steel);
+box(.55,.10,.90,-10.35,1.14,-19.6,mat('#c2d0d0'));
+// 원장님: 벽 가까이에 서서 통로를 방해하지 않음
+const director=new THREE.Group();director.position.set(-4.05,0,-13.0);director.rotation.y=Math.PI/2;scene.add(director);
+const docSkin=mat('#e9bda1'),docHair=mat('#292421'),docWhite=mat('#f2f3f0',.92),docGreen=mat('#507d72'),docBlack=mat('#303338');
+function docPart(g,m,x,y,z){const o=new THREE.Mesh(g,m);o.position.set(x,y,z);director.add(o);return o;}
+for(const x of [-.18,.18]){docPart(new THREE.CapsuleGeometry(.13,.65,5,10),docBlack,x,.46,0);docPart(new THREE.BoxGeometry(.30,.13,.43),docBlack,x,.09,.12);}
+docPart(new THREE.CapsuleGeometry(.34,.74,6,16),docWhite,0,1.42,0);docPart(new THREE.BoxGeometry(.17,.73,.035),docGreen,0,1.41,.345);
+for(const x of [-.41,.41]){const sleeve=docPart(new THREE.CapsuleGeometry(.12,.58,5,12),docWhite,x,1.41,.02);sleeve.rotation.z=x>0?-.22:.22;docPart(new THREE.SphereGeometry(.12,12,10),docSkin,x*1.22,1,.08);}
+docPart(new THREE.CylinderGeometry(.10,.10,.18,12),docSkin,0,1.95,0);docPart(new THREE.SphereGeometry(.37,24,18),docSkin,0,2.3,.02);docPart(new THREE.SphereGeometry(.38,24,14),docHair,0,2.54,-.08).scale.set(1,.55,.9);
+for(const x of [-.15,.15]){docPart(new THREE.SphereGeometry(.026,10,8),docBlack,x,2.31,.36);docPart(new THREE.TorusGeometry(.125,.015,6,24),docBlack,x,2.32,.38);}
+docPart(new THREE.BoxGeometry(.12,.018,.025),docBlack,0,2.32,.39);docPart(new THREE.SphereGeometry(.065,12,10),docSkin,0,2.23,.392);const docMouth=docPart(new THREE.TorusGeometry(.065,.012,6,16,Math.PI),mat('#8b534c'),0,2.09,.375);docMouth.rotation.z=Math.PI;
+for(const x of [-.24,.24]){const cheek=docPart(new THREE.SphereGeometry(.065,12,10),mat('#e3a995'),x,2.15,.332);cheek.scale.set(1,.55,.24);}
+
+// 약제실: 중앙 분리벽 쪽 약품장 + 검은 조제대 하나, 통로 넓게
+const shelfWhite=mat('#849b9e',.75),cabinetDark=mat('#292c2e',.88,0),bottleWhite=mat('#d7e7eb',.6),shelfBack=mat('#60767b',.8),shelfTrim=mat('#465e65',.7);
+for(const z of [-10.5,-14.0]){box(.5,2.45,2.9,.65,1.28,z,shelfBack);box(.1,2.45,2.9,.95,1.28,z,shelfTrim);for(const y of [.8,1.5,2.2]){box(.64,.085,2.8,.95,y,z,shelfWhite);for(let j=0;j<4;j++)box(.15,.2,.17,1.05,y+.15,z-1.0+j*.65,[bottleWhite,mat('#c79a60'),mat('#79a7a1')][j%3]);}}
+// 추가 약품 선반: 중앙벽 쪽에 붙여 순환 동선을 막지 않는다.
+const extraShelf=box(.52,2.15,2.2,.66,1.15,-18.15,shelfBack);
+for(const sy of [.65,1.25,1.85]){
+ box(.68,.075,2.12,1.02,sy,-18.15,shelfWhite);
+ for(let k=0;k<3;k++){
+  const zz=-18.85+k*.7;
+  box(.16,.25,.16,1.08,sy+.17,zz,[bottleWhite,medicine,mat('#9bb7ad')][k]);
+ }
+}
+box(1.65,.86,4.5,4.15,.48,-13.7,cabinetDark);box(1.7,.09,4.55,4.15,.96,-13.7,mat('#4b5051',1));
+for(const [x,z] of [[3.85,-12.3],[4.3,-14.2],[3.9,-15.2]]){box(.22,.13,.2,x,1.1,z,bottleWhite);box(.23,.035,.22,x,1.19,z,medicine);}
+// 뒤쪽 창가에는 낮은 업무 책상만 놓고 연결 통로를 비워 둔다.
+// 후면의 불필요한 책상 제거: 순환 통로 확보
+// 벽과 바닥의 색 차이를 분명하게 표시
+const roomAccent=mat('#82918a',1),roomTrim=mat('#806b5a',1);
+for(const x of [-10.73,10.73])box(.055,.2,20.6,x,.13,-14.7,roomAccent);
+for(const z of [-25.9,-3.7])box(20.8,.03,.15,0,.012,z,roomTrim);
+const medicineSign=new THREE.Mesh(new THREE.PlaneGeometry(2.4,.55),new THREE.MeshBasicMaterial({map:textTexture('약제실',512,128),side:THREE.DoubleSide}));medicineSign.position.set(5.5,3.45,-3.65);scene.add(medicineSign);
+// 추모관 양옆 낮은 마감과 조명으로 공간감을 살린다.
+for(const x of [-10.6,10.6]){box(.16,1.7,15.8,x,.85,14.0,memorialWood);for(const z of [9.2,14.2,19.2]){const l=new THREE.PointLight('#ffdab1',.7,5);l.position.set(x*.94,2.4,z);scene.add(l)}}
+// 하나의 직사각형 건물: 병원과 추모실을 같은 외벽 안에 둔다. 중간에는 막힌 벽을 두지 않는다.
+const shellMat=mat('#84634d'); // 공용 병원·추모관 외벽: 따뜻한 갈색
+const memorialSideL=box(.22,5.5,23.0,-10.95,2.75,9.0,shellMat);
+const memorialSideR=box(.22,5.5,23.0,10.95,2.75,9.0,shellMat);
+// 추모벽 뒤쪽까지 건물 바닥 경계를 맞추고 뒤쪽 공간으로 이동하지 않도록 한다.
+const memorialBackWall=box(22,5.5,.24,0,2.75,20.08,shellMat);
+// 갈색 실내 천장: 카메라 시야를 가릴 때만 투명화한다.
+const roof=box(22.1,.16,46.7,0,5.65,-3.3,shellMat);
+roof.visible=true;
+roof.material=roof.material.clone();roof.material.transparent=true;roof.material.opacity=.92;
+// 천장 속에 있는 따뜻한 간접 조명
+for(const z of [-11,-5,2,8,15])for(const x of [-7,0,7]){
+ const light=new THREE.PointLight('#fff2de',.55,9);light.position.set(x,5.18,z);scene.add(light);
+ box(.85,.035,.48,x,5.45,z,new THREE.MeshBasicMaterial({color:'#fff8e8'}));
+}
+// 카메라가 벽을 관통하지 않도록 시선-카메라 사이의 가림막을 자동 회피한다.
+const cameraObstacles=[...roomWalls,...extraCameraFade,memorialSideL,memorialSideR,memorialBackWall,roof];
+for(const wall of cameraObstacles){wall.material=wall.material.clone();wall.material.transparent=true;}
+const cameraRay=new THREE.Raycaster();
+
+// 플레이어와 반려견: 병원 대기실에서 추모공간까지 자유롭게 이동
+// 이전 OrbitControls 참조 제거: 3인칭 카메라만 사용
+const avatar=new THREE.Group();scene.add(avatar);avatar.position.set(3.8,0,4.0);avatar.scale.setScalar(.72);
+const coat=mat('#45664d'),pants=mat('#39433d'),face=mat('#c68e68'),avatarHair=mat('#2c211d'),cheeks=mat('#ac6b5c'),eye=mat('#151515',.2);
+function avatarPart(geo,m,x,y,z,parent=avatar){const o=new THREE.Mesh(geo,m);o.position.set(x,y,z);o.castShadow=true;parent.add(o);return o}
+// 참고 사진처럼 2.5등신 비율: 큰 둥근 머리, 작고 부드러운 몸통, 둥근 팔.
+for(const x of [-.19,.19]){avatarPart(new THREE.CapsuleGeometry(.145,.43,6,12),pants,x,.44,0);avatarPart(new THREE.SphereGeometry(.20,16,12),pants,x,.14,.14)}
+avatarPart(new THREE.SphereGeometry(.48,32,20),coat,0,1.17,0).scale.set(1,.98,.7);
+for(const x of [-.46,.46]){const arm=avatarPart(new THREE.CapsuleGeometry(.135,.47,6,12),coat,x,1.17,.01);arm.rotation.z=x>0?-.13:.13;avatarPart(new THREE.SphereGeometry(.14,16,12),face,x*1.13,.82,.055)}
+avatarPart(new THREE.CylinderGeometry(.13,.13,.21,16),face,0,1.73,0);
+avatarPart(new THREE.SphereGeometry(.69,36,28),face,0,2.13,0).scale.set(1,.97,.88);
+for(const x of [-.64,.64])avatarPart(new THREE.SphereGeometry(.19,16,12),face,x,2.08,-.01);
+// 곱슬머리는 구체 다발을 겹쳐 만들어 원통형 머리보다 부드럽게 표현.
+avatarPart(new THREE.SphereGeometry(.69,30,20),avatarHair,0,2.48,-.16).scale.set(1,.63,.86);
+for(let i=0;i<11;i++){const a=-Math.PI*.95+i*Math.PI/10;avatarPart(new THREE.SphereGeometry(.19+(i%3)*.014,18,14),avatarHair,Math.cos(a)*.56,2.52+Math.sin(a)*.07,.25+Math.sin(a)*.1)}
+for(const x of [-.25,.25]){
+ avatarPart(new THREE.SphereGeometry(.115,20,16),eye,x,2.18,.535).scale.set(.8,1.17,.42);
+ avatarPart(new THREE.SphereGeometry(.045,12,10),mat('#ffffff',.2),x-.036,2.225,.593);
+ avatarPart(new THREE.SphereGeometry(.145,18,12),cheeks,x*1.75,1.95,.43).scale.set(1,.58,.2);
+}
+avatarPart(new THREE.SphereGeometry(.065,16,12),mat('#805543'),0,1.99,.605).scale.set(1,.5,.35);
+// 작고 귀여운 눈썹과 입: 표정의 부드러움을 살린다.
+for(const x of [-.25,.25]){const brow=avatarPart(new THREE.SphereGeometry(.10,12,10),avatarHair,x,2.37,.53);brow.scale.set(1,.18,.25);}
+const smile=avatarPart(new THREE.TorusGeometry(.105,.016,6,18,Math.PI),mat('#7d4b42'),0,1.94,.614);smile.rotation.z=Math.PI;
+// 옷깃과 포켓
+for(const x of [-.18,.18]){const lapel=avatarPart(new THREE.BoxGeometry(.19,.09,.035),mat('#58775f'),x,1.48,.35);lapel.rotation.z=x>0?.32:-.32;}
+const legL=avatar.children[0],legR=avatar.children[2];
+// 말랑한 인형 스타일 캐릭터: 그림자/메시 수를 억제하고 둥근 실루엣을 우선한다.
+const dog=new THREE.Group();scene.add(dog);dog.scale.setScalar(1.02);dog.position.copy(avatar.position);avatar.visible=false;
+const fur=mat('#e8c99b'),ear=mat('#d5aa78'),nose=mat('#302826');
+const dogCream=mat('#f5dfbd'),dogEye=mat('#211d1b'),dogShine=new THREE.MeshBasicMaterial({color:0xffffff});
+function dogPart(geo,m,x,y,z){const o=new THREE.Mesh(geo,m);o.position.set(x,y,z);o.castShadow=true;dog.add(o);return o}
+function dogBlob(x,y,z,sx,sy,sz,m=fur){const o=dogPart(new THREE.SphereGeometry(1,20,16),m,x,y,z);o.scale.set(sx,sy,sz);return o;}
+dogBlob(0,.43,-.08,.32,.36,.38);
+dogBlob(0,.77,.21,.43,.40,.38);
+dogBlob(0,.63,.53,.24,.17,.15,dogCream);
+// 귀 끝도 뾰족한 원뿔 대신 둥근 물방울 모양으로 표현
+for(const sign of [-1,1]){
+ const e=dogBlob(sign*.33,.85,.14,.16,.28,.15,ear);e.rotation.z=sign*.28;
+ dogBlob(sign*.16,.82,.548,.062,.073,.032,dogEye);
+ dogBlob(sign*.175,.844,.576,.021,.025,.012,dogShine);
+ dogBlob(sign*.255,.65,.475,.09,.055,.035,mat('#eeb5a8'));
+}
+dogBlob(0,.665,.666,.095,.071,.068,nose);
+const dogFeet=[];
+for(const x of [-.20,.20])for(const z of [-.25,.27])dogFeet.push(dogBlob(x,.16,z,.135,.19,.145));
+const tail=dogBlob(0,.51,-.47,.10,.13,.24,fur);tail.rotation.x=-.52;
+// 러시안블루: 회색 봉제 인형처럼 둥근 머리와 짧은 발, 초록빛 눈.
+const clinicCat=new THREE.Group();scene.add(clinicCat);clinicCat.scale.setScalar(.83);
+const catGray=mat('#87969b'),catDark=mat('#65777d'),catEye=mat('#9dbb9b'),catPupil=mat('#263634');
+function catPart(geo,m,x,y,z){const mesh=new THREE.Mesh(geo,m);mesh.position.set(x,y,z);mesh.castShadow=true;clinicCat.add(mesh);return mesh;}
+function catBlob(x,y,z,sx,sy,sz,m=catGray){const o=catPart(new THREE.SphereGeometry(1,18,14),m,x,y,z);o.scale.set(sx,sy,sz);return o;}
+catBlob(0,.38,-.09,.27,.31,.35);
+catBlob(0,.68,.22,.37,.35,.33);
+for(const sign of [-1,1]){
+ const e=catBlob(sign*.24,.965,.19,.125,.19,.12);e.rotation.z=-sign*.19;
+ const inner=catBlob(sign*.24,.973,.289,.064,.107,.019,mat('#b7a0a3'));inner.rotation.z=-sign*.19;
+ catBlob(sign*.15,.71,.516,.079,.091,.034,catEye);
+ catBlob(sign*.15,.71,.546,.041,.065,.017,catPupil);
+ catBlob(sign*.164,.745,.563,.016,.021,.009,dogShine);
+}
+catBlob(0,.586,.53,.05,.038,.029,mat('#ad9298'));
+const catFeet=[];
+for(const x of [-.17,.17])for(const z of [-.24,.22])catFeet.push(catBlob(x,.14,z,.105,.16,.115));
+const catTail=catBlob(0,.48,-.47,.09,.10,.30);catTail.rotation.x=-.65;
+// z=-3.55의 아치 통과, 후면 연결 통로 z=-23.5 이용. 각 테이블에는 점프/내려오기 동작.
+const catRoute=[
+ [2.0,0,3.3],[6.5,0,2.0],[6.5,0,8.8],[4.0,0,13.3],[-4.0,0,13.3],[-7.0,0,8.7],
+ [-7.1,0,-1.5],[-7.1,0,-5.5],[-8.0,0,-11.3],[-5.5,1.25,-14.4],[-5.5,1.25,-13.3],[-8.0,0,-17.3],
+ [-8.0,0,-23.5],[-4.0,0,-23.5],[2.6,0,-23.5],[7.2,0,-20.8],[7.2,0,-14.5],
+ [4.15,.95,-13.7],[4.15,.95,-12.5],[7.1,0,-10.4],[7.1,0,-4.5],[7.1,0,-1.4],
+ [3.0,0,2.4],[2.0,0,3.3]
+];
+let catWaypoint=1,catPause=0,catWalkTime=0;
+// 대각선 발을 번갈아 움직이는 가벼운 걷기 애니메이션 (추가 메시 없음)
+function movePaws(feet,phase,stride,lift){
+ feet.forEach((paw,i)=>{
+  const diagonal=(i===0||i===3)?1:-1;
+  const swing=Math.sin(phase)*diagonal;
+  paw.position.z=paw.userData.restZ+swing*stride;
+  paw.position.y=paw.userData.restY+Math.max(0,swing)*lift;
+  paw.rotation.x=swing*.18;
+ });
+}
+for(const p of [...dogFeet,...catFeet])p.userData={restY:p.position.y,restZ:p.position.z};
+let dogWalkTime=0,dogMoving=false;
+
+clinicCat.position.set(...catRoute[0]);
+function updateClinicCat(dt){
+ if(catPause>0){catPause-=dt;catTail.rotation.z=Math.sin(catWalkTime*2)*.18;movePaws(catFeet,catWalkTime*10,0,0);return;}
+ const wp=catRoute[catWaypoint],dx=wp[0]-clinicCat.position.x,dz=wp[2]-clinicCat.position.z;
+ const dist=Math.hypot(dx,dz),speed=1.65;
+ if(dist<.11){catWaypoint=(catWaypoint+1)%catRoute.length;if([3,9,10,17,18].includes(catWaypoint))catPause=1.3;return;}
+ const step=Math.min(dist,speed*dt);clinicCat.position.x+=dx/dist*step;clinicCat.position.z+=dz/dist*step;
+ // 테이블에 오르내릴 때 높이를 부드럽게 보간.
+ const yGoal=wp[1];clinicCat.position.y+=(yGoal-clinicCat.position.y)*Math.min(1,dt*4.2);
+ clinicCat.rotation.y=Math.atan2(dx,dz);catWalkTime+=dt;
+ catTail.rotation.z=Math.sin(catWalkTime*7)*.25;clinicCat.children[0].rotation.z=Math.sin(catWalkTime*9)*.025;movePaws(catFeet,catWalkTime*10,.085,.065);
+}
+const pressed=new Set();
+const keymap={KeyW:'up',ArrowUp:'up',KeyS:'down',ArrowDown:'down',KeyA:'left',ArrowLeft:'left',KeyD:'right',ArrowRight:'right'};
+window.addEventListener('keydown',e=>{if(document.activeElement?.tagName==='INPUT'||document.activeElement?.tagName==='TEXTAREA')return;const k=keymap[e.code];if(k){pressed.add(k);e.preventDefault()}});
+window.addEventListener('keyup',e=>{const k=keymap[e.code];if(k)pressed.delete(k)});
+const ray=new THREE.Raycaster(),pointer=new THREE.Vector2();let dragStart=null;
+renderer.domElement.addEventListener('pointerdown',e=>dragStart={x:e.clientX,y:e.clientY});
+// 추모함 클릭 시 편집창이 아니라 유리 양문이 열리는 입체 전시 화면을 연다.
+const memorialOverlay=document.createElement('div');
+memorialOverlay.style.cssText='position:fixed;inset:0;background:rgba(17,13,11,.83);z-index:100;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:18px;box-sizing:border-box';
+memorialOverlay.innerHTML=`<div style="width:min(850px,95vw);display:flex;align-items:center;justify-content:space-between;color:#f5e8d6;font:600 17px system-ui"><span id="memorialTitle">추모함</span><button id="memorialClose" style="background:#f3e7d7;color:#3c2c22;border:0;border-radius:8px;padding:9px 15px;cursor:pointer">닫기 ✕</button></div><div id="memorialViewport" style="width:min(850px,95vw);height:min(65vh,570px);border:2px solid #9c7c5b;border-radius:8px;overflow:hidden;background:#241b16"></div><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button id="memorialDoors">유리문 닫기 / 열기</button></div>`;
+document.body.appendChild(memorialOverlay);
+for(const b of memorialOverlay.querySelectorAll('button'))b.style.cssText+=';padding:10px 15px;border:0;border-radius:9px;background:#d4b48d;color:#2c2018;font:600 13px system-ui;cursor:pointer';
+const memorialViewport=memorialOverlay.querySelector('#memorialViewport');
+const detailScene=new THREE.Scene();detailScene.background=new THREE.Color('#231a16');
+const detailCamera=new THREE.PerspectiveCamera(36,1,.1,50);detailCamera.position.set(0,.2,7.7);detailCamera.lookAt(0,0,0);
+const detailRenderer=new THREE.WebGLRenderer({antialias:true,alpha:false});detailRenderer.outputColorSpace=THREE.SRGBColorSpace;detailRenderer.toneMapping=THREE.ACESFilmicToneMapping;detailRenderer.toneMappingExposure=1.6;detailRenderer.setPixelRatio(Math.min(devicePixelRatio,1.25));memorialViewport.appendChild(detailRenderer.domElement);
+detailScene.add(new THREE.HemisphereLight('#fff0df','#6d4631',2));const detailLight=new THREE.PointLight('#fff0d6',22,13);detailLight.position.set(0,2.5,3);detailScene.add(detailLight);
+function detailBox(w,h,d,x,y,z,m,parent=detailScene){const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);parent.add(o);return o}
+const dWood=mat('#63594e'),dBack=mat('#817669'),dGold=mat('#b5a18a',.35,.15),dWhite=mat('#e8e1d4');
+detailBox(5.3,3.6,.24,0,0,-.9,dBack);detailBox(.24,3.6,1.9,-2.65,0,0,dWood);detailBox(.24,3.6,1.9,2.65,0,0,dWood);detailBox(5.4,.22,1.9,0,1.8,0,dWood);detailBox(5.4,.22,1.9,0,-1.8,0,dWood);detailBox(5.0,.10,1.65,0,-1.60,0,mat('#e8e1d4'));
+const detailPhotoFrame=detailBox(1.75,2.18,.09,-1.13,.22,-.72,dGold);
+const detailPhoto=new THREE.Mesh(new THREE.PlaneGeometry(1.57,1.98),new THREE.MeshBasicMaterial({color:'#f6e5d5',side:THREE.DoubleSide}));detailPhoto.position.set(-1.13,.22,-.657);detailScene.add(detailPhoto);
+const detailLabelCanvas=document.createElement('canvas');detailLabelCanvas.width=1024;detailLabelCanvas.height=600;const detailLabelTex=new THREE.CanvasTexture(detailLabelCanvas);detailLabelTex.colorSpace=THREE.SRGBColorSpace;
+const detailLabel=new THREE.Mesh(new THREE.PlaneGeometry(2.22,1.62),new THREE.MeshBasicMaterial({map:detailLabelTex,transparent:true}));detailLabel.position.set(1.18,.24,-.63);detailScene.add(detailLabel);
+for(const x of [-2.0,2.0]){detailBox(.25,.53,.25,x,-1.31,.35,dWhite);const flame=new THREE.Mesh(new THREE.ConeGeometry(.09,.24,14),new THREE.MeshBasicMaterial({color:'#ffb34d'}));flame.position.set(x,-.90,.35);detailScene.add(flame);}
+for(const x of [-1.35,1.35]){detailBox(.30,.48,.30,x,-1.30,-.15,mat('#b48a71'));for(let k=0;k<5;k++){const flower=new THREE.Mesh(new THREE.SphereGeometry(.15,12,10),mat(k%2?'#e6b4ac':'#f3d2a6'));flower.position.set(x+(k-2)*.10,-.96+(k%2)*.08,-.15);detailScene.add(flower)}}
+detailBox(.52,.38,.44,.95,-1.37,.55,mat('#b18c68'));detailBox(.07,.40,.47,.95,-1.35,.55,dGold);
+// 실물 추모함 참고: 원통형 유골함, 상단 조명, 경첩, 사진 명패
+const urnDetail=new THREE.Mesh(new THREE.CylinderGeometry(.39,.43,.77,32),mat('#c9b395',.35,.18));urnDetail.position.set(1.55,-1.16,-.43);detailScene.add(urnDetail);
+const urnDetailLid=new THREE.Mesh(new THREE.CylinderGeometry(.45,.45,.09,32),dGold);urnDetailLid.position.set(1.55,-.72,-.43);detailScene.add(urnDetailLid);
+detailBox(4.65,.045,.13,0,1.56,.12,new THREE.MeshBasicMaterial({color:'#ffdeb0'}));
+for(const x of [-2.48,2.48])for(const y of [-1.16,1.16])detailBox(.10,.24,.16,x,y,1.06,dGold);
+const innerSpot=new THREE.SpotLight('#fff1dc',12,7,Math.PI/3,.8);innerSpot.position.set(0,1.45,.5);innerSpot.target.position.set(0,-.8,-.5);detailScene.add(innerSpot,innerSpot.target);
+
+const doorMaterial=new THREE.MeshPhysicalMaterial({color:'#c5e8ed',transparent:true,opacity:.18,roughness:.07,metalness:.08,depthWrite:false,side:THREE.DoubleSide});
+function makeDetailDoor(side){const pivot=new THREE.Group();pivot.position.set(side*2.53,0,.98);detailScene.add(pivot);const panel=detailBox(2.52,3.42,.035,-side*1.26,0,0,doorMaterial,pivot);for(const xx of [-2.48,-.04])detailBox(.055,3.42,.075,side===1?xx:-xx,0,.02,dGold,pivot);detailBox(2.52,.055,.075,-side*1.26,1.69,.02,dGold,pivot);detailBox(2.52,.055,.075,-side*1.26,-1.69,.02,dGold,pivot);detailBox(.07,.42,.12,-side*2.30,0,.11,dGold,pivot);return pivot;}
+const detailLeft=makeDetailDoor(-1),detailRight=makeDetailDoor(1);
+let activeMemorial=null,doorsOpen=false,doorProgress=0;
+function resizeDetail(){const w=memorialViewport.clientWidth,h=memorialViewport.clientHeight;detailRenderer.setSize(w,h,false);detailCamera.aspect=w/h;detailCamera.updateProjectionMatrix();}
+function repaintDetail(){if(!activeMemorial)return;const data=window.MEMORIAL_DATA?.[activeMemorial.id+1]||{};detailPhoto.material.map=activeMemorial.photoPlane?.material.map||activeMemorial.texture;detailPhoto.material.color.set('#ffffff');detailPhoto.material.needsUpdate=true;const c=detailLabelCanvas.getContext('2d');c.clearRect(0,0,1024,600);c.fillStyle='#fff5e4';c.textAlign='center';c.textBaseline='middle';c.font='bold 86px sans-serif';c.fillText(data.name||'기억할 이름',512,148,910);c.font='43px sans-serif';const words=(data.message||'언제나 기억할게').split(' ');let lines=[''];for(const w of words){if((lines[lines.length-1]+' '+w).length>15)lines.push(w);else lines[lines.length-1]+=(lines[lines.length-1]?' ':'')+w;}lines.slice(0,5).forEach((line,i)=>c.fillText(line,512,290+i*58,900));detailLabelTex.needsUpdate=true;memorialOverlay.querySelector('#memorialTitle').textContent='추모함 '+String(activeMemorial.id+1).padStart(2,'0');}
+function openMemorial(item){walkTarget=null;pendingMemorial=null;activeMemorial=item;memorialOverlay.style.display='flex';doorsOpen=true;doorProgress=0;resizeDetail();repaintDetail();pressed.clear();}
+function closeMemorial(){memorialOverlay.style.display='none';activeMemorial=null;pressed.clear();}
+memorialOverlay.querySelector('#memorialClose').onclick=closeMemorial;
+memorialOverlay.querySelector('#memorialDoors').onclick=()=>doorsOpen=!doorsOpen;
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&activeMemorial)closeMemorial()});
+
+// 기도원식 양피지: 가까이 가면 자동 표시, PC/모바일 터치로도 표시
+const infoTargets=[];
+const parchment=document.createElement('div');
+parchment.style.cssText='position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;background:rgba(30,23,17,.52);padding:16px;box-sizing:border-box';
+parchment.innerHTML='<section style="width:min(540px,95vw);max-height:80vh;overflow:auto;position:relative;padding:36px 30px 32px;border:10px double #96714b;border-radius:12px;background:linear-gradient(130deg,#f6e8c6,#e5cb9b 52%,#f4e4c1);color:#4a3523;box-shadow:0 18px 60px #0008;font-family:Georgia,serif"><button id="paperClose" aria-label="닫기" style="position:absolute;right:12px;top:9px;background:transparent;border:0;font-size:28px;color:#62472c;cursor:pointer">×</button><h2 id="paperTitle" style="margin:0 0 16px;text-align:center;font-size:24px"></h2><div id="paperBody" style="font-size:16px;line-height:1.8;white-space:pre-wrap"></div></section>';
+document.body.appendChild(parchment);
+let activePaper=null, lastNearTarget=null, proximityCooldown=0, paperIdleTime=0;
+function showPaper(item){if(activeMemorial)return;activePaper=item;parchment.querySelector('#paperTitle').textContent=item.title;parchment.querySelector('#paperBody').textContent=item.body;parchment.style.display='flex';pendingMemorial=null;}
+function closePaper(){parchment.style.display='none';activePaper=null;proximityCooldown=1.5;paperIdleTime=0;}
+parchment.querySelector('#paperClose').onclick=closePaper;
+parchment.addEventListener('pointerdown',e=>{if(e.target===parchment)closePaper()});
+window.addEventListener('keydown',e=>{if(activePaper&&(e.key==='Escape'||['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','W','A','S','D'].includes(e.key)))closePaper()});
+// TODO 이력서내용
+const infoText={
+ receptionist:{title:'동물보건사 · 이효송',body:'접수, 보호자 안내, 약 제조, 수술 담당\n\이외에도 담당자의 경력, 자격, 담당 업무 등'},
+ pharmacy:{title:'약제 기술',body:'약품 관리 · 조제 · 보관\n\다양한 약제 기술, 약품 관리 방식, 조제 과정 등'},
+ surgery:{title:'수술 이력',body:'수술실 기록\n\n고양이 강아지 등 수술.'}
+};
+function addInfoTarget(id,title,body,position,objects,radius=2.2){const t={id,title,body,position:new THREE.Vector3(...position),objects,radius};infoTargets.push(t);for(const obj of objects){obj.userData.infoTarget=id;}}
+// 접수 캐릭터의 모든 파츠, 약제실의 선반/조제대, 수술대의 3D 물체를 클릭 가능하게
+addInfoTarget('receptionist',infoText.receptionist.title,infoText.receptionist.body,[.7,0,-2.53],[nurse],2.6);
+addInfoTarget('pharmacy',infoText.pharmacy.title,infoText.pharmacy.body,[4.15,0,-13.7],[extraShelf],3.0);
+addInfoTarget('surgery',infoText.surgery.title,infoText.surgery.body,[-5.5,0,-14.4],[],2.7);
+const clickableMedicine=[];
+scene.traverse(o=>{if(o.isMesh&&o.position.y<3.5&&o.position.z<-8&&o.position.z>-21&&o.position.x>0.1&&o.position.x<5.5&&o!==extraShelf)clickableMedicine.push(o)});
+infoTargets[1].objects.push(...clickableMedicine);
+// 수술대 중앙의 표면을 포함한 가까운 물체만 대상
+scene.traverse(o=>{if(o.isMesh&&o.position.z<-12&&o.position.z>-17&&o.position.x<-4.5&&o.position.x>-6.5)infoTargets[2].objects.push(o)});
+
+// 기도원 방식: 바닥 클릭 시 자동 이동, 추모함 클릭 시 앞까지 걸어간 뒤 열기
+let walkTarget=null, pendingMemorial=null;
+const walkPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+renderer.domElement.addEventListener('pointerup',e=>{
+ if(!dragStart||Math.hypot(e.clientX-dragStart.x,e.clientY-dragStart.y)>8||activeMemorial)return;
+ pointer.set(e.clientX/innerWidth*2-1,-e.clientY/innerHeight*2+1);ray.setFromCamera(pointer,camera);
+ const hits=ray.intersectObjects(memorialPlaques.flatMap(x=>[x.plaque,x.msgMesh,x.frontGlass]));
+ if(hits.length){const item=memorialPlaques.find(x=>x.id===hits[0].object.userData.memorialId);
+  if(item){pendingMemorial=item;walkTarget=new THREE.Vector3(Math.max(-9.8,Math.min(9.8,item.plaque.position.x)),0,17.6);return;}}
+ const interactiveHits=ray.intersectObjects(infoTargets.flatMap(t=>t.objects),true);
+ if(interactiveHits.length){const h=interactiveHits[0].object;const item=infoTargets.find(t=>t.objects.some(o=>o===h||o===h.parent));if(item){showPaper(item);return;}}
+ const ground=new THREE.Vector3();
+ if(ray.ray.intersectPlane(walkPlane,ground)){pendingMemorial=null;walkTarget=new THREE.Vector3(ground.x,0,ground.z);}
+});
+function renderMemorialDetail(dt){if(!activeMemorial)return;if(activeMemorial.photoPlane?.material.map&&detailPhoto.material.map!==activeMemorial.photoPlane.material.map){detailPhoto.material.map=activeMemorial.photoPlane.material.map;detailPhoto.material.needsUpdate=true;}doorProgress+=(Number(doorsOpen)-doorProgress)*Math.min(1,dt*3.4);detailLeft.rotation.y=-doorProgress*1.32;detailRight.rotation.y=doorProgress*1.32;detailRenderer.render(detailScene,detailCamera);}
+let followYaw=.35,followPitch=.24,camDistance=7.8,clock=new THREE.Clock();
+// OrbitControls는 플레이어 추적 카메라와 충돌하므로 사용하지 않고 직접 시점 회전 처리
+let cameraDrag=null;
+renderer.domElement.addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType==='mouse')return;cameraDrag={id:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,active:false};});
+renderer.domElement.addEventListener('pointermove',e=>{if(!cameraDrag||cameraDrag.id!==e.pointerId)return;const dx=e.clientX-cameraDrag.x,dy=e.clientY-cameraDrag.y;if(Math.abs(dx)+Math.abs(dy)>0.6)followYaw-=dx*.0045;followPitch=Math.max(.12,Math.min(1.1,followPitch+dy*.003));cameraDrag.x=e.clientX;cameraDrag.y=e.clientY;});
+for(const event of ['pointerup','pointercancel'])renderer.domElement.addEventListener(event,e=>{if(cameraDrag?.id===e.pointerId)cameraDrag=null});
+renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();camDistance=Math.max(2.8,Math.min(16.0,camDistance+Math.sign(e.deltaY)*.65))},{passive:false});
+// 터치 핀치 줌
+let pinchDist=0;renderer.domElement.addEventListener('touchmove',e=>{if(e.touches.length!==2){pinchDist=0;return;}const a=e.touches[0],b=e.touches[1],dist=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);if(pinchDist)camDistance=Math.max(2.8,Math.min(16.0,camDistance+(pinchDist-dist)*.012));pinchDist=dist;},{passive:true});renderer.domElement.addEventListener('touchend',()=>pinchDist=0);
+
+// 기존 OrbitControls 렌더 루프를 대체하여 3인칭 추적 카메라로 렌더링
+function playFrame(){requestAnimationFrame(playFrame);const dt=Math.min(clock.getDelta(),.045);if(activeMemorial){renderMemorialDetail(dt);return;}if(activePaper)return;updateClinicCat(dt);proximityCooldown=Math.max(0,proximityCooldown-dt);let forward=0,strafe=0;
+ if(pressed.has('up'))forward+=1;if(pressed.has('down'))forward-=1;
+ if(pressed.has('left'))strafe-=1;if(pressed.has('right'))strafe+=1;
+ if(forward||strafe){walkTarget=null;pendingMemorial=null;}
+ if(!forward&&!strafe&&walkTarget){const dd=walkTarget.clone().sub(dog.position);dd.y=0;const dist=dd.length();if(dist<.22){walkTarget=null;if(pendingMemorial){const item=pendingMemorial;pendingMemorial=null;openMemorial(item);}}else{const v=dd.normalize();forward=-v.x*Math.sin(followYaw)-v.z*Math.cos(followYaw);strafe=v.x*Math.cos(followYaw)-v.z*Math.sin(followYaw);}}
+ const l=Math.hypot(forward,strafe);
+ dogMoving=false;
+ if(l){forward/=l;strafe/=l;
+ // 카메라가 바라보는 방향을 기준으로 위=전진, 아래=후진, 좌우=횡이동
+ const dx=(-Math.sin(followYaw)*forward+Math.cos(followYaw)*strafe);
+ const dz=(-Math.cos(followYaw)*forward-Math.sin(followYaw)*strafe);
+ const nx=dog.position.x+dx*11.0*dt,nz=dog.position.z+dz*11.0*dt;
+ const inBounds=nx>-10.5&&nx<10.5&&nz>-25.7&&nz<19.0;
+ const insideDesk=nx>-4.15&&nx<4.15&&nz>-1.65&&nz<-.50;
+ const insideGuard=(nx>8.22&&nx<8.68&&nz>2.85&&nz<5.65)||(nx>8.45&&nx<10.2&&(nz>2.8&&nz<3.2||nz>5.3&&nz<5.7));
+ // 가구 충돌: 새로 배치한 실제 크기만 사용
+ // 실제 배치된 가구만 충돌. 빨간 동선과 후면 연결로는 비워 둔다.
+ const blockedFurniture=(x,z)=>{
+  const radius=.23;
+  const boxes=[
+   [-5.5,-14.4,1.5,3.6], // 수술대
+   [-.42,-13.0,.46,1.65],[-.39,-14.4,.14,1.05],
+   [-4.05,-13.0,.8,.8], // 벽 쪽 원장
+   [-.55,-17.4,.52,.80],[-10.35,-19.6,.58,1.25], // 벽 부착 의료기기
+   [4.15,-13.7,1.7,4.55], // 검은 조제대
+   // 후면 책상 없음
+   [.65,-10.5,.7,2.9],[.65,-14.0,.7,2.9],[.66,-18.15,.7,2.2], // 벽 선반
+   [SCALE_X,SCALE_Z,1.02,1.96]
+  ];
+  return boxes.some(([cx,cz,w,d])=>Math.abs(x-cx)<w/2+radius&&Math.abs(z-cz)<d/2+radius);
+ };
+ const canWalk=(x,z,oldX,oldZ)=>{
+  if(x<=-10.45||x>=10.45||z<=-25.65||z>=19.0)return false;
+  if(x>-4.15&&x<4.15&&z>-1.65&&z<-.50)return false;
+  // ㄷ자 가드의 실측 충돌 범위. 중앙 통로(2.9~5.6)는 열어 둔다.
+  if((Math.abs(x-8.65)<.30 && ((z>1.82&&z<3.48)||(z>5.02&&z<6.68))) ||
+     ((z>1.65&&z<2.15||z>6.35&&z<6.85)&&x>8.4&&x<9.5))return false;
+  // 중앙 분리벽: 후면 -24.75 ~ -22.2 사이에서만 횡단 가능
+  if(z< -3.55 && z> -22.2 && Math.abs(x)<.39)return false;
+  if(z< -24.75 && Math.abs(x)<.39)return false;
+  // 로비와 각 방 사이에서는 양쪽 아치 입구만 통과
+  if((oldZ+3.55)*(z+3.55)<=0 && !(Math.abs(x+7.1)<1.35||Math.abs(x-7.1)<1.35))return false;
+  return !blockedFurniture(x,z);
+ };
+  const ox=dog.position.x,oz=dog.position.z;
+  if(canWalk(nx,nz,ox,oz))dog.position.set(nx,0,nz);
+  else if(canWalk(nx,oz,ox,oz))dog.position.x=nx;
+  else if(canWalk(ox,nz,ox,oz))dog.position.z=nz;
+  else if(walkTarget){walkTarget=null;pendingMemorial=null;}
+  dogMoving=Math.hypot(dog.position.x-ox,dog.position.z-oz)>.0001;
+ dog.rotation.y=Math.atan2(dx,dz);
+ }
+ if(dogMoving){dogWalkTime+=dt;movePaws(dogFeet,dogWalkTime*13,.105,.075);}
+ else {movePaws(dogFeet,0,0,0);}
+ // 가까이 갔을 때 한 번만 양피지 표시. 영역에서 벗어나면 재진입 가능.
+ const nearInfo=infoTargets.find(t=>Math.hypot(dog.position.x-t.position.x,dog.position.z-t.position.z)<t.radius);
+ if(!nearInfo){lastNearTarget=null;paperIdleTime=0;}
+ else if(dogMoving||walkTarget){paperIdleTime=0;}
+ else {paperIdleTime+=dt;
+  if(lastNearTarget!==nearInfo.id&&proximityCooldown===0&&paperIdleTime>=0.001){lastNearTarget=nearInfo.id;showPaper(nearInfo);}
+ }
+ // 자동문: 접근 시 열리고 멀어지면 닫힌다. 기본 상태는 닫힘.
+ const nearEntrance=Math.abs(dog.position.x-entranceX)<3.0&&Math.abs(dog.position.z-entranceZ)<2.1;
+ automaticDoorOpen+=(Number(nearEntrance)-automaticDoorOpen)*Math.min(1,dt*5.5);
+ autoDoorL.position.z=-1.62*automaticDoorOpen;
+ autoDoorR.position.z=1.62*automaticDoorOpen;
+ tail.rotation.z=Math.sin(clock.elapsedTime*12)*.45;
+ const targetCam=new THREE.Vector3(dog.position.x+Math.sin(followYaw)*camDistance*Math.cos(followPitch),1.05+Math.sin(followPitch)*camDistance,dog.position.z+Math.cos(followYaw)*camDistance*Math.cos(followPitch));// 카메라 좌표를 방 경계에 강제로 고정하지 않는다. 벽은 아래에서 시야에 따라 투명 처리.
+ camera.position.lerp(targetCam,Math.min(1,dt*9));
+ // 추모함 벽 뒤로 카메라가 넘어가면 명패/사진이 거울처럼 보인다.
+ // 추모관에서는 전시벽 앞쪽에 카메라를 유지한다.
+ if(dog.position.z>7.0)camera.position.z=Math.min(camera.position.z,17.35);
+ camera.lookAt(dog.position.x,1.05,dog.position.z);
+ const lookTarget=new THREE.Vector3(dog.position.x,1.05,dog.position.z);const delta=camera.position.clone().sub(lookTarget);cameraRay.set(lookTarget,delta.clone().normalize());cameraRay.far=delta.length();
+ const blocked=new Set(cameraRay.intersectObjects(cameraObstacles,false).map(h=>h.object));for(const wall of cameraObstacles){const nearCamera=wall.geometry?.boundingBox?false:camera.position.distanceTo(wall.position)<2.2;const desired=(blocked.has(wall)||nearCamera)?.025:(wall===roof?.92:1);wall.material.opacity+=(desired-wall.material.opacity)*Math.min(1,dt*12);wall.visible=wall.material.opacity>.018;}
+ renderer.render(scene,camera);
+}
+// stop the initial animate loop by replacing its requestAnimationFrame reference in source below
+playFrame();
+document.getElementById('loadStatus').style.display='none';
+
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+</script></body></html>

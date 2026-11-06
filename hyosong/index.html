@@ -390,7 +390,7 @@ const smile=avatarPart(new THREE.TorusGeometry(.105,.016,6,18,Math.PI),mat('#7d4
 for(const x of [-.18,.18]){const lapel=avatarPart(new THREE.BoxGeometry(.19,.09,.035),mat('#58775f'),x,1.48,.35);lapel.rotation.z=x>0?.32:-.32;}
 const legL=avatar.children[0],legR=avatar.children[2];
 // 말랑한 인형 스타일 캐릭터: 그림자/메시 수를 억제하고 둥근 실루엣을 우선한다.
-const dog=new THREE.Group();scene.add(dog);dog.scale.setScalar(1.02);dog.position.copy(avatar.position);avatar.visible=false;
+const dog=new THREE.Group();scene.add(dog);dog.scale.setScalar(.78);dog.position.copy(avatar.position);avatar.visible=false;
 const fur=mat('#e8c99b'),ear=mat('#d5aa78'),nose=mat('#302826');
 const dogCream=mat('#f5dfbd'),dogEye=mat('#211d1b'),dogShine=new THREE.MeshBasicMaterial({color:0xffffff});
 function dogPart(geo,m,x,y,z){const o=new THREE.Mesh(geo,m);o.position.set(x,y,z);o.castShadow=true;dog.add(o);return o}
@@ -470,7 +470,7 @@ renderer.domElement.addEventListener('pointerdown',e=>dragStart={x:e.clientX,y:e
 // 추모함 클릭 시 편집창이 아니라 유리 양문이 열리는 입체 전시 화면을 연다.
 const memorialOverlay=document.createElement('div');
 memorialOverlay.style.cssText='position:fixed;inset:0;background:rgba(17,13,11,.83);z-index:100;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:18px;box-sizing:border-box';
-memorialOverlay.innerHTML=`<div style="width:min(850px,95vw);display:flex;align-items:center;justify-content:space-between;color:#f5e8d6;font:600 17px system-ui"><span id="memorialTitle">추모함</span><button id="memorialClose" style="background:#f3e7d7;color:#3c2c22;border:0;border-radius:8px;padding:9px 15px;cursor:pointer">닫기 ✕</button></div><div id="memorialViewport" style="width:min(850px,95vw);height:min(65vh,570px);border:2px solid #9c7c5b;border-radius:8px;overflow:hidden;background:#241b16"></div><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button id="memorialDoors">유리문 닫기 / 열기</button></div>`;
+memorialOverlay.innerHTML=`<div style="width:min(850px,95vw);display:flex;align-items:center;justify-content:space-between;color:#f5e8d6;font:600 17px system-ui"><span id="memorialTitle">추모함</span><button id="memorialClose" style="background:#f3e7d7;color:#3c2c22;border:0;border-radius:8px;padding:9px 15px;cursor:pointer">닫기 ✕</button></div><div id="memorialViewport" style="width:min(850px,95vw);height:min(65dvh,570px);border:2px solid #9c7c5b;border-radius:8px;overflow:hidden;background:#241b16"></div><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button id="memorialDoors">유리문 닫기 / 열기</button></div>`;
 document.body.appendChild(memorialOverlay);
 for(const b of memorialOverlay.querySelectorAll('button'))b.style.cssText+=';padding:10px 15px;border:0;border-radius:9px;background:#d4b48d;color:#2c2018;font:600 13px system-ui;cursor:pointer';
 const memorialViewport=memorialOverlay.querySelector('#memorialViewport');
@@ -499,7 +499,20 @@ const doorMaterial=new THREE.MeshPhysicalMaterial({color:'#c5e8ed',transparent:t
 function makeDetailDoor(side){const pivot=new THREE.Group();pivot.position.set(side*2.53,0,.98);detailScene.add(pivot);const panel=detailBox(2.52,3.42,.035,-side*1.26,0,0,doorMaterial,pivot);for(const xx of [-2.48,-.04])detailBox(.055,3.42,.075,side===1?xx:-xx,0,.02,dGold,pivot);detailBox(2.52,.055,.075,-side*1.26,1.69,.02,dGold,pivot);detailBox(2.52,.055,.075,-side*1.26,-1.69,.02,dGold,pivot);detailBox(.07,.42,.12,-side*2.30,0,.11,dGold,pivot);return pivot;}
 const detailLeft=makeDetailDoor(-1),detailRight=makeDetailDoor(1);
 let activeMemorial=null,doorsOpen=false,doorProgress=0;
-function resizeDetail(){const w=memorialViewport.clientWidth,h=memorialViewport.clientHeight;detailRenderer.setSize(w,h,false);detailCamera.aspect=w/h;detailCamera.updateProjectionMatrix();}
+function resizeDetail(){
+ const w=Math.max(1,memorialViewport.clientWidth),h=Math.max(1,memorialViewport.clientHeight);
+ detailRenderer.setSize(w,h,false);
+ detailCamera.aspect=w/h;
+ // 모바일 세로 화면에서도 추모함의 전체 폭(유리문 포함 5.4)을 화면 안에 맞춘다.
+ const vFov=THREE.MathUtils.degToRad(detailCamera.fov);
+ const halfWidth=2.95,halfHeight=2.05,margin=1.12;
+ const horizontalDistance=halfWidth/(Math.tan(vFov/2)*detailCamera.aspect);
+ const verticalDistance=halfHeight/Math.tan(vFov/2);
+ const distance=Math.max(7.7,horizontalDistance,verticalDistance)*margin;
+ detailCamera.position.set(0,.15,distance);
+ detailCamera.lookAt(0,0,0);
+ detailCamera.updateProjectionMatrix();
+}
 function repaintDetail(){if(!activeMemorial)return;const data=window.MEMORIAL_DATA?.[activeMemorial.id+1]||{};detailPhoto.material.map=activeMemorial.photoPlane?.material.map||activeMemorial.texture;detailPhoto.material.color.set('#ffffff');detailPhoto.material.needsUpdate=true;const c=detailLabelCanvas.getContext('2d');c.clearRect(0,0,1024,600);c.fillStyle='#fff5e4';c.textAlign='center';c.textBaseline='middle';c.font='bold 86px sans-serif';c.fillText(data.name||'기억할 이름',512,148,910);c.font='43px sans-serif';const words=(data.message||'언제나 기억할게').split(' ');let lines=[''];for(const w of words){if((lines[lines.length-1]+' '+w).length>15)lines.push(w);else lines[lines.length-1]+=(lines[lines.length-1]?' ':'')+w;}lines.slice(0,5).forEach((line,i)=>c.fillText(line,512,290+i*58,900));detailLabelTex.needsUpdate=true;memorialOverlay.querySelector('#memorialTitle').textContent='추모함 '+String(activeMemorial.id+1).padStart(2,'0');}
 function openMemorial(item){walkTarget=null;pendingMemorial=null;activeMemorial=item;memorialOverlay.style.display='flex';doorsOpen=true;doorProgress=0;resizeDetail();repaintDetail();pressed.clear();}
 function closeMemorial(){memorialOverlay.style.display='none';activeMemorial=null;pressed.clear();}
@@ -510,19 +523,19 @@ window.addEventListener('keydown',e=>{if(e.key==='Escape'&&activeMemorial)closeM
 // 기도원식 양피지: 가까이 가면 자동 표시, PC/모바일 터치로도 표시
 const infoTargets=[];
 const parchment=document.createElement('div');
-parchment.style.cssText='position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;background:rgba(30,23,17,.52);padding:16px;box-sizing:border-box';
-parchment.innerHTML='<section style="width:min(540px,95vw);max-height:80vh;overflow:auto;position:relative;padding:36px 30px 32px;border:10px double #96714b;border-radius:12px;background:linear-gradient(130deg,#f6e8c6,#e5cb9b 52%,#f4e4c1);color:#4a3523;box-shadow:0 18px 60px #0008;font-family:Georgia,serif"><button id="paperClose" aria-label="닫기" style="position:absolute;right:12px;top:9px;background:transparent;border:0;font-size:28px;color:#62472c;cursor:pointer">×</button><h2 id="paperTitle" style="margin:0 0 16px;text-align:center;font-size:24px"></h2><div id="paperBody" style="font-size:16px;line-height:1.8;white-space:pre-wrap"></div></section>';
+parchment.style.cssText='position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;background:rgba(30,23,17,.52);padding:16px;box-sizing:border-box;pointer-events:none';
+parchment.innerHTML='<section style="pointer-events:auto;width:min(540px,95vw);max-height:80vh;overflow:auto;position:relative;padding:36px 30px 32px;border:10px double #96714b;border-radius:12px;background:linear-gradient(130deg,#f6e8c6,#e5cb9b 52%,#f4e4c1);color:#4a3523;box-shadow:0 18px 60px #0008;font-family:Georgia,serif"><button id="paperClose" aria-label="닫기" style="position:absolute;right:12px;top:9px;background:transparent;border:0;font-size:28px;color:#62472c;cursor:pointer">×</button><h2 id="paperTitle" style="margin:0 0 16px;text-align:center;font-size:24px"></h2><div id="paperBody" style="font-size:16px;line-height:1.8;white-space:pre-wrap"></div></section>';
 document.body.appendChild(parchment);
-let activePaper=null, lastNearTarget=null, proximityCooldown=0, paperIdleTime=0;
+let activePaper=null, lastNearTarget=null;
 function showPaper(item){if(activeMemorial)return;activePaper=item;parchment.querySelector('#paperTitle').textContent=item.title;parchment.querySelector('#paperBody').textContent=item.body;parchment.style.display='flex';pendingMemorial=null;}
-function closePaper(){parchment.style.display='none';activePaper=null;proximityCooldown=1.5;paperIdleTime=0;}
+function closePaper(){parchment.style.display='none';activePaper=null;}
 parchment.querySelector('#paperClose').onclick=closePaper;
 parchment.addEventListener('pointerdown',e=>{if(e.target===parchment)closePaper()});
-window.addEventListener('keydown',e=>{if(activePaper&&(e.key==='Escape'||['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','W','A','S','D'].includes(e.key)))closePaper()});
+window.addEventListener('keydown',e=>{if(activePaper&&e.key==='Escape')closePaper()});
 // TODO 이력서내용
 const infoText={
- receptionist:{title:'동물보건사 · 이효송',body:'접수, 보호자 안내, 약 제조, 수술 담당\n\이외에도 담당자의 경력, 자격, 담당 업무 등'},
- pharmacy:{title:'약제 기술',body:'약품 관리 · 조제 · 보관\n\다양한 약제 기술, 약품 관리 방식, 조제 과정 등'},
+ receptionist:{title:'동물보건사 · 이효송',body:'접수, 보호자 안내, 약 제조, 수술 담당\n이외에도 담당자의 경력, 자격, 담당 업무 등'},
+ pharmacy:{title:'약제 기술',body:'약품 관리 · 조제 · 보관\n다양한 약제 기술, 약품 관리 방식, 조제 과정 등'},
  surgery:{title:'수술 이력',body:'수술실 기록\n\n고양이 강아지 등 수술.'}
 };
 function addInfoTarget(id,title,body,position,objects,radius=2.2){const t={id,title,body,position:new THREE.Vector3(...position),objects,radius};infoTargets.push(t);for(const obj of objects){obj.userData.infoTarget=id;}}
@@ -562,7 +575,7 @@ renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();camDistance=
 let pinchDist=0;renderer.domElement.addEventListener('touchmove',e=>{if(e.touches.length!==2){pinchDist=0;return;}const a=e.touches[0],b=e.touches[1],dist=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);if(pinchDist)camDistance=Math.max(2.8,Math.min(16.0,camDistance+(pinchDist-dist)*.012));pinchDist=dist;},{passive:true});renderer.domElement.addEventListener('touchend',()=>pinchDist=0);
 
 // 기존 OrbitControls 렌더 루프를 대체하여 3인칭 추적 카메라로 렌더링
-function playFrame(){requestAnimationFrame(playFrame);const dt=Math.min(clock.getDelta(),.045);if(activeMemorial){renderMemorialDetail(dt);return;}if(activePaper)return;updateClinicCat(dt);proximityCooldown=Math.max(0,proximityCooldown-dt);let forward=0,strafe=0;
+function playFrame(){requestAnimationFrame(playFrame);const dt=Math.min(clock.getDelta(),.045);if(activeMemorial){renderMemorialDetail(dt);return;}updateClinicCat(dt);let forward=0,strafe=0;
  if(pressed.has('up'))forward+=1;if(pressed.has('down'))forward-=1;
  if(pressed.has('left'))strafe-=1;if(pressed.has('right'))strafe+=1;
  if(forward||strafe){walkTarget=null;pendingMemorial=null;}
@@ -616,13 +629,10 @@ function playFrame(){requestAnimationFrame(playFrame);const dt=Math.min(clock.ge
  }
  if(dogMoving){dogWalkTime+=dt;movePaws(dogFeet,dogWalkTime*13,.105,.075);}
  else {movePaws(dogFeet,0,0,0);}
- // 가까이 갔을 때 한 번만 양피지 표시. 영역에서 벗어나면 재진입 가능.
+ // 접근 즉시 열기, 범위를 벗어나면 닫기. 이동과 렌더링은 계속 진행.
  const nearInfo=infoTargets.find(t=>Math.hypot(dog.position.x-t.position.x,dog.position.z-t.position.z)<t.radius);
- if(!nearInfo){lastNearTarget=null;paperIdleTime=0;}
- else if(dogMoving||walkTarget){paperIdleTime=0;}
- else {paperIdleTime+=dt;
-  if(lastNearTarget!==nearInfo.id&&proximityCooldown===0&&paperIdleTime>=0.001){lastNearTarget=nearInfo.id;showPaper(nearInfo);}
- }
+ if(!nearInfo){if(activePaper)closePaper();lastNearTarget=null;}
+ else if(lastNearTarget!==nearInfo.id){lastNearTarget=nearInfo.id;showPaper(nearInfo);}
  // 자동문: 접근 시 열리고 멀어지면 닫힌다. 기본 상태는 닫힘.
  const nearEntrance=Math.abs(dog.position.x-entranceX)<3.0&&Math.abs(dog.position.z-entranceZ)<2.1;
  automaticDoorOpen+=(Number(nearEntrance)-automaticDoorOpen)*Math.min(1,dt*5.5);

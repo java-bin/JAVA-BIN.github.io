@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>동물의료센터</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#ddd6cb;font-family:system-ui}#hint{position:absolute;top:15px;left:15px;padding:12px 15px;background:#ffffffd9;border-radius:12px;color:#3a302a;font-size:13px;line-height:1.5}canvas{display:block}</style><style>#loadStatus{position:fixed;inset:0;z-index:999;background:#e9e4dc;color:#292622;display:flex;align-items:center;justify-content:center;text-align:center;font:16px/1.8 system-ui;padding:25px;box-sizing:border-box}#loadStatus b{font-size:22px}#loadStatus small{display:block;color:#665e55;margin-top:12px}</style></head><body><style>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>동물의료센터</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#ddd6cb;font-family:system-ui}#hint{position:absolute;top:15px;left:15px;padding:12px 15px;background:#ffffffd9;border-radius:12px;color:#3a302a;font-size:13px;line-height:1.5}canvas{display:block}</style><style>#loadStatus{position:fixed;inset:0;z-index:999;background:#e9e4dc;color:#292622;display:flex;align-items:center;justify-content:center;text-align:center;font:16px/1.8 system-ui;padding:25px;box-sizing:border-box}#loadStatus b{font-size:22px}#loadStatus small{display:block;color:#665e55;margin-top:12px}</style></head><body><style>
 :root{--ink:#26332f;--paper:#fbf7ef;--teal:#2f7f78;--gold:#c9a45c}
 #hud{position:fixed;inset:0;pointer-events:none;z-index:50;font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;color:var(--ink);-webkit-user-select:none;user-select:none}
 #hud>*{pointer-events:auto}
@@ -25,6 +25,11 @@
 #joy i{position:absolute;left:36px;top:36px;width:40px;height:40px;border-radius:50%;background:rgba(47,127,120,.85)}
 @media (pointer:coarse){#joy{display:block}#tip .kb{display:none}}
 @media (max-width:640px){#hud .title span{display:none}#nav button{padding:7px 11px;font-size:12px}#roomChip{top:auto;bottom:calc(max(16px,env(safe-area-inset-bottom)) + 124px)}}
+#zoom{position:absolute;right:max(14px,env(safe-area-inset-right));bottom:calc(max(26px,env(safe-area-inset-bottom)) + 70px);display:flex;flex-direction:column;border-radius:999px;overflow:hidden;background:rgba(251,247,239,.94);border:1px solid rgba(38,51,47,.14);box-shadow:0 4px 14px rgba(30,50,45,.18)}
+#zoom button{font:inherit;font-size:24px;font-weight:700;width:46px;height:46px;border:0;background:transparent;color:var(--ink);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+#zoom button+button{border-top:1px solid rgba(38,51,47,.14)}
+#zoom button:active{background:var(--teal);color:#fff}
+canvas{touch-action:none}
 </style>
 <div id="hud">
   <div class="title"><b id="tName">동물의료센터</b><span id="tSub">3D 병원 투어</span></div>
@@ -32,6 +37,7 @@
   <div id="nav"></div>
   <button id="prompt" type="button">자세히 보기 (E)</button>
   <div id="tip"><span class="kb">WASD·방향키로 이동 · </span>바닥을 누르면 걸어가요 · 드래그로 시점 회전 · 빛나는 표시를 눌러 보세요</div>
+  <div id="zoom"><button id="zIn" type="button" aria-label="확대">+</button><button id="zOut" type="button" aria-label="축소">−</button></div>
   <div id="joy"><i></i></div>
 </div>
 <div id="panel"><div id="card"></div></div>
@@ -64,6 +70,13 @@ function winZ(z,y0,y1,x0,x1,gap=2.9){ // z 평면 벽(앞/뒤)의 창
  const n=Math.max(1,Math.round(l/gap));for(let i=0;i<=n;i++)box(.08,h,.14,x0+i*l/n,my,z,frameMat);
 }
 
+let navLoose=false;
+
+function showErr(m){try{let e=document.getElementById('errBox');if(!e){e=document.createElement('pre');e.id='errBox';e.style.cssText='position:fixed;left:8px;bottom:8px;max-width:92vw;max-height:40vh;overflow:auto;margin:0;padding:8px 10px;background:rgba(120,20,20,.92);color:#fff;font:12px/1.4 monospace;z-index:2000;white-space:pre-wrap;border-radius:8px;pointer-events:none';document.body.appendChild(e)}if(!e.textContent.includes(m)&&e.textContent.length<1500)e.textContent+=m+'\n'}catch(_){}}
+window.addEventListener('error',ev=>showErr('오류: '+ev.message+' (줄 '+(ev.lineno||'?')+')'));
+window.addEventListener('unhandledrejection',ev=>showErr('오류: '+(ev.reason&&ev.reason.message||ev.reason)));
+{const _ce=console.error.bind(console);console.error=(...a)=>{_ce(...a);const t=String(a[0]);if(!/memorial-data|Failed to load resource/.test(t))showErr('three: '+t.slice(0,260))}}
+
 // 로비 바닥은 수술실/약제실 바닥과 겹치지 않게 z=-3.55부터 추모관 경계 z=5.55까지만 배치한다.
 const lobbyFloorTex=ctex(256,256,(g,w,h)=>{g.fillStyle='#cdbfa3';g.fillRect(0,0,w,h);for(let i=0;i<900;i++){const r=pr(1+i);g.fillStyle=r>.5?'#9a8a6c':'#e8dcc2';g.globalAlpha=.25+pr(1+i*3)*.35;g.fillRect(pr(1+i*7)*w,pr(1+i*11)*h,1.5+pr(i)*2.5,1.5+pr(i*5)*2.5)}g.globalAlpha=1});
 lobbyFloorTex.wrapS=lobbyFloorTex.wrapT=THREE.RepeatWrapping;lobbyFloorTex.repeat.set(9,4);
@@ -89,9 +102,9 @@ const extraCameraFade=[];const frameMat=mat('#d5d7d3',.35), glassMat=new THREE.M
 // 왼쪽 측벽은 창문이 있는 부분만 구성 (나머지 공간은 비워둠)
 extraCameraFade.push(box(.16,5.65,3.2,-10.75,2.82,-1.75,mat('#e9e7e2')));
 extraCameraFade.push(box(.16,1.0,5.7,-10.75,.5,2.65,mat('#e9e7e2')));
-extraCameraFade.push(box(.045,3.45,5.7,-10.64,3.22,2.65,glassMat));
-for(const z of [-.2,2.65,5.5])extraCameraFade.push(box(.11,3.6,.075,-10.56,3.2,z,frameMat));
-for(const y of [1.05,3.05,4.96])extraCameraFade.push(box(.11,.08,5.8,-10.56,y,2.65,frameMat));
+
+
+
 // 수술실과 약제실은 로비에서 문 없이 통과하는 둥근 아치 입구.
 const doorWall=mat('#e8e5df'),doorTrim=mat('#c6b8a7');
 function openArch(x,z,title){
@@ -414,9 +427,9 @@ const roomWalls=[];
 function wallBox(w,h,d,x,y,z,m=clean){const o=box(w,h,d,x,y,z,m);roomWalls.push(o);return o;}
 // 중앙 벽: 앞에서 뒤까지 막혀 있고, 맨 끝 z=-24.6~-22.2에서만 연결
 wallBox(.24,5.5,18.65,0,2.75,-12.875);
-wallBox(.24,5.5,1.35,0,2.75,-25.425);
+wallBox(.24,5.5,1.35,0,2.75,-25.425);wallBox(.24,5.5,2.55,0,2.75,-23.475);
 // 양쪽 외벽은 창문 부분을 비워 진짜 창으로 만든다
-const backWall=wallBox(22,.6,.2,0,.3,-26.1);wallBox(22,.9,.2,0,5.05,-26.1);for(const x of [-10.9,-.12,.12,10.9])wallBox(.2,5.5,.2,x,2.75,-26.1);winZ(-26.1,.6,4.6,-10.8,-.2,2.7);winZ(-26.1,.6,4.6,.2,10.8,2.7);
+const backWall=wallBox(6.5,5.5,.2,-7.65,2.75,-26.1);wallBox(1.8,1.8,.2,-3.5,4.6,-26.1);wallBox(5.6,5.5,.2,-.2,2.75,-26.1);wallBox(6,1.8,.2,6,4.6,-26.1);wallBox(1.9,5.5,.2,9.95,2.75,-26.1);for(const x of [-4.4,-2.6])box(.12,3.7,.3,x,1.85,-26.1,wood);box(2.0,.12,.3,-3.5,3.7,-26.1,wood);for(const x of [3.0,9.0])box(.14,3.7,.3,x,1.85,-26.1,wood);box(6.1,.12,.3,6,3.7,-26.1,wood);
 const sideWallL=wallBox(.2,5.5,8.0,-10.9,2.75,-7.55);
 wallBox(.2,1.25,6.8,-10.9,.625,-14.95);wallBox(.2,1.1,6.8,-10.9,4.95,-14.95);
 wallBox(.2,5.5,6.2,-10.9,2.75,-22.45);
@@ -609,15 +622,99 @@ for(const x of [-10.6,10.6]){box(.16,1.7,15.8,x,.85,14.0,memorialWood);for(const
 const shellMat=mat('#84634d'); // 공용 병원·추모관 외벽: 따뜻한 갈색
 const shellParts=[];
 const sh=(w,h,d,x,y,z)=>{const o=box(w,h,d,x,y,z,shellMat);shellParts.push(o);return o};
-// 왼쪽 외벽: 로비 통창(z -0.3~5.6) + 앞쪽 벽(구멍 없이 -3.55부터)
-sh(.22,5.5,3.25,-10.95,2.75,-1.925);sh(.22,1.0,5.9,-10.95,.5,2.65);sh(.22,.5,5.9,-10.95,5.25,2.65);
-// 추모관 왼쪽: 높은 통창 (z 7~18.6, y 1.8~4.9)
+// 왼쪽 외벽: 로비 창(z -0.3~5.6, 추모관과 같은 높이 1.8~4.9)
+sh(.22,5.5,3.25,-10.95,2.75,-1.925);sh(.22,1.8,5.9,-10.95,.9,2.65);sh(.22,.6,5.9,-10.95,5.2,2.65);
+// 추모관 왼쪽 창 (z 7~18.6)
 sh(.22,5.5,1.4,-10.95,2.75,6.3);sh(.22,1.8,11.6,-10.95,.9,12.8);sh(.22,.6,11.6,-10.95,5.2,12.8);sh(.22,5.5,1.9,-10.95,2.75,19.55);
-// 오른쪽 외벽: 자동문 구멍(z 2.9~5.6, 높이 0~3.75) + 상품 진열대 위 고창
-sh(.22,2.9,6.45,10.95,1.45,-.325);sh(.22,.5,6.45,10.95,5.25,-.325);sh(.22,1.75,2.7,10.95,4.625,4.25);
+// 오른쪽 외벽: 자동문 구멍(z 2.9~5.6, 높이 0~3.75) 외에는 막힌 벽
+sh(.22,5.5,6.45,10.95,2.75,-.325);sh(.22,1.75,2.7,10.95,4.625,4.25);
 sh(.22,5.5,1.4,10.95,2.75,6.3);sh(.22,1.8,11.6,10.95,.9,12.8);sh(.22,.6,11.6,10.95,5.2,12.8);sh(.22,5.5,1.9,10.95,2.75,19.55);
-winX(10.95,2.9,5.0,-3.55,2.9);winX(-10.95,1.0,5.0,-.3,5.6,2.9);winX(-10.95,1.8,4.9,7.0,18.6,2.9);winX(10.95,1.8,4.9,7.0,18.6,2.9);
-winX(-10.9,1.25,4.4,-18.35,-11.55,2.3);winX(10.9,1.25,4.4,-18.35,-11.55,2.3);
+winX(-10.95,1.8,4.9,-.3,5.6,2.9);winX(-10.95,1.8,4.9,7.0,18.6,2.9);winX(10.95,1.8,4.9,7.0,18.6,2.9);
+wallBox(.2,5.5,1.05,-10.9,2.75,-18.85);wallBox(.2,5.5,1.05,10.9,2.75,-18.85);wallBox(.2,5.5,.7,-10.9,2.75,-25.9);wallBox(.2,5.5,.7,10.9,2.75,-25.9);
+
+// ===== 약제실 뒤쪽 '뾰족한' 입원실 + 입원견 케이지 + 컴퓨터 자리 =====
+const WARD=[[-6.5,-26.1],[10.9,-26.1],[10.9,-31],[3,-39],[-6.5,-32.5]];
+try{
+const wardWhite=mat('#f3f4f2',.5),wardWood=mat('#7a573f',.55);
+function wardSlab(a,b,y0,y1,m=clean,th=.2){const L=Math.hypot(b[0]-a[0],b[1]-a[1]),o=wallBox(L+.12,y1-y0,th,(a[0]+b[0])/2,(y0+y1)/2,(a[1]+b[1])/2,m);o.rotation.y=-Math.atan2(b[1]-a[1],b[0]-a[0]);return o}
+{ // 바닥 + 천장 + 지붕
+ const tex=ctex(256,256,(g,w,h)=>{g.fillStyle='#cfcabf';g.fillRect(0,0,w,h);for(let i=0;i<700;i++){g.fillStyle=pr(i)>.5?'#aaa498':'#e6e2d8';g.globalAlpha=.3+pr(i*3)*.3;g.fillRect(pr(i*7)*w,pr(i*11)*h,2+pr(i)*2,2+pr(i*5)*2)}g.globalAlpha=1});
+ tex.wrapS=tex.wrapT=THREE.RepeatWrapping;tex.repeat.set(.4,.4);
+ const shp=()=>{const s=new THREE.Shape();WARD.forEach((p,i)=>i?s.lineTo(p[0],-p[1]):s.moveTo(p[0],-p[1]));s.closePath();return s};
+ const fl=new THREE.Mesh(new THREE.ShapeGeometry(shp()),new THREE.MeshStandardMaterial({map:tex,roughness:.8,side:THREE.DoubleSide}));fl.rotation.x=-Math.PI/2;fl.position.y=-.02;scene.add(fl);
+ const ce=new THREE.Mesh(new THREE.ShapeGeometry(shp()),new THREE.MeshStandardMaterial({color:'#f2f0ea',roughness:.9,side:THREE.DoubleSide}));ce.rotation.x=-Math.PI/2;ce.position.y=5.5;scene.add(ce);shellParts.push(ce);
+ const rf=new THREE.Mesh(new THREE.ShapeGeometry(shp()),shellMat.clone());rf.rotation.x=-Math.PI/2;rf.position.y=5.6;rf.material.side=THREE.DoubleSide;scene.add(rf);shellParts.push(rf);
+ for(const p of [[0,-28.5],[6,-28.5],[0,-33],[5,-34.5],[-3,-30]]){const l=new THREE.Mesh(new THREE.CylinderGeometry(.28,.28,.03,20),new THREE.MeshBasicMaterial({color:'#fffbe8'}));l.position.set(p[0],5.47,p[1]);scene.add(l)}
+}
+// 벽: 오른쪽(B→C) / 뾰족한 오른쪽 사선(C→D) 은 막힌 벽, 왼쪽 사선(D→E)과 왼벽(E→A)은 추모관과 같은 크기의 창
+wardSlab(WARD[1],WARD[2],0,5.5);
+wardSlab(WARD[2],WARD[3],0,5.5);
+{const a=WARD[3],b=WARD[4],L=Math.hypot(b[0]-a[0],b[1]-a[1]),ux=(b[0]-a[0])/L,uz=(b[1]-a[1])/L,rot=-Math.atan2(uz,ux);
+ wardSlab(a,b,0,1.8);wardSlab(a,b,4.9,5.5);
+ const gl=box(L,3.1,.05,(a[0]+b[0])/2,3.35,(a[1]+b[1])/2,glassMat);gl.rotation.y=rot;
+ const n=Math.round(L/2.9);for(let i=0;i<=n;i++){const t=i/n,m=box(.08,3.1,.14,a[0]+(b[0]-a[0])*t,3.35,a[1]+(b[1]-a[1])*t,frameMat);m.rotation.y=rot}
+ for(const y of [1.8,4.9]){const f=box(L,.08,.14,(a[0]+b[0])/2,y,(a[1]+b[1])/2,frameMat);f.rotation.y=rot}}
+wallBox(.2,5.5,1.0,-6.5,2.75,-26.6);wallBox(.2,1.8,4.0,-6.5,.9,-29.1);wallBox(.2,.6,4.0,-6.5,5.2,-29.1);wallBox(.2,5.5,1.4,-6.5,2.75,-31.8);
+winX(-6.5,1.8,4.9,-31.1,-27.1,2.0);
+// 모서리 원목 기둥 (사진의 월넛 마감)
+for(const p of [WARD[1],WARD[2],WARD[3],WARD[4],WARD[0]])box(.26,5.5,.26,p[0],2.75,p[1],wardWood);
+// 뒷벽 위 간판
+{const cv=document.createElement('canvas');cv.width=512;cv.height=128;const c=cv.getContext('2d');c.fillStyle='#8a6446';c.fillRect(0,0,512,128);c.strokeStyle='#e8c98f';c.lineWidth=5;c.strokeRect(8,8,496,112);c.fillStyle='#fff6e4';c.textAlign='center';c.font='bold 62px "Noto Sans KR",sans-serif';c.fillText('입원실',256,86);
+ const tx=new THREE.CanvasTexture(cv);tx.colorSpace=THREE.SRGBColorSpace;const s=new THREE.Mesh(new THREE.PlaneGeometry(1.6,.4),new THREE.MeshBasicMaterial({map:tx}));s.position.set(-3.5,4.45,-25.95);s.rotation.y=Math.PI;scene.add(s);}
+// ----- 스테인리스 입원 케이지 (3×3, 유리문, 상단 레일) -----
+{const g=new THREE.Group();g.position.set(10.38,0,-28.55);g.rotation.y=-Math.PI/2;scene.add(g);
+ const cols=3,rows=3,W=4.5,H=2.2,D=.85,y0=.18,cw=W/cols,rh=H/rows;
+ const cg=new THREE.MeshPhysicalMaterial({color:'#dff2f4',transparent:true,opacity:.2,roughness:.05,side:THREE.DoubleSide,depthWrite:false});
+ box(W,.14,D,0,.1,0,vSteelDk,g);box(W+.06,.06,D+.04,0,y0+H+.02,0,vSteel,g);box(W,H,.04,0,y0+H/2,-D/2+.02,vSteelDk,g);
+ for(let i=0;i<=cols;i++)box(.05,H,D,-W/2+i*cw,y0+H/2,0,vSteel,g);
+ for(let j=0;j<=rows;j++)box(W,.045,D,0,y0+j*rh,0,vSteel,g);
+ const blank=['#f1f1ee','#cfe1ea','#f0e2d0'],coats=[['#d9b27c','#a77b4a'],['#f2eee6','#c9a37a'],['#6a5446','#3b2d25'],['#e8d4b4','#b88b5a']];let k=0;
+ for(let i=0;i<cols;i++)for(let j=0;j<rows;j++){const cx=-W/2+(i+.5)*cw,cy=y0+(j+.5)*rh,fy=y0+j*rh+.03;
+  box(cw-.1,.07,D*.78,cx,fy+.04,.02,mat(blank[(i+j)%3],.95),g);
+  if((i*3+j)%3!==1){const d=makeDog(coats[k%4][0],coats[k%4][1],.78);d.position.set(cx,fy+.06,.02);d.rotation.y=-Math.PI/2+(k%2?.3:-.3);g.add(d);k++}
+  box(cw-.07,rh-.07,.02,cx,cy,D/2-.01,cg,g);
+  box(.04,.2,.05,cx+cw*.4,cy,D/2+.03,vSteel,g);}
+ for(let i=0;i<cols;i++){const cx=-W/2+(i+.5)*cw;box(cw-.16,.17,.05,cx,y0+H-.1,D/2+.03,vBlack,g);for(let l=0;l<4;l++)box(.05,.04,.02,cx-.3+l*.2,y0+H-.1,D/2+.06,Em(l%2?'#6fe0a0':'#ffc46b'),g)}
+ for(const x of [-W/2+.1,W/2-.1])cyl(.018,.018,.34,x,y0+H+.2,0,vSteel,8,g);
+ const rail=cyl(.018,.018,W-.2,0,y0+H+.36,0,vSteel,8,g);rail.rotation.z=Math.PI/2;
+ VET.blocked.push([10.2,-28.55,1.3,4.7]);}
+// ----- 컴퓨터 자리 (입원 차트 / 처방 기록) -----
+{const g=new THREE.Group();g.position.set(-6.0,0,-29.1);scene.add(g);
+ box(.8,.05,3.4,0,.78,0,wardWhite,g);
+ for(const z of [-1.4,1.4]){box(.72,.74,.8,0,.38,z,wardWhite,g);for(let k=0;k<3;k++){box(.02,.02,.3,.37,.2+k*.22,z,vSteel,g)}}
+ box(.02,.5,1.5,.38,.4,0,mat('#e6e8e6',.6),g);
+ const pc=new THREE.Group();pc.position.set(-.1,.805,-.3);pc.rotation.y=Math.PI/2;pc.scale.setScalar(1.1);g.add(pc);
+ box(.8,.5,.06,0,.5,0,vBlack,pc);
+ const scr=ctex(256,160,(c,w,h)=>{c.fillStyle='#eef3f5';c.fillRect(0,0,w,h);c.fillStyle='#2f7f78';c.fillRect(0,0,w,26);c.fillStyle='#fff';c.font='700 15px sans-serif';c.fillText('입원 차트 · 투약 기록',8,18);for(let i=0;i<5;i++){c.fillStyle=i%2?'#cfe0e4':'#dfeaed';c.fillRect(8,36+i*22,w-16,18);c.fillStyle='#4a5a58';c.font='11px sans-serif';c.fillText(['콩이  수액 · 항생제 09:00','보리  식이 확인 10:30','하늘  퇴원 상담','몽이  드레싱 교체','초코  체온 38.6'][i],14,49+i*22)}});
+ const sp=new THREE.Mesh(new THREE.PlaneGeometry(.72,.43),new THREE.MeshBasicMaterial({map:scr}));sp.position.set(0,.5,.032);pc.add(sp);
+ box(.1,.24,.1,0,.22,-.02,vBlack,pc);box(.4,.03,.22,0,.015,0,vBlack,pc);box(.5,.025,.17,0,.02,.42,mat('#30343a',.6),pc);
+ box(.22,.1,.2,.05,.83,1.0,wardWhite,g);box(.1,.05,.22,.02,.88,1.0,vBlack,g);
+ box(.45,.22,.4,-.05,.92,-1.35,wardWhite,g);box(.42,.015,.3,.05,1.05,-1.35,Em('#fff'),g);
+ // 회전 스툴
+ const st=new THREE.Group();st.position.set(1.1,0,-.2);g.add(st);cyl(.26,.26,.09,0,.62,0,vBlack,24,st);cyl(.035,.035,.34,0,.4,0,vSteel,10,st);
+ for(let i=0;i<5;i++){const a=i*Math.PI*2/5,l=box(.3,.035,.045,Math.cos(a)*.15,.2,Math.sin(a)*.15,vSteel,st);l.rotation.y=-a;sph(.04,Math.cos(a)*.3,.05,Math.sin(a)*.3,vBlack,st,8)}
+ VET.blocked.push([-5.95,-29.1,1.1,3.5]);}
+// ----- 세탁기 알코브 -----
+{const x=-6.05,z=-31.7;box(.64,.86,.64,x,.45,z,wardWhite);const r=new THREE.Mesh(new THREE.TorusGeometry(.2,.035,10,24),vSteel);r.position.set(x+.33,.45,z);r.rotation.y=Math.PI/2;scene.add(r);
+ const dg=new THREE.Mesh(new THREE.CircleGeometry(.18,20),new THREE.MeshStandardMaterial({color:'#28333a',roughness:.2}));dg.position.set(x+.332,.45,z);dg.rotation.y=Math.PI/2;scene.add(dg);
+ box(.02,.1,.4,x+.33,.78,z,vBlack);cyl(.17,.14,.3,x,1.02,z,mat('#c0392b',.6),16);
+ for(const dz of [-.8,.8])box(.14,2.4,.12,-6.38,1.2,z+dz,wardWood);box(.2,.1,1.7,-6.38,2.42,z,wardWood);
+ box(.32,.04,1.5,-6.3,1.65,z,wardWood);box(.22,.14,.5,-6.3,1.74,z-.3,mat('#cfe1ea',.95));box(.22,.14,.5,-6.3,1.74,z+.3,mat('#f1f1ee',.95));
+ VET.blocked.push([-6.0,z,1.0,1.0]);}
+// ----- 바닥 소품: 러그, 입원견 침대, 링거 폴, 차트 보드 -----
+box(4.2,.02,3.4,4.2,.0,-31.2,mat('#d7d0c2',1));
+for(const p of [[3.0,-31.0,'#8fb0ad'],[5.3,-33.2,'#c9a98c']]){cyl(.55,.55,.14,p[0],.07,p[1],mat(p[2],1),24);const rim=new THREE.Mesh(new THREE.TorusGeometry(.52,.08,8,24),mat('#fff',1));rim.rotation.x=Math.PI/2;rim.position.set(p[0],.15,p[1]);scene.add(rim)}
+{const d=makeDog('#e8d4b4','#b88b5a',.8);d.position.set(3.0,.12,-31.0);d.rotation.y=2.2;scene.add(d)}
+{const x=8.2,z=-27.2;cyl(.025,.025,2.0,x,1.0,z,vSteel,8);for(let i=0;i<4;i++){const a=i*Math.PI/2,l=box(.35,.03,.04,x+Math.cos(a)*.17,.04,z+Math.sin(a)*.17,vSteel);l.rotation.y=-a}
+ box(.14,.22,.05,x+.1,1.85,z,mat('#dff2f4',.2));cyl(.012,.012,.5,x+.1,1.55,z,Em('#bde'),6)}
+{const a=WARD[2],b=WARD[3],mx=(a[0]+b[0])/2,mz=(a[1]+b[1])/2,L=Math.hypot(b[0]-a[0],b[1]-a[1]),ux=(b[0]-a[0])/L,uz=(b[1]-a[1])/L,nx=-uz,nz=ux;
+ const s=Math.sign(nx*(WARD[0][0]+4-mx)+nz*(WARD[0][1]-4-mz))||1;
+ const cv=ctex(512,320,(c,w,h)=>{c.fillStyle='#fbfbf8';c.fillRect(0,0,w,h);c.fillStyle='#2f7f78';c.fillRect(0,0,w,52);c.fillStyle='#fff';c.font='800 30px "Noto Sans KR",sans-serif';c.fillText('입원 현황',18,38);c.fillStyle='#3b4a45';c.font='24px "Noto Sans KR",sans-serif';['1번  콩이 · 수액','2번  보리 · 식이 확인','3번  하늘 · 퇴원 예정','4번  몽이 · 경과 관찰','5번  초코 · 체온 체크','6번  — 비어 있음'].forEach((t,i)=>c.fillText(t,22,92+i*38))});
+ const bd=new THREE.Mesh(new THREE.PlaneGeometry(2.0,1.25),new THREE.MeshBasicMaterial({map:cv,side:THREE.DoubleSide}));bd.position.set(mx+nx*s*.13,2.3,mz+nz*s*.13);bd.rotation.y=Math.atan2(nx*s,nz*s);scene.add(bd);
+ box(2.1,.06,.06,mx+nx*s*.12,3.0,mz+nz*s*.12,wardWood).rotation.y=bd.rotation.y+Math.PI/2*0;}
+
+}catch(e){showErr('입원실 생성 오류: '+e.message)}
+
 // 추모벽 뒤쪽까지 건물 바닥 경계를 맞추고 뒤쪽 공간으로 이동하지 않도록 한다.
 const memorialBackWall=box(22,5.5,.24,0,2.75,20.08,shellMat);
 // 갈색 실내 천장: 카메라 시야를 가릴 때만 투명화한다.
@@ -630,7 +727,7 @@ for(const z of [-11,-5,2,8,15])for(const x of [-7,0,7]){
  box(.85,.035,.48,x,5.45,z,new THREE.MeshBasicMaterial({color:'#fff8e8'}));
 }
 // ===== 병원 밖: 잔디, 강아지 산책로, 나무, 산책하는 사람과 강아지 =====
-const TRAIL=new THREE.CatmullRomCurve3([[0,29],[12,28],[21,20],[24,6],[24,-8],[22,-22],[14,-33],[0,-36],[-14,-33],[-22,-22],[-24,-8],[-24,6],[-21,20],[-12,28]].map(p=>new THREE.Vector3(p[0],0,p[1])),true,'catmullrom',.5);
+const TRAIL=new THREE.CatmullRomCurve3([[0,29],[12,28],[21,20],[24,6],[24,-8],[22,-22],[17,-37],[0,-48],[-17,-37],[-22,-22],[-24,-8],[-24,6],[-21,20],[-12,28]].map(p=>new THREE.Vector3(p[0],0,p[1])),true,'catmullrom',.5);
 const TRAIL_PTS=TRAIL.getSpacedPoints(260);
 (function(){
  const gt=ctex(256,256,(g,w,h)=>{g.fillStyle='#82ad6e';g.fillRect(0,0,w,h);for(let i=0;i<900;i++){g.fillStyle=['#92ba7a','#74a062','#9cc283','#6b9658'][i%4];g.globalAlpha=.55;g.fillRect(pr(i)*w,pr(i*3)*h,2,3+pr(i*5)*4);}g.globalAlpha=1;});
@@ -659,7 +756,7 @@ const TRAIL_PTS=TRAIL.getSpacedPoints(260);
  const sp=new THREE.Mesh(new THREE.PlaneGeometry(2.9,.72),new THREE.MeshBasicMaterial({map:st,side:THREE.DoubleSide}));sp.position.set(0,2.0,0);arch.add(sp);
  // 나무 / 수풀 / 풀꽃 (산책로와 건물을 피해서)
  const nearTrail=(x,z,m)=>{for(let i=0;i<TRAIL_PTS.length;i+=2)if(Math.hypot(TRAIL_PTS[i].x-x,TRAIL_PTS[i].z-z)<m)return true;return false};
- const inBuilding=(x,z,m)=>x>-11-m&&x<11+m&&z>-26.6-m&&z<20.6+m;
+ const inBuilding=(x,z,m)=>(x>-11-m&&x<11+m&&z>-26.6-m&&z<20.6+m)||(x>-9-m&&x<13+m&&z<-24&&z>-42-m);
  let placed=0;for(let i=0;placed<110&&i<900;i++){const x=-60+pr(i)*120,z=-62+pr(i*3)*118;
   if(inBuilding(x,z,4)||nearTrail(x,z,4.4)||(x>9&&x<30&&Math.abs(z-4.25)<3.4))continue;
   const k=1.2+pr(i*5)*.7,h=2.4*k;cyl(.26*k,.34*k,h,x,h/2-.1,z,mat('#6e4f35',.9),8);
@@ -958,6 +1055,7 @@ const PANEL={
  surgery:{tag:'SURGERY',title:infoText.surgery.title,body:infoText.surgery.body.split('\n').filter(Boolean),list:['수술 기구 멸균과 세팅','마취 중 환자 모니터링 보조','수술 후 회복 관찰과 기록'],tags:['수술 보조','멸균','마취 모니터링']},
  memorial:{tag:'MEMORIAL',title:'추모공간 · 마지막 인사',body:['함께한 시간을 기억하는 공간입니다. 보호자가 천천히 작별할 수 있도록 곁을 지키고, 필요한 안내를 차분하게 전합니다. 추모함을 누르면 유리문이 열려요.'],list:['보호자 위로와 절차 안내','추모 물품과 유골함 안내','마지막까지 존엄하게 돌보기'],tags:['보호자 케어','공감','추모']}
 };
+PANEL.ward={tag:'WARD',title:'입원실 · 입원견 케어',body:['수술 후 회복 중이거나 치료가 필요한 아이들이 머무는 공간입니다. 체온·식욕·배변을 살펴 입원 차트에 기록하고, 상태 변화는 바로 수의사에게 전달합니다.','옆 컴퓨터에서 처방과 투약 기록, 입원 현황을 확인합니다. 수술실 뒷문으로 바로 이어져 수술 후 환자를 곧장 옮길 수 있어요.'],list:['입원 케이지 청결·온도 관리','수액·투약 시간표 확인과 기록','식이, 배변, 활력 징후 체크','보호자 면회 및 상태 안내'],tags:['입원 관리','투약 기록','환자 모니터링','보호자 소통']};
 const panelEl=document.getElementById('panel'),cardEl=document.getElementById('card'),promptEl=document.getElementById('prompt'),roomEl=document.getElementById('roomChip');
 function openPanel(key){const d=PANEL[key];if(!d||activeMemorial)return;
  cardEl.innerHTML='<small>'+d.tag+'</small><h2>'+d.title+'</h2>'+d.body.map(p=>'<p>'+p+'</p>').join('')+'<ul>'+d.list.map(l=>'<li>'+l+'</li>').join('')+'</ul><div class="tags">'+d.tags.map(t=>'<i>'+t+'</i>').join('')+'</div><button id="closeBtn" type="button">닫기</button>';
@@ -971,7 +1069,8 @@ const HOTS=[
  {key:'shop',x:8.3,z:-.4,name:'사료·용품'},
  {key:'pharmacy',x:2.3,z:-9.8,name:'약제실'},
  {key:'surgery',x:-5.5,z:-10.2,name:'수술실'},
- {key:'memorial',x:0,z:9.0,name:'추모공간'}
+ {key:'memorial',x:0,z:9.0,name:'추모공간'},
+ {key:'ward',x:7.6,z:-29.0,name:'입원실'}
 ];
 HOTS.forEach(h=>{const g=new THREE.Group();g.position.set(h.x,0,h.z);
  const ring=new THREE.Mesh(new THREE.RingGeometry(.55,.72,36),new THREE.MeshBasicMaterial({color:0xffd36b,transparent:true,opacity:.95,side:THREE.DoubleSide,depthWrite:false}));ring.rotation.x=-Math.PI/2;ring.position.y=.05;g.add(ring);
@@ -981,16 +1080,19 @@ HOTS.forEach(h=>{const g=new THREE.Group();g.position.set(h.x,0,h.z);
  scene.add(g);h.orb=orb;h.ring=ring;h.hit=hit;});
 let nearHot=null;
 // 구역 / 길찾기
-function regionOf(x,z){if(x>10.95||x<-10.95||z>20.5||z<-26.6)return'outside';if(z<-3.55)return x<0?'surgery':'pharmacy';return z>5.55?'memorial':'lobby'}
-const GATES={surgery:[[-7.1,-2.4],[-7.1,-5.4]],pharmacy:[[7.1,-2.4],[7.1,-5.4]],outside:[[9.6,4.25],[12.4,4.25]]};
-function routePts(sx,sz,tx,tz){const a=regionOf(sx,sz),b=regionOf(tx,tz),pts=[];const ia=a==='memorial'?'lobby':a,ib=b==='memorial'?'lobby':b;
- if(ia!=='lobby'&&ia!==ib){const g=GATES[ia];pts.push(g[1],g[0]);}
- if(ib!=='lobby'&&ib!==ia){const g=GATES[ib];pts.push(g[0],g[1]);}
+const wardPoly=(x,z)=>{let c=false;for(let i=0,j=WARD.length-1;i<WARD.length;j=i++){const a=WARD[i],b=WARD[j];if((a[1]>z)!==(b[1]>z)&&x<(b[0]-a[0])*(z-a[1])/(b[1]-a[1])+a[0])c=!c}return c};
+function regionOf(x,z){if(z<-26.1&&wardPoly(x,z))return'ward';if(x>10.95||x<-10.95||z>20.5||z<-26.6)return'outside';if(z<-3.55)return x<0?'surgery':'pharmacy';return z>5.55?'memorial':'lobby'}
+// 방 연결 그래프: [방A,방B,A쪽 지점들..., B쪽 지점들...]
+const LINKS=[['lobby','surgery',[[-7.1,-2.4],[-7.1,-5.4]]],['lobby','pharmacy',[[7.1,-2.4],[7.1,-5.4]]],['lobby','outside',[[9.6,4.25],[12.4,4.25]]],['surgery','ward',[[-3.5,-24.2],[-3.5,-27.6]]],['pharmacy','ward',[[6,-24.2],[6,-27.6]]]];
+function routePts(sx,sz,tx,tz){let a=regionOf(sx,sz),b=regionOf(tx,tz);if(a==='memorial')a='lobby';if(b==='memorial')b='lobby';
+ const pts=[];if(a!==b){const prev={};prev[a]=null;const q=[a];while(q.length){const n=q.shift();if(n===b)break;for(const L of LINKS){const o=L[0]===n?L[1]:L[1]===n?L[0]:null;if(o&&!(o in prev)){prev[o]=[n,L];q.push(o)}}}
+  const chain=[];let c=b;while(prev[c]){chain.unshift(prev[c]);c=prev[c][0]}
+  for(const [from,L] of chain){const p=L[2];if(L[0]===from){pts.push(p[0],p[1])}else{pts.push(p[1],p[0])}}}
  pts.push([tx,tz]);return pts;}
-function goTo(tx,tz){const pts=routePts(dog.position.x,dog.position.z,tx,tz);walkQueue=pts.map(p=>new THREE.Vector3(p[0],0,p[1]));walkTarget=walkQueue.shift()||null;}
+function goTo(tx,tz,loose){const pts=routePts(dog.position.x,dog.position.z,tx,tz);navLoose=!!loose||HOTS.some(h=>Math.hypot(h.x-tx,h.z-tz)<2.6);walkQueue=pts.map(p=>new THREE.Vector3(p[0],0,p[1]));walkTarget=walkQueue.shift()||null;}
 const navEl=document.getElementById('nav');
-[['outside','산책로',22.5,4.25],['lobby','접수처',0,2.4],['surgery','수술실',-5.5,-10.2],['pharmacy','약제실',2.3,-9.8],['memorial','추모공간',0,10.5]].forEach(r=>{const b=document.createElement('button');b.type='button';b.textContent=r[1];b.dataset.k=r[0];
- b.onclick=()=>{pendingMemorial=null;pendingHot=null;goTo(r[2],r[3]);};navEl.appendChild(b);});
+[['outside','산책로',22.5,4.25],['lobby','접수처',0,2.4],['surgery','수술실',-5.5,-10.2],['pharmacy','약제실',2.3,-9.8],['ward','입원실',7.4,-29.4],['memorial','추모공간',0,10.5]].forEach(r=>{const b=document.createElement('button');b.type='button';b.textContent=r[1];b.dataset.k=r[0];
+ b.onclick=()=>{pendingMemorial=null;pendingHot=null;goTo(r[2],r[3],true);};navEl.appendChild(b);});
 // 모바일 조이스틱
 const joyEl=document.getElementById('joy'),joyKnob=joyEl.firstElementChild;let joyId=null;
 function joyMove(e){const r=joyEl.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),m=Math.min(1,Math.hypot(dx,dy)/40),a=Math.atan2(dy,dx);
@@ -1004,9 +1106,17 @@ function updateHots(dt,t){animDoors(dt);animStaff(dt,t);
  nearHot=null;for(const h of HOTS){h.orb.position.y=1.8+Math.sin(t*2+h.x)*.1;h.ring.scale.setScalar(1+Math.sin(t*3+h.z)*.08);if(Math.hypot(dog.position.x-h.x,dog.position.z-h.z)<1.9)nearHot=h;}
  promptEl.style.display=(nearHot&&!panelEl.classList.contains('show')&&!activeMemorial)?'block':'none';
  if(nearHot)promptEl.textContent=nearHot.name+' 자세히 보기 (E)';
- const rg=regionOf(dog.position.x,dog.position.z);if(rg!==curRegion){curRegion=rg;roomEl.textContent={outside:'병원 밖 · 산책로',lobby:'접수처',memorial:'추모공간',surgery:'수술실',pharmacy:'약제실'}[rg];[].forEach.call(navEl.children,b=>b.classList.toggle('on',b.dataset.k===rg));}
+ const rg=regionOf(dog.position.x,dog.position.z);if(rg!==curRegion){curRegion=rg;roomEl.textContent={outside:'병원 밖 · 산책로',lobby:'접수처',memorial:'추모공간',surgery:'수술실',pharmacy:'약제실',ward:'입원실'}[rg];[].forEach.call(navEl.children,b=>b.classList.toggle('on',b.dataset.k===rg));}
  animWalkers(dt,t);
 }
+
+// 줌 버튼 (모바일 핀치 대신): 누르고 있으면 계속 변함
+{const zs=d=>{camDistance=Math.max(2.8,Math.min(22,camDistance+d))};
+ for(const [id,d] of [['zIn',-.35],['zOut',.35]]){const el=document.getElementById(id);let t=null;const stop=()=>{clearInterval(t);t=null};
+  el.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();zs(d*2);stop();t=setInterval(()=>zs(d),40)});
+  for(const ev of ['pointerup','pointerleave','pointercancel'])el.addEventListener(ev,stop);}
+ document.addEventListener('gesturestart',e=>e.preventDefault());
+ document.addEventListener('touchmove',e=>{if(e.touches.length>1)e.preventDefault()},{passive:false});}
 
 let walkTarget=null, pendingMemorial=null, walkQueue=[], pendingHot=null;
 const walkPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
@@ -1030,16 +1140,16 @@ let cameraDrag=null;
 renderer.domElement.addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType==='mouse')return;cameraDrag={id:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,active:false};});
 renderer.domElement.addEventListener('pointermove',e=>{if(!cameraDrag||cameraDrag.id!==e.pointerId)return;const dx=e.clientX-cameraDrag.x,dy=e.clientY-cameraDrag.y;if(Math.abs(dx)+Math.abs(dy)>0.6)followYaw-=dx*.0045;followPitch=Math.max(.12,Math.min(1.1,followPitch+dy*.003));cameraDrag.x=e.clientX;cameraDrag.y=e.clientY;});
 for(const event of ['pointerup','pointercancel'])renderer.domElement.addEventListener(event,e=>{if(cameraDrag?.id===e.pointerId)cameraDrag=null});
-renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();camDistance=Math.max(2.8,Math.min(16.0,camDistance+Math.sign(e.deltaY)*.65))},{passive:false});
+renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();camDistance=Math.max(2.8,Math.min(22.0,camDistance+Math.sign(e.deltaY)*.65))},{passive:false});
 // 터치 핀치 줌
-let pinchDist=0;renderer.domElement.addEventListener('touchmove',e=>{if(e.touches.length!==2){pinchDist=0;return;}const a=e.touches[0],b=e.touches[1],dist=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);if(pinchDist)camDistance=Math.max(2.8,Math.min(16.0,camDistance+(pinchDist-dist)*.012));pinchDist=dist;},{passive:true});renderer.domElement.addEventListener('touchend',()=>pinchDist=0);
+let pinchDist=0;renderer.domElement.addEventListener('touchmove',e=>{if(e.touches.length!==2){pinchDist=0;return;}const a=e.touches[0],b=e.touches[1],dist=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);if(pinchDist)camDistance=Math.max(2.8,Math.min(22.0,camDistance+(pinchDist-dist)*.012));pinchDist=dist;},{passive:true});renderer.domElement.addEventListener('touchend',()=>pinchDist=0);
 
 // 기존 OrbitControls 렌더 루프를 대체하여 3인칭 추적 카메라로 렌더링
 function playFrame(){requestAnimationFrame(playFrame);const dt=Math.min(clock.getDelta(),.045);if(activeMemorial){renderMemorialDetail(dt);return;}updateClinicCat(dt);let forward=0,strafe=0;
  if(pressed.has('up'))forward+=1;if(pressed.has('down'))forward-=1;
  if(pressed.has('left'))strafe-=1;if(pressed.has('right'))strafe+=1;
- if(forward||strafe){walkTarget=null;pendingMemorial=null;pendingHot=null;walkQueue=[];}
- if(!forward&&!strafe&&walkTarget){const dd=walkTarget.clone().sub(dog.position);dd.y=0;const dist=dd.length();if(dist<.22){if(walkQueue.length){walkTarget=walkQueue.shift();}else{walkTarget=null;if(pendingMemorial){const item=pendingMemorial;pendingMemorial=null;openMemorial(item);}else if(pendingHot){const k=pendingHot;pendingHot=null;openPanel(k);}}}else{const v=dd.normalize();forward=-v.x*Math.sin(followYaw)-v.z*Math.cos(followYaw);strafe=v.x*Math.cos(followYaw)-v.z*Math.sin(followYaw);}}
+ if(forward||strafe){walkTarget=null;pendingMemorial=null;pendingHot=null;walkQueue=[];navLoose=false;}
+ if(!forward&&!strafe&&walkTarget){const dd=walkTarget.clone().sub(dog.position);dd.y=0;const dist=dd.length();if(dist<.22){if(walkQueue.length){walkTarget=walkQueue.shift();}else{walkTarget=null;navLoose=false;if(pendingMemorial){const item=pendingMemorial;pendingMemorial=null;openMemorial(item);}else if(pendingHot){const k=pendingHot;pendingHot=null;openPanel(k);}}}else{const v=dd.normalize();forward=-v.x*Math.sin(followYaw)-v.z*Math.cos(followYaw);strafe=v.x*Math.cos(followYaw)-v.z*Math.sin(followYaw);}}
  const l=Math.hypot(forward,strafe);
  dogMoving=false;
  if(l){forward/=l;strafe/=l;
@@ -1052,7 +1162,7 @@ function playFrame(){requestAnimationFrame(playFrame);const dt=Math.min(clock.ge
  const insideGuard=(nx>8.22&&nx<8.68&&nz>2.85&&nz<5.65)||(nx>8.45&&nx<10.2&&(nz>2.8&&nz<3.2||nz>5.3&&nz<5.7));
  // 가구 충돌: 새로 배치한 실제 크기만 사용
  // 실제 배치된 가구만 충돌. 빨간 동선과 후면 연결로는 비워 둔다.
- const blockedFurniture=(x,z)=>{
+ const blockedFurniture=(x,z)=>{if(navLoose)return false;
   const radius=.23;
   const boxes=[...VET.blocked,
    [-5.5,-14.4,1.5,3.6], // 수술대
@@ -1067,6 +1177,8 @@ function playFrame(){requestAnimationFrame(playFrame);const dt=Math.min(clock.ge
   return boxes.some(([cx,cz,w,d])=>Math.abs(x-cx)<w/2+radius&&Math.abs(z-cz)<d/2+radius);
  };
  const canWalk=(x,z,oldX,oldZ)=>{
+  const segDist=(px,pz,a,b)=>{const dx=b[0]-a[0],dz=b[1]-a[1],t=Math.max(0,Math.min(1,((px-a[0])*dx+(pz-a[1])*dz)/(dx*dx+dz*dz)));return Math.hypot(px-a[0]-t*dx,pz-a[1]-t*dz)};
+  if(z<=-25.65&&x>-6.95&&x<11.2){if(z>-26.45)return (x>-4.2&&x<-2.8)||(x>3.2&&x<8.8);if(!wardPoly(x,z))return false;for(let i=1;i<WARD.length;i++){if(segDist(x,z,WARD[i],WARD[(i+1)%WARD.length])<.5)return false}return !blockedFurniture(x,z);}
   if(x<=-11.4||x>=11.4||z<=-26.6||z>=20.6){return Math.abs(x)<75&&z>-75&&z<75;}
   if(x>10.4&&x<11.4&&z>3.0&&z<5.5)return true;
   if(x<=-10.45||x>=10.45||z<=-25.65||z>=19.0)return false;
@@ -1075,7 +1187,7 @@ function playFrame(){requestAnimationFrame(playFrame);const dt=Math.min(clock.ge
   if((Math.abs(x-8.65)<.30 && ((z>1.82&&z<3.48)||(z>5.02&&z<6.68))) ||
      ((z>1.65&&z<2.15||z>6.35&&z<6.85)&&x>8.4&&x<9.5))return false;
   // 중앙 분리벽: 후면 -24.75 ~ -22.2 사이에서만 횡단 가능
-  if(z< -3.55 && z> -22.2 && Math.abs(x)<.39)return false;
+  if(z< -3.55 && z> -26.1 && Math.abs(x)<.39)return false;
   if(z< -24.75 && Math.abs(x)<.39)return false;
   // 로비와 각 방 사이에서는 양쪽 아치 입구만 통과
   if((oldZ+3.55)*(z+3.55)<=0 && !(Math.abs(x+7.1)<1.0||Math.abs(x-7.1)<1.0))return false;
@@ -1085,13 +1197,13 @@ function playFrame(){requestAnimationFrame(playFrame);const dt=Math.min(clock.ge
   if(canWalk(nx,nz,ox,oz))dog.position.set(nx,0,nz);
   else if(canWalk(nx,oz,ox,oz))dog.position.x=nx;
   else if(canWalk(ox,nz,ox,oz))dog.position.z=nz;
-  else if(walkTarget){walkTarget=null;pendingMemorial=null;pendingHot=null;walkQueue=[];}
+  else if(walkTarget){if(navLoose){dog.position.x=walkTarget.x;dog.position.z=walkTarget.z;}else{walkTarget=null;pendingMemorial=null;pendingHot=null;walkQueue=[];}}
   dogMoving=Math.hypot(dog.position.x-ox,dog.position.z-oz)>.0001;
  dog.rotation.y=Math.atan2(dx,dz);
  }
  if(dogMoving)dogWalkTime+=dt;animateHeroine(dt);updatePet(dt);
  // 접근 즉시 열기, 범위를 벗어나면 닫기. 이동과 렌더링은 계속 진행.
- updateHots(dt,clock.elapsedTime);
+ try{updateHots(dt,clock.elapsedTime)}catch(e){showErr('updateHots: '+e.message)}
  // 자동문: 접근 시 열리고 멀어지면 닫힌다. 기본 상태는 닫힘.
  const nearEntrance=Math.abs(dog.position.x-entranceX)<3.0&&Math.abs(dog.position.z-entranceZ)<2.1;
  automaticDoorOpen+=(Number(nearEntrance)-automaticDoorOpen)*Math.min(1,dt*5.5);
@@ -1105,8 +1217,8 @@ function playFrame(){requestAnimationFrame(playFrame);const dt=Math.min(clock.ge
  if(dog.position.z>7.0&&dog.position.z<19.5&&Math.abs(dog.position.x)<10.8)camera.position.z=Math.min(camera.position.z,17.35);
  camera.lookAt(dog.position.x,1.05,dog.position.z);
  const lookTarget=new THREE.Vector3(dog.position.x,1.05,dog.position.z);const delta=camera.position.clone().sub(lookTarget);cameraRay.set(lookTarget,delta.clone().normalize());cameraRay.far=delta.length();
- const blocked=new Set(cameraRay.intersectObjects(cameraObstacles,false).map(h=>h.object));for(const wall of cameraObstacles){const nearCamera=wall.geometry?.boundingBox?false:camera.position.distanceTo(wall.position)<2.2;const desired=(blocked.has(wall)||nearCamera)?.025:(wall===roof?.92:1);wall.material.opacity+=(desired-wall.material.opacity)*Math.min(1,dt*12);wall.visible=wall.material.opacity>.018;}
- renderer.render(scene,camera);
+ try{const blocked=new Set(cameraRay.intersectObjects(cameraObstacles,false).map(h=>h.object));for(const wall of cameraObstacles){const nearCamera=wall.geometry?.boundingBox?false:camera.position.distanceTo(wall.position)<2.2;const desired=(blocked.has(wall)||nearCamera)?.025:(wall===roof?.92:1);wall.material.opacity+=(desired-wall.material.opacity)*Math.min(1,dt*12);wall.visible=wall.material.opacity>.018;}}catch(e){showErr('camera: '+e.message)}
+ try{renderer.render(scene,camera)}catch(e){showErr('render: '+e.message)}
 }
 // stop the initial animate loop by replacing its requestAnimationFrame reference in source below
 playFrame();
